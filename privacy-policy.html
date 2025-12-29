@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>隱私權政策 - Artale 掉寶統計站</title>
+  <style>
+    :root {
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-sub: #475569;
+      --accent: #f97316;
+      --accent-hover: #ea580c;
+      --border: #e2e8f0;
+      --input-bg: #ffffff;
+      --input-focus: #ffedd5;
+      --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    body.night-mode {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --text-main: #f1f5f9;
+      --text-sub: #94a3b8;
+      --accent: #fb923c;
+      --accent-hover: #fdba74;
+      --border: #334155;
+      --input-bg: #0f172a;
+      --input-focus: #262626;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+      font-size: 18px;
+      line-height: 1.8;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      background: var(--card-bg);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 40px;
+      border: 1px solid var(--border);
+      flex: 1;
+    }
+
+    /* Header */
+    .header { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      margin-bottom: 30px;
+      gap: 15px; 
+    }
+    .brand { display: flex; align-items: center; gap: 15px; overflow: hidden; }
+    .logo-m {
+      width: 50px; height: 50px;
+      background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 30px; font-weight: 900;
+      box-shadow: 0 4px 10px rgba(249, 115, 22, 0.4);
+      flex-shrink: 0;
+    }
+    .header-text h1 { 
+      margin: 0; 
+      font-size: 30px; 
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .theme-btn {
+      padding: 10px 20px; border-radius: 99px; border: 1px solid var(--border);
+      background: var(--card-bg); color: var(--text-main); cursor: pointer;
+      font-weight: 600; font-size: 16px; flex-shrink: 0;
+    }
+
+    /* Navbar */
+    .nav-bar {
+      display: flex; gap: 12px; margin-bottom: 40px;
+      padding-bottom: 20px; border-bottom: 2px solid var(--border); flex-wrap: wrap;
+    }
+    .nav-btn {
+      padding: 12px 22px; border-radius: 12px; text-decoration: none;
+      background: var(--bg-color); color: var(--text-sub); font-weight: 600;
+      border: 1px solid var(--border); transition: 0.3s;
+    }
+    .nav-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+    .nav-btn.active {
+      background: var(--accent); color: white; border-color: var(--accent);
+      box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+    }
+    .nav-btn.guide { border-color: #10b981; color: #059669; }
+    .nav-btn.guide:hover { background: #10b981; color: white; }
+
+    /* Mobile Nav */
+    .nav-mobile { display: none; margin-bottom: 30px; }
+    .nav-mobile select {
+      width: 100%; padding: 15px; border-radius: 12px;
+      border: 2px solid var(--accent); background: var(--card-bg);
+      color: var(--text-main); font-size: 17px; font-weight: 700;
+      cursor: pointer; appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f97316' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 15px center; background-size: 18px;
+    }
+
+    /* Content Styling */
+    .content-area {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .section-title { 
+      font-size: 24px; font-weight: 800; color: var(--accent); 
+      margin: 40px 0 20px; display: flex; align-items: center; gap: 12px; 
+    }
+    .section-title::before { content: ""; width: 6px; height: 28px; background: var(--accent); border-radius: 3px; }
+
+    p {
+      color: var(--text-main);
+      margin-bottom: 20px;
+      font-size: 18px;
+      text-align: justify;
+    }
+
+    ul {
+      margin-bottom: 25px;
+      padding-left: 20px;
+      color: var(--text-main);
+    }
+    
+    li {
+      margin-bottom: 10px;
+    }
+
+    strong {
+      color: var(--accent);
+    }
+
+    .highlight-box {
+      background: var(--bg-color);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 25px;
+      margin: 30px 0;
+    }
+    
+    .highlight-box p:last-child { margin-bottom: 0; }
+
+    /* Footer */
+    footer {
+      width: 100%; max-width: 1280px; margin-top: 60px; padding: 30px 0;
+      border-top: 1px solid var(--border); display: flex;
+      justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+    }
+    .footer-links { display: flex; gap: 25px; }
+    .footer-links a { text-decoration: none; color: var(--text-sub); font-size: 15px; font-weight: 500; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent); }
+    .copyright { font-size: 15px; color: var(--text-sub); }
+
+    /* RWD */
+    @media (max-width: 768px) {
+      body { padding: 10px; }
+      .container { padding: 20px; border-radius: 16px; }
+      
+      .header-text h1 { font-size: 20px; }
+      .header-text div { font-size: 12px !important; }
+      .logo-m { width: 40px; height: 40px; font-size: 24px; }
+      .theme-btn { padding: 8px 15px; font-size: 14px; }
+
+      .nav-bar { display: none; }
+      .nav-mobile { display: block; }
+      
+      .footer-links { width: 100%; justify-content: center; gap: 15px; }
+      .copyright { width: 100%; text-align: center; font-size: 13px; }
+      
+      .section-title { font-size: 20px; margin: 30px 0 15px; }
+      p { font-size: 16px; text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="brand">
+      <div class="logo-m">M</div>
+      <div class="header-text">
+        <h1>Artale 掉寶統計站</h1>
+        <div style="color:var(--text-sub); font-size: 15px; font-weight: 500;">隱私權政策</div>
+      </div>
+    </div>
+    <button class="theme-btn" id="theme-toggle">🌙 夜間模式</button>
+  </div>
+
+  <nav class="nav-bar">
+    <a href="index.html" class="nav-btn">一般回報</a>
+    <a href="stats.html" class="nav-btn">一般統計</a>
+    <a href="playerStats.html" class="nav-btn">個人統計</a>
+    <a href="boss.html" class="nav-btn">BOSS回報</a>
+    <a href="stats2.html" class="nav-btn">BOSS統計</a>
+    <a href="playerBossStats.html" class="nav-btn">BOSS個人統計</a>
+    <a href="https://forum.gamer.com.tw/C.php?bsn=79354&snA=8900&tnum=3&b" target="_blank" class="nav-btn guide">📘 使用說明</a>
+  </nav>
+
+  <div class="nav-mobile">
+    <select onchange="if(this.value.includes('http')) { window.open(this.value, '_blank'); this.value='privacy-policy.html'; } else { window.location.href=this.value; }">
+      <option value="index.html">一般回報</option>
+      <option value="stats.html">一般統計</option>
+      <option value="playerStats.html">個人統計</option>
+      <option value="boss.html">BOSS回報</option>
+      <option value="stats2.html">BOSS統計</option>
+      <option value="playerBossStats.html">BOSS個人統計</option>
+      <option value="privacy-policy.html" selected>功能切換：隱私權政策</option>
+      <option value="https://forum.gamer.com.tw/C.php?bsn=79354&snA=8900&tnum=3&b">📘 使用說明 (外部連結)</option>
+    </select>
+  </div>
+
+  <div class="content-area">
+    <div class="section-title">隱私權保護政策</div>
+    
+    <div class="highlight-box">
+      <p style="font-weight: 700; color: var(--accent); margin-bottom:0;">非常歡迎您光臨「Artale 掉寶統計站」（以下簡稱本網站）。為了讓您能夠安心使用本網站的各項服務與資訊，特此向您說明本網站的隱私權保護政策，以保障您的權益。</p>
+    </div>
+
+    <p><strong>一、隱私權保護政策的適用範圍</strong></p>
+    <p>隱私權保護政策內容，包括本網站如何處理在您使用網站服務時收集到的個人識別資料。本隱私權政策不適用於本網站以外的相關連結網站，也不適用於非本網站所委託或參與管理的人員。</p>
+
+    <p><strong>二、個人資料的蒐集、處理及利用方式</strong></p>
+    <p>當您造訪本網站或使用本網站所提供之功能服務時，我們將視該服務功能性質，請您提供必要的個人資料，並在該特定目的範圍內處理及利用您的個人資料；非經您書面同意，本網站不會將個人資料用於其他用途。</p>
+    <ul>
+      <li><strong>一般瀏覽：</strong> 伺服器會自行記錄相關行徑，包括您使用連線設備的 IP 位址、使用時間、使用的瀏覽器、瀏覽及點選資料記錄等，做為我們增進網站服務的參考依據，此記錄為內部應用，決不對外公佈。</li>
+      <li><strong>數據回報：</strong> 當您填寫掉落回報表單時，本站可能會保留您所提供的遊戲角色 ID、回報時間以及相關遊戲數據。這些資料僅用於統計分析、審核異常數據及系統維護。</li>
+    </ul>
+
+    <p><strong>三、資料之保護</strong></p>
+    <p>本網站主機均設有防火牆、防毒系統等相關的各項資訊安全設備及必要的安全防護措施，加以保護網站及您的個人資料採用嚴格的保護措施，只由經過授權的人員才能接觸您的個人資料。</p>
+
+    <p><strong>四、網站對外的相關連結</strong></p>
+    <p>本網站的網頁提供其他網站的網路連結，您也可經由本網站所提供的連結，點選進入其他網站。但該連結網站不適用本網站的隱私權保護政策，您必須參考該連結網站中的隱私權保護政策。</p>
+
+    <p><strong>五、與第三人共用個人資料之政策</strong></p>
+    <p>本網站絕不會提供、交換、出租或出售任何您的個人資料給其他個人、團體、私人企業或公務機關，但有法律依據或合約義務者，不在此限。</p>
+
+    <p><strong>六、Cookie 之使用</strong></p>
+    <p>為了提供您最佳的服務，本網站會在您的電腦中放置並取用我們的 Cookie（例如紀錄您的夜間模式偏好）。若您不願接受 Cookie 的寫入，您可在您使用的瀏覽器功能項中設定隱私權等級為高，即可拒絕 Cookie 的寫入，但可能會導致網站某些功能無法正常執行。</p>
+
+    <p><strong>七、隱私權保護政策之修正</strong></p>
+    <p>本網站隱私權保護政策將因應需求隨時進行修正，修正後的條款將刊登於網站上。</p>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="about.html">關於本站</a>
+      <a href="terms.html">使用條款</a>
+      <a href="privacy-policy.html" style="color:var(--accent); font-weight:700;">隱私權政策</a>
+      <a href="contact.html">聯絡我們</a>
+    </div>
+    <div class="copyright">
+      &copy; 2025 Artale Drop Statistics. All rights reserved.
+    </div>
+  </footer>
+</div>
+
+<script>
+  // Theme Logic
+  document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
+  });
+
+  function initTheme() {
+    const btn = document.getElementById('theme-toggle');
+    const isNight = localStorage.getItem('theme') === 'dark';
+    if (isNight) { 
+      document.body.classList.add('night-mode'); 
+      btn.innerText = '☀️ 日間模式'; 
+    }
+    
+    btn.addEventListener('click', () => {
+      const active = document.body.classList.toggle('night-mode');
+      localStorage.setItem('theme', active ? 'dark' : 'light');
+      btn.innerText = active ? '☀️ 日間模式' : '🌙 夜間模式';
+    });
+  }
+</script>
+
+</body>
+</html>

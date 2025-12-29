@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artale 個人掉寶統計</title>
+  <style>
+    :root {
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-sub: #475569;
+      --accent: #f97316;
+      --accent-hover: #ea580c;
+      --border: #e2e8f0;
+      --input-bg: #ffffff;
+      --input-focus: #ffedd5;
+      --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --table-head-bg: #fff7ed;
+      --table-row-even: #fcfcfc;
+      --success: #16a34a;
+      --mute: #9ca3af;
+    }
+
+    body.night-mode {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --text-main: #f1f5f9;
+      --text-sub: #94a3b8;
+      --accent: #fb923c;
+      --accent-hover: #fdba74;
+      --border: #334155;
+      --input-bg: #0f172a;
+      --input-focus: #262626;
+      --table-head-bg: #334155;
+      --table-row-even: #1e293b;
+      --success: #4ade80;
+      --mute: #64748b;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      background: var(--card-bg);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 40px;
+      border: 1px solid var(--border);
+      flex: 1;
+    }
+
+    /* Header */
+    .header { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      margin-bottom: 30px;
+      gap: 15px; 
+    }
+    .brand { display: flex; align-items: center; gap: 15px; overflow: hidden; }
+    .logo-m {
+      width: 50px; height: 50px;
+      background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 30px; font-weight: 900;
+      box-shadow: 0 4px 10px rgba(249, 115, 22, 0.4);
+      flex-shrink: 0;
+    }
+    .header-text h1 { 
+      margin: 0; 
+      font-size: 30px; 
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .theme-btn {
+      padding: 10px 20px; border-radius: 99px; border: 1px solid var(--border);
+      background: var(--card-bg); color: var(--text-main); cursor: pointer;
+      font-weight: 600; font-size: 16px; flex-shrink: 0;
+    }
+
+    /* Navbar */
+    .nav-bar {
+      display: flex; gap: 12px; margin-bottom: 40px;
+      padding-bottom: 20px; border-bottom: 2px solid var(--border); flex-wrap: wrap;
+    }
+    .nav-btn {
+      padding: 12px 22px; border-radius: 12px; text-decoration: none;
+      background: var(--bg-color); color: var(--text-sub); font-weight: 600;
+      border: 1px solid var(--border); transition: 0.3s;
+    }
+    .nav-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+    .nav-btn.active {
+      background: var(--accent); color: white; border-color: var(--accent);
+      box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+    }
+    .nav-btn.guide { border-color: #10b981; color: #059669; }
+    .nav-btn.guide:hover { background: #10b981; color: white; }
+
+    /* Mobile Nav */
+    .nav-mobile { display: none; margin-bottom: 30px; }
+    .nav-mobile select {
+      width: 100%; padding: 15px; border-radius: 12px;
+      border: 2px solid var(--accent); background: var(--card-bg);
+      color: var(--text-main); font-size: 17px; font-weight: 700;
+      cursor: pointer; appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f97316' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 15px center; background-size: 18px;
+    }
+
+    /* Form Area */
+    .section-title { font-size: 20px; font-weight: 700; color: var(--accent); margin: 30px 0 15px; display: flex; align-items: center; gap: 10px; }
+    .section-title::before { content: ""; width: 5px; height: 22px; background: var(--accent); border-radius: 2px; }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 20px;
+      align-items: end;
+      margin-bottom: 20px;
+    }
+    
+    label { display: block; font-size: 15px; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
+
+    input, select {
+      width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--border);
+      background: var(--input-bg); color: var(--text-main); font-size: 17px; box-sizing: border-box;
+    }
+    input:focus, select:focus { outline: none; border-color: var(--accent); background: var(--input-focus); }
+
+    .btn-search {
+      padding: 14px 30px; border: none; border-radius: 12px;
+      background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
+      color: white; font-size: 18px; font-weight: 800; cursor: pointer; transition: 0.3s;
+      height: 54px; /* Align with inputs */
+    }
+    .btn-search:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4); }
+
+    /* Summary Dashboard */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .summary-card {
+      background: var(--bg-color);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+    }
+    .summary-label { font-size: 14px; color: var(--text-sub); margin-bottom: 5px; font-weight: 600; }
+    .summary-value { font-size: 20px; font-weight: 800; color: var(--accent); }
+    .summary-sub { font-size: 13px; color: var(--text-sub); margin-top: 5px; }
+
+    /* Stats Table */
+    .table-wrapper { margin-bottom: 0px; }
+    table { width: 100%; border-collapse: collapse; background: var(--card-bg); min-width: 600px; }
+    th {
+      background: var(--table-head-bg); color: var(--text-main); font-weight: 700;
+      padding: 15px; text-align: left; border-bottom: 2px solid var(--border);
+    }
+    td { padding: 15px; border-bottom: 1px solid var(--border); color: var(--text-main); }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background-color: var(--table-row-even); }
+    
+    .col-right { text-align: right; }
+    .rate-good { color: var(--success); font-weight: 700; }
+    .rate-zero { color: var(--mute); }
+
+    /* Details/Summary for Sections (Expand/Collapse) */
+    details {
+      border: 1px solid var(--border); border-radius: 16px;
+      overflow: hidden; background: var(--card-bg); margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    }
+    summary {
+      list-style: none; cursor: pointer; padding: 15px 20px;
+      background: var(--table-head-bg); font-weight: 700; color: var(--accent);
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 18px; transition: background 0.2s;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary:hover { background: var(--input-focus); }
+    
+    /* 箭頭動畫 */
+    summary::after {
+      content: "▼";
+      font-size: 14px;
+      transition: transform 0.2s;
+      color: var(--text-sub);
+    }
+    details[open] summary::after {
+      transform: rotate(180deg);
+    }
+
+    .sum-meta { font-size: 14px; font-weight: 500; color: var(--text-sub); }
+    .details-body { padding: 0; }
+
+    /* Footer */
+    footer {
+      width: 100%; max-width: 1280px; margin-top: 40px; padding: 30px 0;
+      border-top: 1px solid var(--border); display: flex;
+      justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+    }
+    .footer-links { display: flex; gap: 25px; }
+    .footer-links a { text-decoration: none; color: var(--text-sub); font-size: 15px; font-weight: 500; }
+    .footer-links a:hover { color: var(--accent); }
+    .copyright { font-size: 15px; color: var(--text-sub); }
+
+    /* RWD 手機版優化：卡片式數據 */
+    @media (max-width: 768px) {
+      body { padding: 10px; }
+      .container { padding: 20px; border-radius: 16px; }
+      
+      .header-text h1 { font-size: 20px; }
+      .header-text div { font-size: 12px !important; }
+      .logo-m { width: 40px; height: 40px; font-size: 24px; }
+      .theme-btn { padding: 8px 15px; font-size: 14px; }
+
+      .nav-bar { display: none; }
+      .nav-mobile { display: block; }
+      
+      .form-grid { grid-template-columns: 1fr; gap: 15px; }
+      .btn-search { width: 100%; }
+
+      .footer-links { width: 100%; justify-content: center; gap: 15px; }
+      .copyright { width: 100%; text-align: center; font-size: 13px; }
+
+      /* 表格轉卡片核心 CSS */
+      table { min-width: 0; } /* 修正寬度過寬問題 */
+      table, thead, tbody, th, td, tr { display: block; }
+      thead tr { position: absolute; top: -9999px; left: -9999px; }
+      
+      tr {
+        border: 1px solid var(--border); border-radius: 12px;
+        margin: 15px; background: var(--card-bg);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.02); padding: 0; overflow: hidden;
+      }
+      tr:nth-child(even) { background-color: var(--card-bg); }
+
+      td {
+        border: none; border-bottom: 1px solid var(--border); position: relative;
+        padding: 10px 15px; display: flex; justify-content: space-between;
+        align-items: center; text-align: right; min-height: 24px; font-size: 15px;
+      }
+      td:last-child { border-bottom: none; }
+
+      /* 使用 data-label 顯示欄位名稱 */
+      td:before {
+        content: attr(data-label);
+        font-weight: 600; color: var(--text-sub); font-size: 14px; margin-right: auto;
+      }
+
+      /* 第1欄 (分類) 在手機版隱藏，因為外層標題已有 */
+      td:nth-of-type(1) { display: none; }
+
+      /* 第2欄 (物品名稱) 作為卡片標題 */
+      td:nth-of-type(2) {
+        background: var(--bg-color); font-weight: 800; color: var(--accent);
+        justify-content: center; font-size: 16px; border-bottom: 2px solid var(--border);
+      }
+      td:nth-of-type(2):before { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="brand">
+      <div class="logo-m">M</div>
+      <div class="header-text">
+        <h1>Artale 掉寶統計站</h1>
+        <div style="color:var(--text-sub); font-size: 15px; font-weight: 500;">個人掉落率 vs 全伺服器平均</div>
+      </div>
+    </div>
+    <button class="theme-btn" id="theme-toggle">🌙 夜間模式</button>
+  </div>
+
+  <nav class="nav-bar">
+    <a href="index.html" class="nav-btn">一般回報</a>
+    <a href="stats.html" class="nav-btn">一般統計</a>
+    <a href="playerStats.html" class="nav-btn active">個人統計</a>
+    <a href="boss.html" class="nav-btn">BOSS回報</a>
+    <a href="stats2.html" class="nav-btn">BOSS統計</a>
+    <a href="playerBossStats.html" class="nav-btn">BOSS個人統計</a>
+    <a href="https://forum.gamer.com.tw/C.php?bsn=79354&snA=8900&tnum=3&b" target="_blank" class="nav-btn guide">📘 使用說明</a>
+  </nav>
+
+  <div class="nav-mobile">
+    <select onchange="if(this.value.includes('http')) { window.open(this.value, '_blank'); this.value='playerStats.html'; } else { window.location.href=this.value; }">
+      <option value="index.html">一般回報</option>
+      <option value="stats.html">一般統計</option>
+      <option value="playerStats.html" selected>功能切換：個人統計</option>
+      <option value="boss.html">BOSS回報</option>
+      <option value="stats2.html">BOSS統計</option>
+      <option value="playerBossStats.html">BOSS個人統計</option>
+      <option value="https://forum.gamer.com.tw/C.php?bsn=79354&snA=8900&tnum=3&b">📘 使用說明 (外部連結)</option>
+    </select>
+  </div>
+
+  <div class="section-title">查詢條件</div>
+  <div class="form-grid">
+    <div>
+      <label>玩家角色 ID</label>
+      <input type="text" id="player-input" placeholder="例如：RainYu#A1b2C" required>
+    </div>
+    <div>
+      <label>選擇怪物</label>
+      <select id="monster-select">
+        <option value="">正在載入怪物清單...</option>
+      </select>
+    </div>
+    <button type="button" id="btn-search" class="btn-search">搜尋數據</button>
+  </div>
+
+  <div id="loading-status" style="text-align:center; color:var(--text-sub); margin-bottom:20px; display:none;">讀取中...</div>
+
+  <div id="summary-section" style="display:none;">
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="summary-label">玩家</div>
+        <div class="summary-value" id="sum-player">-</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-label">目標怪物</div>
+        <div class="summary-value" id="sum-monster">-</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-label">個人擊殺數</div>
+        <div class="summary-value" id="sum-kills-player">0</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-label">全體樣本數</div>
+        <div class="summary-value" id="sum-kills-all">0</div>
+      </div>
+    </div>
+
+    <div id="sections"></div>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="about.html">關於本站</a>
+      <a href="terms.html">使用條款</a>
+      <a href="privacy-policy.html">隱私權政策</a>
+      <a href="contact.html">聯絡我們</a>
+    </div>
+    <div class="copyright">
+      &copy; 2025 Artale Drop Statistics. All rights reserved.
+    </div>
+  </footer>
+</div>
+
+<script>
+  const API_URL = '/api'; 
+
+  document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
+    loadMonsterList();
+    
+    document.getElementById('btn-search').addEventListener('click', doSearch);
+  });
+
+  // Theme Logic
+  function initTheme() {
+    const btn = document.getElementById('theme-toggle');
+    const isNight = localStorage.getItem('theme') === 'dark';
+    if (isNight) { document.body.classList.add('night-mode'); btn.innerText = '☀️ 日間模式'; }
+    btn.addEventListener('click', () => {
+      const active = document.body.classList.toggle('night-mode');
+      localStorage.setItem('theme', active ? 'dark' : 'light');
+      btn.innerText = active ? '☀️ 日間模式' : '🌙 夜間模式';
+    });
+  }
+
+  // API Helper
+  async function loadMonsterList() {
+    const select = document.getElementById('monster-select');
+    try {
+      const resp = await fetch(`${API_URL}?action=getMonsterList`);
+      const res = await resp.json();
+      if (res.ok) {
+        select.innerHTML = '<option value="">請選擇怪物</option>' + 
+          res.data.map(m => `<option value="${m}">${m}</option>`).join('');
+      } else {
+        select.innerHTML = '<option value="">讀取失敗</option>';
+      }
+    } catch (e) { console.error(e); }
+  }
+
+  function validatePlayerId(pid) {
+    return pid && pid.includes('#');
+  }
+
+  async function doSearch() {
+    const player = document.getElementById('player-input').value.trim();
+    const monster = document.getElementById('monster-select').value;
+    const loader = document.getElementById('loading-status');
+    const content = document.getElementById('summary-section');
+    const sections = document.getElementById('sections');
+
+    if (!player) return alert('請輸入角色 ID');
+    if (!validatePlayerId(player)) return alert('角色 ID 格式錯誤 (需包含 #)');
+    if (!monster) return alert('請選擇怪物');
+
+    loader.style.display = 'block';
+    content.style.display = 'none';
+    sections.innerHTML = '';
+
+    try {
+      // 平行請求：個人數據 & 全體數據
+      const [pRes, aRes] = await Promise.all([
+        fetch(`${API_URL}?action=getPlayerMonsterStats&player=${encodeURIComponent(player)}&monster=${encodeURIComponent(monster)}`).then(r => r.json()),
+        fetch(`${API_URL}?action=getMonsterStats&monster=${encodeURIComponent(monster)}`).then(r => r.json())
+      ]);
+
+      loader.style.display = 'none';
+
+      if (!pRes.ok) throw new Error(pRes.error || '查詢失敗');
+      
+      const pData = pRes.data;
+      const aData = aRes.ok ? aRes.data : null; 
+
+      if (!pData.hasData) {
+        alert('找不到該角色的回報資料，請確認 ID 是否正確或是否有回報紀錄。');
+        return;
+      }
+
+      content.style.display = 'block';
+      renderSummary(player, monster, pData, aData);
+      renderAllTables(pData, aData);
+
+    } catch (e) {
+      loader.style.display = 'none';
+      alert('發生錯誤：' + e.message);
+    }
+  }
+
+  function renderSummary(player, monster, pData, aData) {
+    document.getElementById('sum-player').innerText = player;
+    document.getElementById('sum-monster').innerText = monster;
+    document.getElementById('sum-kills-player').innerText = pData.totalKills.toLocaleString();
+    document.getElementById('sum-kills-all').innerText = aData ? aData.totalKills.toLocaleString() : '-';
+  }
+
+  function buildRateMap(allStats) {
+    const map = {
+      mainDrop: new Map(),
+      scrolls: new Map(),
+      jackpots: new Map(),
+      equips: new Map(),
+      ores: new Map(),
+      others: new Map()
+    };
+    if (!allStats) return map;
+
+    if (allStats.mainDrop) {
+      map.mainDrop.set((allStats.mainDrop.name || '主掉落').trim(), allStats.mainDrop.rate || 0);
+    }
+    const put = (listName, arr) => {
+      if (Array.isArray(arr)) arr.forEach(it => map[listName].set((it.name || '').trim(), it.rate || 0));
+    };
+    put('scrolls', allStats.scrolls);
+    put('jackpots', allStats.jackpots);
+    put('equips', allStats.equips);
+    put('ores', allStats.ores);
+    put('others', allStats.others);
+    return map;
+  }
+
+  function renderAllTables(pData, aData) {
+    const map = buildRateMap(aData);
+    let html = '';
+
+    // 主掉落
+    const mainList = pData.mainDrop.name ? [{name: pData.mainDrop.name, total: pData.mainDrop.total, rate: pData.mainDrop.rate}] : [];
+    const mainRows = renderTableRows('主掉落', mainList, map.mainDrop);
+    
+    // 設定所有區塊預設為展開 (true)
+    html += renderSection('主掉落', '（個人 vs 全體）', mainRows, true);
+    html += renderSection('卷軸', '', renderTableRows('卷軸', pData.scrolls, map.scrolls), true);
+    html += renderSection('大獎', '', renderTableRows('大獎', pData.jackpots, map.jackpots), true);
+    html += renderSection('裝備', '', renderTableRows('裝備', pData.equips, map.equips), true);
+    html += renderSection('礦石', '', renderTableRows('礦石', pData.ores, map.ores), true);
+    html += renderSection('其他', '', renderTableRows('其他', pData.others, map.others), true);
+
+    document.getElementById('sections').innerHTML = html;
+  }
+
+  function renderSection(title, metaText, tbodyHtml, openByDefault) {
+    return `
+      <details ${openByDefault ? 'open' : ''}>
+        <summary>
+          <span>${title}</span>
+          <span class="sum-meta">${metaText}</span>
+        </summary>
+        <div class="details-body">
+          <table>
+            <thead>
+              <tr>
+                <th>分類</th>
+                <th>物品名稱</th>
+                <th class="col-right">個人總數</th>
+                <th class="col-right">個人機率</th>
+                <th class="col-right">全體機率</th>
+              </tr>
+            </thead>
+            <tbody>${tbodyHtml}</tbody>
+          </table>
+        </div>
+      </details>
+    `;
+  }
+
+  function renderTableRows(categoryLabel, items, allRateMap) {
+    if (!items || items.length === 0) {
+      return `<tr><td colspan="5" class="rate-zero" style="text-align:center;">無資料</td></tr>`;
+    }
+
+    return items.map((it, idx) => {
+      const name = (it.name || (categoryLabel + ' ' + (idx + 1))).trim();
+      const total = it.total != null ? it.total : 0;
+      const rateP = it.rate || 0;
+      const rateA = allRateMap && allRateMap.has(name) ? allRateMap.get(name) : null;
+
+      const pRateStr = formatRate(rateP);
+      const aRateStr = rateA === null ? '-' : formatRate(rateA);
+      const clsPlayer = total > 0 ? 'rate-good' : 'rate-zero';
+
+      // 加入 data-label 讓手機版顯示對應標籤
+      return `
+        <tr>
+          <td data-label="分類">${categoryLabel}</td>
+          <td data-label="物品名稱">${name}</td>
+          <td data-label="個人總數" class="col-right">${total.toLocaleString()}</td>
+          <td data-label="個人機率" class="col-right ${clsPlayer}">${pRateStr}</td>
+          <td data-label="全體機率" class="col-right" style="color:var(--text-sub)">${aRateStr}</td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  function formatRate(rate) {
+    if (!rate) return '0%';
+    const pct = rate * 100;
+    if (pct < 0.01) return pct.toFixed(4) + '%';
+    return pct.toFixed(2) + '%';
+  }
+</script>
+
+</body>
+</html>
