@@ -1,70 +1,242 @@
-<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4011206268996883"
-     crossorigin="anonymous"></script>
-<title>聯繫方式 - Artale 掉寶統計站</title>  <link rel="stylesheet" href="assets/site.css">
-  <script src="assets/ui.js" defer></script>
-  <script src="assets/gs_shim.js"></script>
-</head><body>
-<div class="site-header">
-  <div class="header-inner">
-    <button class="icon-btn mobile-only" id="menuBtn" aria-label="開啟選單">
-      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z"/></svg>
-    </button>
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>聯絡我們 - Artale 掉寶統計站</title>
+  <meta name="description" content="加入 Artale 掉寶統計站的 Discord 社群，回報 Bug、提供建議或討論掉寶數據。">
+  
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4011206268996883" crossorigin="anonymous"></script>
 
-    <div class="logo" aria-label="Logo">M</div>
-    <div class="brand">
-      <div class="title">Artale 掉寶統計站</div>
-      <div class="sub">全站 API 走 /api（Cloudflare）</div>
-    </div>
+  <style>
+    :root {
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-sub: #475569;
+      --accent: #f97316;
+      --accent-hover: #ea580c;
+      --discord: #5865F2;
+      --discord-hover: #4752c4;
+      --border: #e2e8f0;
+      --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
 
-    <nav class="nav desktop-only" aria-label="主選單">
-      <a class="nav-btn" data-nav href="index.html">ARTALE一般回報表</a>
-      <a class="nav-btn" data-nav href="stats.html">ARTALE一般統計表</a>
-      <a class="nav-btn" data-nav href="playerStats.html">ARTALE個人掉寶統計</a>
-      <a class="nav-btn" data-nav href="boss.html">BOSS回報表</a>
-      <a class="nav-btn" data-nav href="stats2.html">BOSS統計表</a>
-      <a class="nav-btn" data-nav href="playerBossStats.html">BOSS個人掉寶統計</a>
-    </nav>
+    body.night-mode {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --text-main: #f1f5f9;
+      --text-sub: #94a3b8;
+      --accent: #fb923c;
+      --accent-hover: #fdba74;
+      --border: #334155;
+    }
 
-    <div class="header-actions">
-      <button class="icon-btn" id="themeToggle" aria-label="切換夜間模式">
-        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 13.5A8.5 8.5 0 0 1 10.5 3a6.5 6.5 0 1 0 10.5 10.5z"/></svg>
-      </button>
-    </div>
-  </div>
-</div>
+    body {
+      margin: 0;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
 
-<div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
-  <div class="drawer-backdrop"></div>
-  <div class="drawer-panel">
-    <div class="drawer-title">頁面切換</div>
-    <div class="drawer-nav">
-      <a data-nav href="index.html">ARTALE一般回報表</a>
-      <a data-nav href="stats.html">ARTALE一般統計表</a>
-      <a data-nav href="playerStats.html">ARTALE個人掉寶統計</a>
-      <a data-nav href="boss.html">BOSS回報表</a>
-      <a data-nav href="stats2.html">BOSS統計表</a>
-      <a data-nav href="playerBossStats.html">BOSS個人掉寶統計</a>
-    </div>
-  </div>
-</div>
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      background: var(--card-bg);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 40px;
+      border: 1px solid var(--border);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header 樣式 */
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; gap: 15px; }
+    .brand { display: flex; align-items: center; gap: 15px; }
+    .logo-m {
+      width: 50px; height: 50px;
+      background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 30px; font-weight: 900;
+      box-shadow: 0 4px 10px rgba(249, 115, 22, 0.4);
+    }
+    .header-text h1 { margin: 0; font-size: 24px; font-weight: 800; white-space: nowrap; }
+    .theme-btn {
+      padding: 8px 16px; border-radius: 99px; border: 1px solid var(--border);
+      background: var(--card-bg); color: var(--text-main); cursor: pointer;
+      font-weight: 600; font-size: 14px;
+    }
+
+    /* 導覽列 */
+    .nav-bar { display: flex; gap: 10px; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 2px solid var(--border); flex-wrap: wrap; }
+    .nav-btn {
+      padding: 10px 18px; border-radius: 10px; text-decoration: none;
+      background: var(--bg-color); color: var(--text-sub); font-weight: 600; font-size: 15px;
+      border: 1px solid var(--border); transition: 0.3s;
+    }
+    .nav-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+    .nav-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+    
+    .nav-mobile { display: none; margin-bottom: 30px; }
+    .nav-mobile select {
+      width: 100%; padding: 15px; border-radius: 12px;
+      border: 2px solid var(--accent); background: var(--card-bg);
+      color: var(--text-main); font-size: 16px; font-weight: 700;
+    }
+
+    /* 內容區塊 */
+    .content-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    
+    .page-title { font-size: 28px; font-weight: 800; margin-bottom: 15px; }
+    .page-desc { color: var(--text-sub); margin-bottom: 40px; font-size: 18px; }
+
+    /* Discord 卡片 */
+    .discord-card {
+      background: #5865F2;
+      color: white;
+      border-radius: 20px;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 10px 25px rgba(88, 101, 242, 0.4);
+      transition: transform 0.3s;
+      text-decoration: none;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .discord-card:hover { transform: translateY(-5px) scale(1.02); background: #4752c4; }
+    .discord-icon { width: 60px; height: 60px; fill: white; }
+    .discord-text h3 { margin: 0 0 10px 0; font-size: 24px; }
+    .discord-text p { margin: 0; opacity: 0.9; font-size: 16px; }
+    
+    /* Footer */
+    footer {
+      width: 100%; margin-top: auto; padding-top: 40px;
+      border-top: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; gap: 20px;
+    }
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+    .footer-links a { text-decoration: none; color: var(--text-sub); font-size: 15px; font-weight: 500; }
+    .footer-links a:hover { color: var(--accent); }
+    .copyright { font-size: 14px; color: var(--text-sub); }
+
+    @media (max-width: 768px) {
+      body { padding: 10px; }
+      .container { padding: 20px; border-radius: 16px; }
+      .nav-bar { display: none; }
+      .nav-mobile { display: block; }
+      .header-text h1 { font-size: 20px; }
+      .page-title { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+
 <div class="container">
-<h1>聯繫方式</h1>
-<p>👉 Discord 玩家社群：</p>
-<p><a href="https://discord.gg/aTgQx6A9" target="_blank">https://discord.gg/aTgQx6A9</a></p>
-<hr>
-<a href="about.html">關於本站</a> | <a href="terms.html">使用條款</a> | <a href="privacy-policy.html">隱私權政策</a> | <a href="contact.html">聯繫方式</a>
-</div>
-</div>
-<div class="footer">
-  <div class="footer-links">
-    <a href="about.html">關於本站</a>
-    <span style="opacity:.5">/</span>
-    <a href="terms.html">使用條款</a>
-    <span style="opacity:.5">/</span>
-    <a href="privacy-policy.html">隱私權政策</a>
-    <span style="opacity:.5">/</span>
-    <a href="contact.html">聯繫方式</a>
+  <div class="header">
+    <div class="brand">
+      <div class="logo-m">M</div>
+      <div class="header-text">
+        <h1>Artale 掉寶統計站</h1>
+      </div>
+    </div>
+    <button class="theme-btn" id="theme-toggle">🌙</button>
   </div>
+
+  <nav class="nav-bar">
+    <a href="index.html" class="nav-btn">一般回報</a>
+    <a href="stats.html" class="nav-btn">一般統計</a>
+    <a href="playerStats.html" class="nav-btn">個人統計</a>
+    <a href="boss.html" class="nav-btn">BOSS回報</a>
+    <a href="stats2.html" class="nav-btn">BOSS統計</a>
+    <a href="playerBossStats.html" class="nav-btn">BOSS個人統計</a>
+    <a href="contact.html" class="nav-btn active">聯繫方式</a>
+  </nav>
+
+  <div class="nav-mobile">
+    <select onchange="window.location.href=this.value;">
+      <option value="contact.html" selected>目前頁面：聯繫方式</option>
+      <option value="index.html">一般回報</option>
+      <option value="stats.html">一般統計</option>
+      <option value="playerStats.html">個人統計</option>
+      <option value="boss.html">BOSS回報</option>
+      <option value="stats2.html">BOSS統計</option>
+      <option value="playerBossStats.html">BOSS個人統計</option>
+    </select>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="page-title">聯絡我們</div>
+    <p class="page-desc">發現 Bug、數據有誤，或是單純想聊天？<br>歡迎加入我們的 Discord 社群！</p>
+    
+    <a href="https://discord.gg/aTgQx6A9" target="_blank" class="discord-card">
+      <svg class="discord-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 127.14 96.36">
+        <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.11,77.11,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.89,105.89,0,0,0,126.6,80.22c1.24-18.87-2.6-38-18.9-72.15ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
+      </svg>
+      <div class="discord-text">
+        <h3>加入 Discord 玩家社群</h3>
+        <p>點擊此處立即加入討論</p>
+      </div>
+    </a>
+
+    <div style="margin-top: 40px; color: var(--text-sub);">
+      或直接複製邀請連結：<br>
+      <code style="background: var(--border); padding: 5px 10px; border-radius: 6px; user-select: all;">https://discord.gg/aTgQx6A9</code>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="about.html">關於本站</a>
+      <a href="terms.html">使用條款</a>
+      <a href="privacy-policy.html">隱私權政策</a>
+      <a href="contact.html">聯絡我們</a>
+    </div>
+      
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin: 25px 0;">
+      <div style="font-size: 15px; color: var(--text-sub); font-weight: 600; display: flex; align-items: center; gap: 6px;">
+        ☕ 贊助辛苦的站長一杯咖啡👇
+      </div>
+      
+      <a href="https://www.buymeacoffee.com/yuyujay" target="_blank" style="display: inline-block; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        <img src="https://cdn.buymeacoffee.com/buttons/v2/default-orange.png" alt="Buy Me A Coffee" style="height: 40px !important; width: 150px !important; display: block;">
+      </a>
+    </div>
+    <div class="copyright">
+      &copy; 2025 Artale Drop Statistics. All rights reserved.
+    </div>
+  </footer>
 </div>
-</body></html>
+
+<script>
+  // 夜間模式切換邏輯
+  const btn = document.getElementById('theme-toggle');
+  const isNight = localStorage.getItem('theme') === 'dark';
+  if (isNight) { document.body.classList.add('night-mode'); btn.innerText = '☀️'; }
+  
+  btn.addEventListener('click', () => {
+    const active = document.body.classList.toggle('night-mode');
+    localStorage.setItem('theme', active ? 'dark' : 'light');
+    btn.innerText = active ? '☀️' : '🌙';
+  });
+</script>
+
+</body>
+</html>
