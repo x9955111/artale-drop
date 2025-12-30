@@ -190,6 +190,7 @@
     }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
+    /* 預設格狀排列 (電腦版: 一排多個) */
     .drop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 15px; }
 
     /* Footer */
@@ -205,6 +206,7 @@
 
     .hidden { display: none; }
 
+    /* Mobile 優化 (手機版樣式) */
     @media (max-width: 768px) {
       body { padding: 10px; }
       .container { padding: 20px; border-radius: 16px; }
@@ -221,7 +223,9 @@
       .accordion-header { padding: 15px; }
       .accordion-content { padding: 15px; }
       .accordion-title { font-size: 16px; }
-      .drop-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+      
+      /* ✨ 這裡改成了 1fr，確保手機上一排只顯示一個輸入框 ✨ */
+      .drop-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
