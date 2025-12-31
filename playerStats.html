@@ -450,10 +450,10 @@
       return `<tr><td colspan="4" class="rate-zero" style="text-align:center;">無資料</td></tr>`;
     }
 
-    return items.map((it, idx) => {
-      // 處理數據
+    const rows = items.map((it, idx) => {
+      // ✨ 自動隱藏：名稱為空白或"無"
       const name = (it.name || '').trim();
-      if(!name) return ''; // 跳過空名稱
+      if (!name || name === '無') return '';
 
       const total = it.total != null ? it.total : 0;
       const rateP = it.rate || 0;
@@ -486,6 +486,13 @@
         </tr>
       `;
     }).join('');
+
+    // 若全部都被隱藏，回傳無資料
+    if (rows === '') {
+      return `<tr><td colspan="4" class="rate-zero" style="text-align:center;">無相關資料</td></tr>`;
+    }
+
+    return rows;
   }
 
   function formatRate(rate) {
