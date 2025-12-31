@@ -5,10 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Artale 掉寶統計站 - 測試版</title>
-  <meta name="description" content="Artale 楓之谷掉寶統計站。全網唯一的真實數據平台，提供怪物掉寶率查詢、BOSS 戰利品統計、個人運氣分析，助您掌握打寶效率。">
   
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4011206268996883"
-     crossorigin="anonymous"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4011206268996883" crossorigin="anonymous"></script>
 
   <style>
     :root {
@@ -135,6 +133,7 @@
     @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
     .drop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 15px; }
+    
     footer { width: 100%; max-width: 1280px; margin-top: 40px; padding: 30px 0; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
     .footer-links { display: flex; gap: 25px; }
     .footer-links a { text-decoration: none; color: var(--text-sub); font-size: 15px; font-weight: 500; }
@@ -434,7 +433,7 @@
 </div>
 
 <script>
-  // ✅ 1. 正確設定 Cloudflare 環境下的 API 網址 (同網域)
+  // ✅ 設定為同網域 API (Cloudflare 會處理轉發)
   const API_URL = '/api'; 
 
   let monsterConfigs = { 1: null, 2: null };
@@ -465,7 +464,7 @@
 
   async function loadMonsterList() {
     try {
-      // ✅ 2. 加上 api=1 參數
+      // ✅ 加上 api=1
       const resp = await fetch(`${API_URL}?api=1&action=getMonsterList`);
       const res = await resp.json();
       if (res.ok) {
@@ -482,7 +481,6 @@
     if (container) container.classList.remove('hidden');
 
     try {
-      // ✅ 3. 加上 api=1 參數
       const resp = await fetch(`${API_URL}?api=1&action=getMonsterConfig&monster=${encodeURIComponent(monsterName)}`);
       const res = await resp.json();
       if (res.ok) {
@@ -524,6 +522,7 @@
 
     // 建立輸入框的 Helper Function (支援圖片)
     const createInput = (name, imgUrl, colIndex) => {
+      // ⚠️ 關鍵修正：如果名稱是空白，就不顯示輸入框
       if (!name || name.trim() === "") return "";
       
       let imgHtml = "";
@@ -550,7 +549,7 @@
     const noData = '<div style="color:var(--text-sub); font-size:14px; padding:10px 0;">無此類物品</div>';
     const safeSetHTML = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
 
-    // 取得圖片陣列
+    // 取得圖片陣列 (加上安全判斷)
     const sImgs = config.scrollImages || [];
     const jImgs = config.jackpotImages || [];
     const eImgs = config.equipImages || [];
@@ -714,7 +713,6 @@
       if (el) payload[`c${i}`] = parseInt(el.value) || 0;
     }
 
-    // ✅ 4. POST 也補上 api=1，確保後端正確切換模式
     const resp = await fetch(API_URL + '?api=1', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
