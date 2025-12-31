@@ -126,14 +126,12 @@
        仿 Index.html 佈局設定
        ---------------------------------- */
     
-    /* 第一排：輸入區 */
     .input-row-wrapper {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 30px;
     }
 
-    /* 第二排：圖片與選單區 */
     .monster-selection-wrapper {
       display: flex;
       gap: 20px;
@@ -174,9 +172,7 @@
       background: var(--accent); border-radius: 3px;
     }
 
-    /* =========================================
-       收合選單 (Accordion) UI
-       ========================================= */
+    /* Accordion */
     .accordion-group {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -211,20 +207,28 @@
     }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* 物品輸入卡片 */
+    /* --- 物品輸入卡片樣式 (仿 index.html) --- */
     .item-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 15px; }
     
-    .item-card {
-      background: var(--card-bg); padding: 15px; border-radius: 15px; border: 1px solid var(--border);
+    .item-input-box { 
+      background: var(--card-bg); padding: 12px; border-radius: 10px; 
+      border: 1px solid var(--border); display: flex; align-items: center; gap: 10px;
     }
-    .item-header { 
-      margin-bottom: 10px; font-weight: 700; font-size: 15px; 
-      color: var(--text-main); text-align: center;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    .item-img-wrap { width: 40px; height: 40px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .item-img-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    
+    .item-info { flex: 1; min-width: 0; }
+    .item-label { 
+      font-size: 14px; font-weight: 700; margin-bottom: 4px; 
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
     }
-    .triple-inputs { display: flex; gap: 8px; }
-    .triple-inputs input { padding: 10px; text-align: center; font-size: 15px; font-weight: 600; min-width: 0; flex: 1; }
-    .input-delta { background: var(--bg-color); color: var(--accent); border-color: var(--border); }
+    
+    .qty-group { display: flex; gap: 5px; width: 100%; }
+    .qty-group input { 
+      text-align: center; font-weight: bold; padding: 6px; 
+      font-size: 14px; width: 0; min-width: 0; flex: 1; 
+    }
+    .input-delta { background: var(--bg-color); color: var(--text-sub); }
 
     /* Submit Button */
     .btn-submit {
@@ -413,7 +417,6 @@
   document.addEventListener('DOMContentLoaded', () => {
     initTheme();
     loadBossList();
-    buildAllInputs();
     
     document.getElementById('boss-select').addEventListener('change', (e) => {
       handleBossChange(e.target.value);
@@ -476,7 +479,6 @@
         
         // 更新圖片
         const imgEl = document.getElementById('boss-img');
-        // 若後端有提供圖片連結 (假設欄位為 monsterImage 或 bossImage)
         if (cfg.bossImage || cfg.monsterImage) {
             imgEl.src = cfg.bossImage || cfg.monsterImage;
             imgEl.style.opacity = 1;
@@ -484,56 +486,70 @@
             imgEl.style.opacity = 0; 
         }
 
-        applyNames('equip',   cfg.equips,   30, '裝備');
-        applyNames('jackpot', cfg.jackpots, 3,  '大獎');
-        applyNames('scroll',  cfg.scrolls,  33, '卷軸');
-        applyNames('other',   cfg.others,   3,  '其他');
+        // 動態渲染各區塊
+        renderBossCategory('equip',   'equip-container',   cfg.equips,   cfg.equipImages);
+        renderBossCategory('jackpot', 'jackpot-container', cfg.jackpots, cfg.jackpotImages);
+        renderBossCategory('scroll',  'scroll-container',  cfg.scrolls,  cfg.scrollImages);
+        renderBossCategory('other',   'other-container',   cfg.others,   cfg.otherImages);
       }
     } catch (e) { console.error(e); }
   }
 
-  function applyNames(prefix, names, count, baseText) {
-    names = names || [];
-    for (let i = 1; i <= count; i++) {
-      const label = document.getElementById(prefix + i + '-label');
-      if (!label) continue;
-      const n = names[i - 1];
-      label.textContent = (n && String(n).trim()) ? n : baseText + ' ' + i;
-    }
-  }
-
-  function buildAllInputs() {
-    buildGroup('equip',   'equip-container',   30, '裝備');
-    buildGroup('jackpot', 'jackpot-container', 3,  '大獎');
-    buildGroup('scroll',  'scroll-container',  33, '卷軸');
-    buildGroup('other',   'other-container',   3,  '其他');
-  }
-
-  function buildGroup(prefix, containerId, count, labelBase) {
+  // 新版渲染函式：動態產生含圖片的輸入框
+  function renderBossCategory(prefix, containerId, names, images) {
     const container = document.getElementById(containerId);
+    if (!names || names.length === 0) {
+      container.innerHTML = '<div style="color:var(--text-sub); font-size:14px;">無此類物品</div>';
+      return;
+    }
+
     let html = '';
-    for (let i = 1; i <= count; i++) {
+    names.forEach((name, index) => {
+      // 略過空名稱，但為了保持 ID 對應，這裡我們依然會生成 DOM，
+      // 但如果名字是空的，可以選擇隱藏或顯示為 "未命名"
+      // 這裡選擇：如果名字為空則不渲染，但 ID 必須連續？
+      // ⚠️ 注意：submitBossDrop 邏輯是 loop 1 to Count。
+      // 如果我們跳過某個 index，ID 就會斷號，導致送出資料錯位。
+      // 所以：我們必須生成對應 ID，但如果沒名字，可以隱藏該區塊。
+      
+      const realName = (name && name.trim()) ? name : '';
+      const displayStyle = realName ? '' : 'display:none;';
+      const imgUrl = (images && images[index]) ? images[index] : '';
+      const i = index + 1; // 1-based index for IDs
+
       html += `
-        <div class="item-card">
-          <div class="item-header" id="${prefix}${i}-label">${labelBase} ${i}</div>
-          <div class="triple-inputs">
-            <input type="number" id="${prefix}${i}-initial" placeholder="始">
-            <input type="number" id="${prefix}${i}-final" placeholder="終">
-            <input type="number" id="${prefix}${i}-delta" class="input-delta" readonly placeholder="0">
+        <div class="item-input-box" style="${displayStyle}">
+          <div class="item-img-wrap">
+            <img src="${imgUrl}" onerror="this.style.opacity=0">
+          </div>
+          <div class="item-info">
+            <div class="item-label" id="${prefix}${i}-label">${realName}</div>
+            <div class="qty-group">
+              <input type="number" id="${prefix}${i}-initial" placeholder="始">
+              <input type="number" id="${prefix}${i}-final" placeholder="終">
+              <input type="number" id="${prefix}${i}-delta" class="input-delta" readonly placeholder="0">
+            </div>
           </div>
         </div>
       `;
-    }
+    });
     container.innerHTML = html;
   }
 
   function updateAllDeltas() {
+    // 雖然 renderBossCategory 可能隱藏了部分輸入框，但計算邏輯依然需要遍歷所有可能的 ID
+    // 裝備30, 大獎3, 卷軸33, 其他3
     const update = (prefix, count) => {
       for(let i=1; i<=count; i++) {
-        const init = parseInt(document.getElementById(`${prefix}${i}-initial`).value) || 0;
-        const final = parseInt(document.getElementById(`${prefix}${i}-final`).value) || 0;
-        const delta = Math.max(0, final - init);
-        document.getElementById(`${prefix}${i}-delta`).value = delta;
+        const initEl = document.getElementById(`${prefix}${i}-initial`);
+        const finalEl = document.getElementById(`${prefix}${i}-final`);
+        const deltaEl = document.getElementById(`${prefix}${i}-delta`);
+        
+        if (initEl && finalEl && deltaEl) {
+          const init = parseInt(initEl.value) || 0;
+          const final = parseInt(finalEl.value) || 0;
+          deltaEl.value = Math.max(0, final - init);
+        }
       }
     };
     update('equip', 30);
@@ -556,8 +572,11 @@
     let hasError = false;
     const checkGroup = (prefix, count) => {
       for(let i=1; i<=count; i++) {
-        const v = parseInt(document.getElementById(`${prefix}${i}-delta`).value) || 0;
-        if (v > kills) hasError = true;
+        const el = document.getElementById(`${prefix}${i}-delta`);
+        if (el) {
+          const v = parseInt(el.value) || 0;
+          if (v > kills) hasError = true;
+        }
       }
     };
     checkGroup('equip', 30);
@@ -581,7 +600,9 @@
 
     const collect = (prefix, count, baseIndex) => {
       for(let i=1; i<=count; i++) {
-        payload['c' + (baseIndex + i - 1)] = parseInt(document.getElementById(`${prefix}${i}-delta`).value) || 0;
+        const el = document.getElementById(`${prefix}${i}-delta`);
+        // 使用 ?.value 避免 null 錯誤，若隱藏則為 0
+        payload['c' + (baseIndex + i - 1)] = el ? (parseInt(el.value) || 0) : 0;
       }
     };
     collect('equip', 30, 4);
