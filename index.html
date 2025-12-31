@@ -51,7 +51,11 @@
       font-size: 18px;
       line-height: 1.6;
       transition: all 0.3s ease;
-      display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
     }
 
     .container { width: 100%; max-width: 1280px; background: var(--card-bg); border-radius: 24px; box-shadow: var(--shadow); padding: 40px; border: 1px solid var(--border); flex: 1; }
@@ -72,7 +76,7 @@
     input, select { width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--border); background: var(--input-bg); color: var(--text-main); font-size: 17px; }
     input:focus { border-color: var(--accent); background: var(--input-focus); outline: none; }
 
-    /* --- 怪物選擇區塊樣式 (優化版) --- */
+    /* 怪物圖片與選單佈局 */
     .monster-selection-wrapper {
       display: flex;
       gap: 20px;
@@ -103,7 +107,6 @@
       gap: 15px;
       justify-content: center;
     }
-    /* --------------------------------- */
 
     .item-input-box { background: var(--card-bg); padding: 12px; border-radius: 10px; border: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
     .item-img-wrap { width: 40px; height: 40px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
@@ -220,7 +223,7 @@
           </div>
           <div class="accordion-group open" onclick="toggleAccordion(this)"><div class="accordion-header"><div class="accordion-title">📜 稀有卷軸</div><div class="accordion-icon">▼</div></div><div class="accordion-content"><div class="drop-grid" id="m1-grid-scrolls"></div></div></div>
           <div class="accordion-group open" onclick="toggleAccordion(this)"><div class="accordion-header"><div class="accordion-title">💎 稀有大獎</div><div class="accordion-icon">▼</div></div><div class="accordion-content"><div class="drop-grid" id="m1-grid-jackpots"></div></div></div>
-          <div class="accordion-group open" onclick="toggleAccordion(this)"><div class="accordion-header"><div class="accordion-title">⚔️ 裝備掉落</div><div class="accordion-icon">▼</div></div><div class="accordion-content"><div class="drop-grid" id="m1-grid-equip"></div></div></div>
+          <div class="accordion-group open" onclick="toggleAccordion(this)"><div class="accordion-header"><div class="accordion-title"⚔️ 裝備掉落</div><div class="accordion-icon">▼</div></div><div class="accordion-content"><div class="drop-grid" id="m1-grid-equip"></div></div></div>
           <div class="accordion-group open" onclick="toggleAccordion(this)"><div class="accordion-header"><div class="accordion-title">🪨 母礦與礦石</div><div class="accordion-icon">▼</div></div><div class="accordion-content"><div class="drop-grid" id="m1-grid-ores"></div></div></div>
           <div class="accordion-group open" onclick="toggleAccordion(this)"><div class="accordion-header"><div class="accordion-title">📦 其他物品</div><div class="accordion-icon">▼</div></div><div class="accordion-content"><div class="drop-grid" id="m1-grid-others"></div></div></div>
         </div>
@@ -330,15 +333,12 @@
 
   async function handleMonsterChange(slot, monsterName) {
     if (!monsterName) return;
-    const container = document.getElementById(`content-${slot}`);
-    if (container) container.classList.remove('hidden');
-
+    document.getElementById(`content-${slot}`).classList.remove('hidden');
     try {
       const resp = await fetch(`${API_URL}?api=1&action=getMonsterConfig&monster=${encodeURIComponent(monsterName)}`);
       const res = await resp.json();
       if (res.ok) {
         monsterConfigs[slot] = res.data;
-        // 更新大頭貼
         const monsterImg = document.getElementById(`m${slot}-img`);
         if(res.data.monsterImage) { monsterImg.src = res.data.monsterImage; monsterImg.style.opacity = 1; }
         renderFields(slot, res.data);
@@ -412,17 +412,33 @@
     btn.disabled = true; btn.innerText = '上傳中...';
     try {
       let isSuspicious = false;
+      let hasJackpot = false;
+
+      // 提交第一隻怪物
       const res1 = await submitSingleMonster(1);
-      if (res1 && res1.status === 'SUSPECT') isSuspicious = true;
+      if (res1) {
+        if (res1.status === 'SUSPECT') isSuspicious = true;
+        if (res1.hasJackpot) hasJackpot = true;
+      }
+
+      // 如果啟用第二隻怪物，提交第二隻
       if (document.getElementById('dual-mode-toggle').checked) {
         const res2 = await submitSingleMonster(2);
-        if (res2 && res2.status === 'SUSPECT') isSuspicious = true;
+        if (res2) {
+          if (res2.status === 'SUSPECT') isSuspicious = true;
+          if (res2.hasJackpot) hasJackpot = true;
+        }
       }
-      if (isSuspicious) {
+
+      // 優先顯示大獎提示
+      if (hasJackpot) {
+        alert('【系統提示】麻煩提供大獎截圖予管理員，經審核確認後才會記入系統。');
+      } else if (isSuspicious) {
         alert('【系統提示】送出資料有疑慮，請截圖通知管理員，經審核後才會列入統計。');
       } else {
         alert('回報成功！感謝您的參與。');
       }
+      
       location.reload();
     } catch (err) {
       alert(err.message);
@@ -434,21 +450,26 @@
   async function submitSingleMonster(slot) {
     const m = document.getElementById(`monster-select-${slot}`).value;
     if (!m) return null;
+
     const p = document.getElementById('player-id').value.trim();
     const idPattern = /^[\u4e00-\u9fffA-Za-z0-9]+#[A-Za-z0-9]{5}$/;
     if (!idPattern.test(p)) {
       throw new Error(`[${m}] 角色ID格式錯誤！請務必包含「#」及後續5碼編號（例如：RainYu#B1234）`);
     }
+
     const k = estimatedKills[slot];
     if (k < 100) throw new Error(`[${m}] 擊殺不足 100，請累積更多數據再回報。`);
+    
     const payload = { action: 'submitDrop', player: p, monster: m, kills: k, type: 'normal' };
     for (let i = 4; i <= 47; i++) {
       const el = document.getElementById(`m${slot}-c${i}-delta`);
       if (el) payload[`c${i}`] = parseInt(el.value) || 0;
     }
+
     const resp = await fetch(API_URL + '?api=1', { method: 'POST', body: JSON.stringify(payload) });
     const res = await resp.json();
     if (!res.ok) throw new Error(res.error);
+    
     return res.data;
   }
 </script>
