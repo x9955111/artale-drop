@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Artale 掉寶統計 - 一般怪物</title>
-  <meta name="description" content="查詢 Artale 楓之谷一般怪物的真實掉落機率統計。">
+  <title>Artale 個人掉寶統計</title>
+  <meta name="description" content="查詢個人在 Artale 楓之谷的掉寶紀錄，並與全服平均機率進行比較。">
   
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4011206268996883" crossorigin="anonymous"></script>
 
@@ -56,7 +56,7 @@
 
     .container { width: 100%; max-width: 1280px; background: var(--card-bg); border-radius: 24px; box-shadow: var(--shadow); padding: 40px; border: 1px solid var(--border); flex: 1; }
 
-    /* Header & Nav (與 Index 一致) */
+    /* Header & Nav */
     .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; gap: 15px; }
     .brand { display: flex; align-items: center; gap: 15px; }
     .logo-m { width: 50px; height: 50px; background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: 900; box-shadow: 0 4px 10px rgba(249, 115, 22, 0.4); flex-shrink: 0; }
@@ -73,34 +73,43 @@
     .nav-mobile { display: none; margin-bottom: 30px; }
     .nav-mobile select { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid var(--accent); background: var(--card-bg); color: var(--text-main); font-size: 17px; font-weight: 700; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f97316' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; background-size: 18px; }
 
-    /* 內容區塊 */
+    /* Form Area */
     .section-title { font-size: 20px; font-weight: 700; color: var(--accent); margin: 30px 0 15px; display: flex; align-items: center; gap: 10px; }
     .section-title::before { content: ""; width: 5px; height: 22px; background: var(--accent); border-radius: 2px; }
 
-    select.form-control { width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--border); background: var(--input-bg); color: var(--text-main); font-size: 17px; margin-bottom: 20px; outline: none; }
-    select.form-control:focus { border-color: var(--accent); background: var(--input-focus); }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr auto; gap: 20px; align-items: end; margin-bottom: 20px; }
+    label { display: block; font-size: 15px; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
+    input, select { width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--border); background: var(--input-bg); color: var(--text-main); font-size: 17px; box-sizing: border-box; }
+    input:focus, select:focus { outline: none; border-color: var(--accent); background: var(--input-focus); }
 
-    /* Summary 區塊 (仿首頁 Monster Selection) */
-    .summary-wrapper {
-      display: flex; gap: 20px; align-items: center; margin-bottom: 30px; background: var(--bg-color);
-      border: 1px solid var(--border); border-radius: 16px; padding: 20px;
-    }
-    
-    .monster-img-large {
-      width: 100px; height: 100px; flex-shrink: 0;
-      background: var(--card-bg); border-radius: 12px; border: 2px solid var(--accent);
-      display: flex; align-items: center; justify-content: center; overflow: hidden;
-    }
+    .btn-search { padding: 14px 30px; border: none; border-radius: 12px; background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); color: white; font-size: 18px; font-weight: 800; cursor: pointer; transition: 0.3s; height: 54px; }
+    .btn-search:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4); }
+
+    /* Summary Dashboard (同步 stats.html 風格) */
+    .summary-wrapper { display: flex; gap: 20px; align-items: center; margin-bottom: 30px; background: var(--bg-color); border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
+    .monster-img-large { width: 100px; height: 100px; flex-shrink: 0; background: var(--card-bg); border-radius: 12px; border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; overflow: hidden; }
     .monster-img-large img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
     .summary-info { flex: 1; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; text-align: center; }
     .summary-item { display: flex; flex-direction: column; justify-content: center; }
     .summary-label { font-size: 13px; color: var(--text-sub); font-weight: 600; margin-bottom: 5px; }
     .summary-value { font-size: 22px; font-weight: 800; color: var(--text-main); }
-    .summary-sub { font-size: 13px; color: var(--accent); margin-top: 2px; }
+    
+    /* Accordion Style */
+    .accordion-group { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 20px; overflow: hidden; transition: all 0.3s ease; }
+    .accordion-header { padding: 18px 25px; background: rgba(0,0,0,0.02); cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid transparent; transition: background 0.2s; }
+    .accordion-header:hover { background: rgba(0,0,0,0.04); }
+    .accordion-group.open .accordion-header { border-bottom-color: var(--border); }
+    .accordion-title { font-size: 18px; font-weight: 700; color: var(--accent); display: flex; align-items: center; gap: 10px; margin: 0; }
+    .accordion-title::before { content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px; }
+    .accordion-icon { font-size: 14px; color: var(--text-sub); transition: transform 0.3s ease; }
+    .accordion-group.open .accordion-icon { transform: rotate(180deg); }
+    .accordion-content { display: none; padding: 0; background: var(--card-bg); }
+    .accordion-group.open .accordion-content { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* 表格樣式 */
-    .table-wrapper { margin-bottom: 30px; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 4px 6px -2px rgba(0,0,0,0.02); }
+    /* Table Style */
+    .table-wrapper { width: 100%; overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; background: var(--card-bg); }
     th { background: var(--table-head-bg); color: var(--text-main); font-weight: 700; padding: 15px; text-align: left; border-bottom: 2px solid var(--border); }
     td { padding: 12px 15px; border-bottom: 1px solid var(--border); color: var(--text-main); vertical-align: middle; }
@@ -108,23 +117,14 @@
     tr:nth-child(even) { background-color: var(--table-row-even); }
     
     .col-right { text-align: right; }
-    .rate-high { color: var(--success); font-weight: 700; }
+    .rate-good { color: var(--success); font-weight: 700; }
     .rate-zero { color: var(--mute); font-size: 14px; }
 
-    /* 物品圖片與名稱組合 */
+    /* Item Cell (Image + Name) */
     .item-cell { display: flex; align-items: center; gap: 12px; }
-    .item-icon { 
-      width: 36px; height: 36px; flex-shrink: 0; 
-      border-radius: 8px; border: 1px solid var(--border); 
-      background: var(--bg-color); display: flex; align-items: center; justify-content: center; overflow: hidden; 
-    }
+    .item-icon { width: 36px; height: 36px; flex-shrink: 0; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-color); display: flex; align-items: center; justify-content: center; overflow: hidden; }
     .item-icon img { width: 100%; height: 100%; object-fit: contain; }
     .item-name { font-weight: 600; font-size: 15px; }
-
-    .table-caption { font-size: 18px; font-weight: 700; margin-bottom: 12px; color: var(--accent); display: flex; align-items: center; gap: 8px; }
-    .table-caption::before { content: "▼"; font-size: 12px; }
-
-    .hint { background: rgba(249, 115, 22, 0.1); color: var(--accent); padding: 15px; border-radius: 12px; font-size: 14px; font-weight: 500; margin-top: 20px; }
 
     footer { width: 100%; max-width: 1280px; margin-top: 40px; padding: 30px 0; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
     .footer-links { display: flex; gap: 25px; }
@@ -132,6 +132,7 @@
     .footer-links a:hover { color: var(--accent); }
     .copyright { font-size: 15px; color: var(--text-sub); }
 
+    /* RWD */
     @media (max-width: 768px) {
       body { padding: 10px; }
       .container { padding: 20px; border-radius: 16px; }
@@ -139,6 +140,8 @@
       .logo-m { width: 40px; height: 40px; font-size: 24px; }
       .nav-bar { display: none; }
       .nav-mobile { display: block; }
+      .form-grid { grid-template-columns: 1fr; gap: 15px; }
+      .btn-search { width: 100%; }
       .summary-wrapper { flex-direction: column; text-align: center; }
       .monster-img-large { width: 80px; height: 80px; margin: 0 auto; }
       .summary-info { width: 100%; grid-template-columns: 1fr 1fr; }
@@ -146,18 +149,16 @@
       footer { justify-content: center; text-align: center; }
       .footer-links { width: 100%; justify-content: center; gap: 15px; }
 
-      /* 卡片式表格 */
+      /* Card Table for Mobile */
       table, thead, tbody, th, td, tr { display: block; }
       thead tr { position: absolute; top: -9999px; left: -9999px; }
-      tr { border: 1px solid var(--border); border-radius: 12px; margin-bottom: 12px; background: var(--card-bg); padding: 5px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-      td { border: none; border-bottom: 1px solid var(--border); position: relative; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; text-align: right; }
+      tr { border: 1px solid var(--border); border-radius: 12px; margin: 15px; background: var(--card-bg); box-shadow: 0 2px 5px rgba(0,0,0,0.02); padding: 0; overflow: hidden; }
+      td { border: none; border-bottom: 1px solid var(--border); position: relative; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; text-align: right; min-height: 24px; font-size: 15px; }
       td:last-child { border-bottom: none; }
-      
-      /* Data Label */
       td:before { content: attr(data-label); font-weight: 600; color: var(--text-sub); font-size: 14px; margin-right: auto; }
       
-      /* 第一欄 (物品名稱) 特別樣式 */
-      td:first-child { background: var(--bg-color); justify-content: flex-start; border-bottom: 2px solid var(--border); }
+      /* 第一欄 (物品名稱) 轉為標題樣式 */
+      td:first-child { background: var(--bg-color); border-bottom: 2px solid var(--border); display: block; text-align: left; }
       td:first-child:before { display: none; }
     }
   </style>
@@ -170,7 +171,7 @@
       <div class="logo-m">M</div>
       <div class="header-text">
         <h1>Artale 掉寶統計站</h1>
-        <div style="color:var(--text-sub); font-size: 15px; font-weight: 500;">全伺服器掉落數據總覽</div>
+        <div style="color:var(--text-sub); font-size: 15px; font-weight: 500;">個人掉落率 vs 全伺服器平均</div>
       </div>
     </div>
     <button class="theme-btn" id="theme-toggle">🌙 夜間模式</button>
@@ -178,8 +179,8 @@
 
   <nav class="nav-bar">
     <a href="index.html" class="nav-btn">一般回報</a>
-    <a href="stats.html" class="nav-btn active">一般統計</a>
-    <a href="playerStats.html" class="nav-btn">個人統計</a>
+    <a href="stats.html" class="nav-btn">一般統計</a>
+    <a href="playerStats.html" class="nav-btn active">個人統計</a>
     <a href="boss.html" class="nav-btn">BOSS回報</a>
     <a href="stats2.html" class="nav-btn">BOSS統計</a>
     <a href="playerBossStats.html" class="nav-btn">BOSS個人統計</a>
@@ -187,10 +188,10 @@
   </nav>
 
   <div class="nav-mobile">
-    <select onchange="if(this.value.includes('http')) { window.open(this.value, '_blank'); this.value='stats.html'; } else { window.location.href=this.value; }">
+    <select onchange="if(this.value.includes('http')) { window.open(this.value, '_blank'); this.value='playerStats.html'; } else { window.location.href=this.value; }">
       <option value="index.html">一般回報</option>
-      <option value="stats.html" selected>功能切換：一般統計</option>
-      <option value="playerStats.html">個人統計</option>
+      <option value="stats.html">一般統計</option>
+      <option value="playerStats.html" selected>功能切換：個人統計</option>
       <option value="boss.html">BOSS回報</option>
       <option value="stats2.html">BOSS統計</option>
       <option value="playerBossStats.html">BOSS個人統計</option>
@@ -198,10 +199,20 @@
     </select>
   </div>
 
-  <div class="section-title">數據查詢</div>
-  <select id="monster-select" class="form-control">
-    <option value="">正在載入怪物清單...</option>
-  </select>
+  <div class="section-title">查詢條件</div>
+  <div class="form-grid">
+    <div>
+      <label>玩家角色 ID</label>
+      <input type="text" id="player-input" placeholder="例如：RainYu#A1b2C" required>
+    </div>
+    <div>
+      <label>選擇怪物</label>
+      <select id="monster-select">
+        <option value="">正在載入怪物清單...</option>
+      </select>
+    </div>
+    <button type="button" id="btn-search" class="btn-search">搜尋數據</button>
+  </div>
 
   <div id="loading-status" style="text-align:center; color:var(--text-sub); margin: 30px 0; display:none;">
     <div style="font-size:24px;">⏳</div>
@@ -215,87 +226,25 @@
       </div>
       <div class="summary-info">
         <div class="summary-item">
+          <div class="summary-label">玩家</div>
+          <div class="summary-value" id="sum-player">-</div>
+        </div>
+        <div class="summary-item">
           <div class="summary-label">目標怪物</div>
           <div class="summary-value" id="sum-monster">-</div>
         </div>
         <div class="summary-item">
-          <div class="summary-label">總樣本擊殺數</div>
-          <div class="summary-value" id="sum-kills" style="color:var(--text-main);">0</div>
+          <div class="summary-label">個人擊殺數</div>
+          <div class="summary-value" id="sum-kills-player">0</div>
         </div>
         <div class="summary-item">
-          <div class="summary-label">主掉落物機率</div>
-          <div class="summary-value" id="sum-main-rate">0%</div>
-          <div class="summary-sub" id="sum-main-name">--</div>
+          <div class="summary-label">全體樣本數</div>
+          <div class="summary-value" id="sum-kills-all">0</div>
         </div>
       </div>
     </div>
 
-    <div id="tables-container">
-      <div class="table-caption">主掉落物</div>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr><th>物品名稱</th><th class="col-right">總掉落數</th><th class="col-right">掉落機率</th><th class="col-right">平均擊殺</th></tr>
-          </thead>
-          <tbody id="tbody-main"></tbody>
-        </table>
-      </div>
-
-      <div class="table-caption">📜 稀有卷軸</div>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr><th>物品名稱</th><th class="col-right">總掉落數</th><th class="col-right">掉落機率</th><th class="col-right">平均擊殺</th></tr>
-          </thead>
-          <tbody id="tbody-scrolls"></tbody>
-        </table>
-      </div>
-
-      <div class="table-caption">💎 稀有大獎</div>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr><th>物品名稱</th><th class="col-right">總掉落數</th><th class="col-right">掉落機率</th><th class="col-right">平均擊殺</th></tr>
-          </thead>
-          <tbody id="tbody-jackpots"></tbody>
-        </table>
-      </div>
-
-      <div class="table-caption">⚔️ 裝備掉落</div>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr><th>物品名稱</th><th class="col-right">總掉落數</th><th class="col-right">掉落機率</th><th class="col-right">平均擊殺</th></tr>
-          </thead>
-          <tbody id="tbody-equips"></tbody>
-        </table>
-      </div>
-
-      <div class="table-caption">🪨 母礦與礦石</div>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr><th>物品名稱</th><th class="col-right">總掉落數</th><th class="col-right">掉落機率</th><th class="col-right">平均擊殺</th></tr>
-          </thead>
-          <tbody id="tbody-ores"></tbody>
-        </table>
-      </div>
-
-      <div class="table-caption">📦 其他物品</div>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr><th>物品名稱</th><th class="col-right">總掉落數</th><th class="col-right">掉落機率</th><th class="col-right">平均擊殺</th></tr>
-          </thead>
-          <tbody id="tbody-others"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="hint">
-      💡 掉落機率計算公式：總掉落數 ÷ 總擊殺數<br>
-      💡 若顯示 0%，代表在目前的樣本數中尚未有人回報取得該物品。
-    </div>
+    <div id="tables-container"></div>
   </div>
 
   <footer>
@@ -327,11 +276,12 @@
   document.addEventListener('DOMContentLoaded', () => {
     initTheme();
     loadMonsterList();
-    
-    document.getElementById('monster-select').addEventListener('change', (e) => {
-      loadStats(e.target.value);
-    });
+    document.getElementById('btn-search').addEventListener('click', doSearch);
   });
+
+  function toggleAccordion(element) {
+    element.classList.toggle('open');
+  }
 
   function initTheme() {
     const btn = document.getElementById('theme-toggle');
@@ -347,10 +297,10 @@
   async function loadMonsterList() {
     const select = document.getElementById('monster-select');
     try {
-      const resp = await fetch(`${API_URL}?api=1&action=getMonsterList`);
+      const resp = await fetch(`${API_URL}?action=getMonsterList`);
       const res = await resp.json();
       if (res.ok) {
-        select.innerHTML = '<option value="">請選擇要查看的怪物</option>' + 
+        select.innerHTML = '<option value="">請選擇怪物</option>' + 
           res.data.map(m => `<option value="${m}">${m}</option>`).join('');
       } else {
         select.innerHTML = '<option value="">讀取失敗</option>';
@@ -358,104 +308,167 @@
     } catch (e) { console.error(e); }
   }
 
-  // 核心：同時載入「統計數據」與「圖片設定」
-  async function loadStats(monsterName) {
-    if (!monsterName) {
-      document.getElementById('summary-section').style.display = 'none';
-      return;
-    }
+  function validatePlayerId(pid) {
+    return pid && pid.includes('#');
+  }
 
+  async function doSearch() {
+    const player = document.getElementById('player-input').value.trim();
+    const monster = document.getElementById('monster-select').value;
     const loader = document.getElementById('loading-status');
     const content = document.getElementById('summary-section');
-    
+    const container = document.getElementById('tables-container');
+
+    if (!player) return alert('請輸入角色 ID');
+    if (!validatePlayerId(player)) return alert('角色 ID 格式錯誤 (需包含 #)');
+    if (!monster) return alert('請選擇怪物');
+
     loader.style.display = 'block';
     content.style.display = 'none';
+    container.innerHTML = '';
 
     try {
-      // 平行請求：同時抓 Stats (數據) 和 Config (圖片)
-      const [statsResp, configResp] = await Promise.all([
-        fetch(`${API_URL}?api=1&action=getMonsterStats&monster=${encodeURIComponent(monsterName)}`),
-        fetch(`${API_URL}?api=1&action=getMonsterConfig&monster=${encodeURIComponent(monsterName)}`)
+      // ✅ 同時抓取：個人數據、全體數據、怪物設定(圖片)
+      const [pRes, aRes, cRes] = await Promise.all([
+        fetch(`${API_URL}?action=getPlayerMonsterStats&player=${encodeURIComponent(player)}&monster=${encodeURIComponent(monster)}`).then(r => r.json()),
+        fetch(`${API_URL}?action=getMonsterStats&monster=${encodeURIComponent(monster)}`).then(r => r.json()),
+        fetch(`${API_URL}?action=getMonsterConfig&monster=${encodeURIComponent(monster)}`).then(r => r.json())
       ]);
 
-      const statsRes = await statsResp.json();
-      const configRes = await configResp.json();
-      
       loader.style.display = 'none';
 
-      if (statsRes.ok && statsRes.data.hasData) {
-        content.style.display = 'block';
-        // 將圖片資料 (configRes.data) 傳入渲染函式
-        renderStats(statsRes.data, configRes.data || {}, monsterName);
-      } else {
-        alert('目前尚無此怪物的統計資料');
+      if (!pRes.ok) throw new Error(pRes.error || '查詢失敗');
+      
+      const pData = pRes.data;
+      const aData = aRes.ok ? aRes.data : null; 
+      const config = cRes.ok ? cRes.data : {};
+
+      if (!pData.hasData) {
+        alert('找不到該角色的回報資料，請確認 ID 是否正確或是否有回報紀錄。');
+        return;
       }
+
+      content.style.display = 'block';
+      renderSummary(player, monster, pData, aData, config);
+      renderAllTables(pData, aData, config);
+
     } catch (e) {
       loader.style.display = 'none';
-      console.error(e);
-      alert('讀取失敗，請稍後再試');
+      alert('發生錯誤：' + e.message);
     }
   }
 
-  function renderStats(data, config, monsterName) {
-    // 1. 更新總覽卡片與怪物圖片
-    document.getElementById('sum-monster').innerText = data.monster || monsterName;
-    document.getElementById('sum-kills').innerText = data.totalKills.toLocaleString();
+  function renderSummary(player, monster, pData, aData, config) {
+    document.getElementById('sum-player').innerText = player;
+    document.getElementById('sum-monster').innerText = monster;
+    document.getElementById('sum-kills-player').innerText = pData.totalKills.toLocaleString();
+    document.getElementById('sum-kills-all').innerText = aData ? aData.totalKills.toLocaleString() : '-';
     
-    // 怪物圖片
-    const monImg = document.getElementById('sum-monster-img');
-    if (config.monsterImage) {
-        monImg.src = config.monsterImage;
-        monImg.style.opacity = 1;
+    // 更新大頭貼
+    const imgEl = document.getElementById('sum-monster-img');
+    if(config.monsterImage) {
+        imgEl.src = config.monsterImage;
+        imgEl.style.opacity = 1;
     } else {
-        monImg.style.opacity = 0;
+        imgEl.style.opacity = 0;
     }
-
-    // 2. 主掉落物
-    const main = data.mainDrop;
-    document.getElementById('sum-main-name').innerText = main.name || '(無)';
-    document.getElementById('sum-main-rate').innerText = formatRate(main.rate);
-
-    // 主掉落物列表 (單一項目)
-    const mainList = main.name ? [{name: main.name, total: main.total, rate: main.rate}] : [];
-    // 主掉落物圖片只有一張，特別處理
-    const mainImgs = config.tailImage ? [config.tailImage] : [];
-    renderTable('tbody-main', mainList, mainImgs);
-
-    // 3. 渲染各分類表格 (傳入對應的圖片陣列)
-    renderTable('tbody-scrolls', data.scrolls, config.scrollImages);
-    renderTable('tbody-jackpots', data.jackpots, config.jackpotImages);
-    renderTable('tbody-equips', data.equips, config.equipImages);
-    renderTable('tbody-ores', data.ores, config.oreImages);
-    renderTable('tbody-others', data.others, config.otherImages);
   }
 
-  function renderTable(tbodyId, list, images = []) {
-    const tbody = document.getElementById(tbodyId);
-    if (!list || list.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="4" class="rate-zero" style="text-align:center;">無資料</td></tr>`;
-      return;
+  function buildRateMap(allStats) {
+    const map = {
+      mainDrop: new Map(),
+      scrolls: new Map(),
+      jackpots: new Map(),
+      equips: new Map(),
+      ores: new Map(),
+      others: new Map()
+    };
+    if (!allStats) return map;
+
+    if (allStats.mainDrop) {
+      map.mainDrop.set((allStats.mainDrop.name || '主掉落').trim(), allStats.mainDrop.rate || 0);
+    }
+    const put = (listName, arr) => {
+      if (Array.isArray(arr)) arr.forEach(it => map[listName].set((it.name || '').trim(), it.rate || 0));
+    };
+    put('scrolls', allStats.scrolls);
+    put('jackpots', allStats.jackpots);
+    put('equips', allStats.equips);
+    put('ores', allStats.ores);
+    put('others', allStats.others);
+    return map;
+  }
+
+  function renderAllTables(pData, aData, config) {
+    const map = buildRateMap(aData);
+    let html = '';
+
+    // 主掉落 (圖片來自 tailImage)
+    const mainList = pData.mainDrop.name ? [{name: pData.mainDrop.name, total: pData.mainDrop.total, rate: pData.mainDrop.rate}] : [];
+    const mainImgs = config.tailImage ? [config.tailImage] : [];
+    
+    html += renderSection('主掉落', mainList, map.mainDrop, mainImgs);
+    html += renderSection('📜 稀有卷軸', pData.scrolls, map.scrolls, config.scrollImages);
+    html += renderSection('💎 稀有大獎', pData.jackpots, map.jackpots, config.jackpotImages);
+    html += renderSection('⚔️ 裝備掉落', pData.equips, map.equips, config.equipImages);
+    html += renderSection('🪨 母礦與礦石', pData.ores, map.ores, config.oreImages);
+    html += renderSection('📦 其他物品', pData.others, map.others, config.otherImages);
+
+    document.getElementById('tables-container').innerHTML = html;
+  }
+
+  function renderSection(title, items, allRateMap, images) {
+    const tbody = renderTableRows(items, allRateMap, images);
+    
+    return `
+      <div class="accordion-group open" onclick="toggleAccordion(this)">
+        <div class="accordion-header">
+          <div class="accordion-title">${title}</div>
+          <div class="accordion-icon">▼</div>
+        </div>
+        <div class="accordion-content">
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>物品名稱</th>
+                  <th class="col-right">個人總數</th>
+                  <th class="col-right">個人機率</th>
+                  <th class="col-right">全體機率</th>
+                </tr>
+              </thead>
+              <tbody>${tbody}</tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderTableRows(items, allRateMap, images = []) {
+    if (!items || items.length === 0) {
+      return `<tr><td colspan="4" class="rate-zero" style="text-align:center;">無資料</td></tr>`;
     }
 
-    tbody.innerHTML = list.map((item, index) => {
-      // 如果數據是空名稱或無效，跳過
-      if (!item.name) return '';
+    return items.map((it, idx) => {
+      // 處理數據
+      const name = (it.name || '').trim();
+      if(!name) return ''; // 跳過空名稱
 
-      const rateStr = formatRate(item.rate);
-      const rateClass = item.rate > 0 ? 'rate-high' : 'rate-zero';
-      
-      let avgKills = '-';
-      if (item.rate > 0) {
-        avgKills = '約 ' + Math.round(1 / item.rate).toLocaleString() + ' 隻';
-      }
+      const total = it.total != null ? it.total : 0;
+      const rateP = it.rate || 0;
+      const rateA = allRateMap && allRateMap.has(name) ? allRateMap.get(name) : null;
 
-      // 取得對應圖片 URL
-      const imgUrl = images[index] || '';
+      const pRateStr = formatRate(rateP);
+      const aRateStr = rateA === null ? '-' : formatRate(rateA);
+      const clsPlayer = total > 0 ? 'rate-good' : 'rate-zero';
+
+      // 處理圖片
+      const imgUrl = images[idx] || '';
       let imgHtml = '';
-      if (imgUrl) {
+      if(imgUrl) {
         imgHtml = `<div class="item-icon"><img src="${imgUrl}" onerror="this.style.display='none'"></div>`;
       } else {
-        // 佔位符保持對齊 (可選)
         imgHtml = `<div class="item-icon" style="opacity:0"></div>`;
       }
 
@@ -464,12 +477,12 @@
           <td data-label="物品名稱">
             <div class="item-cell">
               ${imgHtml}
-              <span class="item-name">${item.name}</span>
+              <span class="item-name">${name}</span>
             </div>
           </td>
-          <td data-label="總掉落數" class="col-right">${item.total.toLocaleString()}</td>
-          <td data-label="掉落機率" class="col-right ${rateClass}">${rateStr}</td>
-          <td data-label="平均擊殺" class="col-right" style="color:var(--text-sub); font-size:14px;">${avgKills}</td>
+          <td data-label="個人總數" class="col-right">${total.toLocaleString()}</td>
+          <td data-label="個人機率" class="col-right ${clsPlayer}">${pRateStr}</td>
+          <td data-label="全體機率" class="col-right" style="color:var(--text-sub)">${aRateStr}</td>
         </tr>
       `;
     }).join('');
