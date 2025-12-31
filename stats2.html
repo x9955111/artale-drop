@@ -48,149 +48,119 @@
       font-size: 18px;
       line-height: 1.6;
       transition: all 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
+      display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px;
     }
 
-    .container {
-      width: 100%;
-      max-width: 1280px;
-      background: var(--card-bg);
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-      padding: 40px;
-      border: 1px solid var(--border);
-      flex: 1;
-    }
+    .container { width: 100%; max-width: 1280px; background: var(--card-bg); border-radius: 24px; box-shadow: var(--shadow); padding: 40px; border: 1px solid var(--border); flex: 1; }
 
-    /* Header */
-    .header { 
-      display: flex; 
-      justify-content: space-between; 
-      align-items: center; 
-      margin-bottom: 30px;
-      gap: 15px; 
-    }
-    .brand { display: flex; align-items: center; gap: 15px; overflow: hidden; }
-    .logo-m {
-      width: 50px; height: 50px;
-      background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
-      border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      color: white; font-size: 30px; font-weight: 900;
-      box-shadow: 0 4px 10px rgba(249, 115, 22, 0.4);
-      flex-shrink: 0;
-    }
-    .header-text h1 { 
-      margin: 0; 
-      font-size: 30px; 
-      font-weight: 800;
-      white-space: nowrap;
-    }
-
-    .theme-btn {
-      padding: 10px 20px; border-radius: 99px; border: 1px solid var(--border);
-      background: var(--card-bg); color: var(--text-main); cursor: pointer;
-      font-weight: 600; font-size: 16px; flex-shrink: 0;
-    }
-
-    /* Navbar */
-    .nav-bar {
-      display: flex; gap: 12px; margin-bottom: 40px;
-      padding-bottom: 20px; border-bottom: 2px solid var(--border); flex-wrap: wrap;
-    }
-    .nav-btn {
-      padding: 12px 22px; border-radius: 12px; text-decoration: none;
-      background: var(--bg-color); color: var(--text-sub); font-weight: 600;
-      border: 1px solid var(--border); transition: 0.3s;
-    }
+    /* Header & Nav */
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; gap: 15px; }
+    .brand { display: flex; align-items: center; gap: 15px; }
+    .logo-m { width: 50px; height: 50px; background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: 900; box-shadow: 0 4px 10px rgba(249, 115, 22, 0.4); flex-shrink: 0; }
+    .header-text h1 { margin: 0; font-size: 30px; font-weight: 800; white-space: nowrap; }
+    .theme-btn { padding: 10px 20px; border-radius: 99px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-main); cursor: pointer; font-weight: 600; font-size: 16px; flex-shrink: 0; }
+    
+    .nav-bar { display: flex; gap: 12px; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 2px solid var(--border); flex-wrap: wrap; }
+    .nav-btn { padding: 12px 22px; border-radius: 12px; text-decoration: none; background: var(--bg-color); color: var(--text-sub); font-weight: 600; border: 1px solid var(--border); transition: 0.3s; }
     .nav-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
-    .nav-btn.active {
-      background: var(--accent); color: white; border-color: var(--accent);
-      box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
-    }
+    .nav-btn.active { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3); }
     .nav-btn.guide { border-color: #10b981; color: #059669; }
     .nav-btn.guide:hover { background: #10b981; color: white; }
 
-    /* Mobile Nav */
     .nav-mobile { display: none; margin-bottom: 30px; }
-    .nav-mobile select {
-      width: 100%; padding: 15px; border-radius: 12px;
-      border: 2px solid var(--accent); background: var(--card-bg);
-      color: var(--text-main); font-size: 17px; font-weight: 700;
-      cursor: pointer; appearance: none;
-      background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f97316' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: right 15px center; background-size: 18px;
-    }
+    .nav-mobile select { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid var(--accent); background: var(--card-bg); color: var(--text-main); font-size: 17px; font-weight: 700; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f97316' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; background-size: 18px; }
 
     /* Content Area */
     .section-title { font-size: 20px; font-weight: 700; color: var(--accent); margin: 30px 0 15px; display: flex; align-items: center; gap: 10px; }
     .section-title::before { content: ""; width: 5px; height: 22px; background: var(--accent); border-radius: 2px; }
 
-    select.form-control {
-      width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--border);
-      background: var(--input-bg); color: var(--text-main); font-size: 17px; margin-bottom: 20px;
-    }
-    select.form-control:focus { outline: none; border-color: var(--accent); background: var(--input-focus); }
+    select.form-control { width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--border); background: var(--input-bg); color: var(--text-main); font-size: 17px; margin-bottom: 20px; outline: none; }
+    select.form-control:focus { border-color: var(--accent); background: var(--input-focus); }
 
     /* Summary Dashboard */
-    .summary-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin-bottom: 30px;
+    .summary-wrapper {
+      display: flex; gap: 20px; align-items: center; margin-bottom: 30px; background: var(--bg-color);
+      border: 1px solid var(--border); border-radius: 16px; padding: 20px;
     }
-    .summary-card {
-      background: var(--bg-color);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 20px;
-      text-align: center;
+    .monster-img-large {
+      width: 100px; height: 100px; flex-shrink: 0;
+      background: var(--card-bg); border-radius: 12px; border: 2px solid var(--accent);
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
     }
-    .summary-label { font-size: 14px; color: var(--text-sub); margin-bottom: 5px; font-weight: 600; }
-    .summary-value { font-size: 24px; font-weight: 800; color: var(--accent); }
-    .summary-sub { font-size: 13px; color: var(--text-sub); margin-top: 5px; }
+    .monster-img-large img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+    .summary-info { flex: 1; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; text-align: center; }
+    .summary-item { display: flex; flex-direction: column; justify-content: center; }
+    .summary-label { font-size: 13px; color: var(--text-sub); font-weight: 600; margin-bottom: 5px; }
+    .summary-value { font-size: 24px; font-weight: 800; color: var(--text-main); }
+    .summary-sub { font-size: 13px; color: var(--accent); margin-top: 2px; }
+
+    /* Accordion Style */
+    .accordion-group { 
+      background: var(--card-bg); 
+      border: 1px solid var(--border); 
+      border-radius: 16px; 
+      margin-bottom: 20px; 
+      overflow: hidden; 
+      transition: all 0.3s ease; 
+    }
+    .accordion-header { 
+      padding: 18px 25px; 
+      background: rgba(0,0,0,0.02); 
+      cursor: pointer; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      border-bottom: 1px solid transparent; 
+      transition: background 0.2s;
+    }
+    .accordion-header:hover { background: rgba(0,0,0,0.04); }
+    .accordion-group.open .accordion-header { border-bottom-color: var(--border); }
+    
+    .accordion-title { 
+      font-size: 18px; font-weight: 700; color: var(--accent); 
+      display: flex; align-items: center; gap: 10px; margin: 0; 
+    }
+    .accordion-title::before { content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px; }
+    
+    .accordion-icon { font-size: 14px; color: var(--text-sub); transition: transform 0.3s ease; }
+    .accordion-group.open .accordion-icon { transform: rotate(180deg); }
+    
+    .accordion-content { 
+      display: none; 
+      padding: 0;
+      background: var(--card-bg); 
+    }
+    .accordion-group.open .accordion-content { 
+      display: block; 
+      animation: fadeIn 0.3s ease; 
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
     /* Stats Table */
-    .table-wrapper { margin-bottom: 0px; }
+    .table-wrapper { width: 100%; overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; background: var(--card-bg); min-width: 600px; }
     th {
       background: var(--table-head-bg); color: var(--text-main); font-weight: 700;
       padding: 15px; text-align: left; border-bottom: 2px solid var(--border);
     }
-    td { padding: 15px; border-bottom: 1px solid var(--border); color: var(--text-main); }
+    td { padding: 12px 15px; border-bottom: 1px solid var(--border); color: var(--text-main); vertical-align: middle; }
     tr:last-child td { border-bottom: none; }
     tr:nth-child(even) { background-color: var(--table-row-even); }
     
     .col-right { text-align: right; }
     .rate-high { color: var(--success); font-weight: 700; }
-    .rate-zero { color: var(--mute); }
+    .rate-zero { color: var(--mute); font-size: 14px; }
 
-    /* Details/Summary for Sections */
-    details {
-      border: 1px solid var(--border); border-radius: 16px;
-      overflow: hidden; background: var(--card-bg); margin-bottom: 20px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    /* 物品圖片與名稱組合 */
+    .item-cell { display: flex; align-items: center; gap: 12px; }
+    .item-icon { 
+      width: 36px; height: 36px; flex-shrink: 0; 
+      border-radius: 8px; border: 1px solid var(--border); 
+      background: var(--bg-color); display: flex; align-items: center; justify-content: center; overflow: hidden; 
     }
-    summary {
-      list-style: none; cursor: pointer; padding: 15px 20px;
-      background: var(--table-head-bg); font-weight: 700; color: var(--accent);
-      display: flex; align-items: center; justify-content: space-between;
-      font-size: 18px; transition: background 0.2s;
-    }
-    summary::-webkit-details-marker { display: none; }
-    summary:hover { background: var(--input-focus); }
-    
-    /* 箭頭動畫 */
-    summary::after {
-      content: "▼"; font-size: 14px; transition: transform 0.2s; color: var(--text-sub);
-    }
-    details[open] summary::after { transform: rotate(180deg); }
-
-    .details-body { padding: 0; }
+    .item-icon img { width: 100%; height: 100%; object-fit: contain; }
+    .item-name { font-weight: 600; font-size: 15px; }
 
     .hint {
       background: rgba(249, 115, 22, 0.1); color: var(--accent);
@@ -213,15 +183,15 @@
     @media (max-width: 768px) {
       body { padding: 10px; }
       .container { padding: 20px; border-radius: 16px; }
-      
       .header-text h1 { font-size: 20px; }
-      .header-text div { font-size: 12px !important; }
       .logo-m { width: 40px; height: 40px; font-size: 24px; }
-      .theme-btn { padding: 8px 15px; font-size: 14px; }
-
       .nav-bar { display: none; }
       .nav-mobile { display: block; }
       
+      .summary-wrapper { flex-direction: column; text-align: center; }
+      .monster-img-large { width: 80px; height: 80px; margin: 0 auto; }
+      .summary-info { width: 100%; grid-template-columns: 1fr 1fr; }
+
       .footer-links { width: 100%; justify-content: center; gap: 15px; }
       .copyright { width: 100%; text-align: center; font-size: 13px; }
 
@@ -249,10 +219,10 @@
         font-weight: 600; color: var(--text-sub); font-size: 14px; margin-right: auto;
       }
 
-      /* 手機版：第一個欄位(物品名稱)變成標題 */
+      /* 第1欄 (物品名稱) 特別樣式 */
       td:nth-of-type(1) {
         background: var(--bg-color); font-weight: 800; color: var(--accent);
-        justify-content: center; font-size: 16px; border-bottom: 2px solid var(--border);
+        justify-content: flex-start; font-size: 16px; border-bottom: 2px solid var(--border);
       }
       td:nth-of-type(1):before { display: none; }
     }
@@ -302,18 +272,23 @@
   <div id="loading-status" style="text-align:center; color:var(--text-sub); margin-bottom:20px; display:none;">讀取中...</div>
 
   <div id="summary-section" style="display:none;">
-    <div class="summary-grid">
-      <div class="summary-card">
-        <div class="summary-label">目標 BOSS</div>
-        <div class="summary-value" id="sum-boss">-</div>
+    <div class="summary-wrapper">
+      <div class="monster-img-large">
+        <img id="sum-boss-img" src="" alt="Boss" onerror="this.style.opacity=0">
       </div>
-      <div class="summary-card">
-        <div class="summary-label">總樣本擊殺數</div>
-        <div class="summary-value" id="sum-kills">0</div>
+      <div class="summary-info">
+        <div class="summary-item">
+          <div class="summary-label">目標 BOSS</div>
+          <div class="summary-value" id="sum-boss">-</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">總樣本擊殺數</div>
+          <div class="summary-value" id="sum-kills">0</div>
+        </div>
       </div>
     </div>
 
-    <div id="sections"></div>
+    <div id="tables-container"></div>
 
     <div class="hint">
       💡 掉落機率計算公式：總掉落數 ÷ 總擊殺數<br>
@@ -356,7 +331,11 @@
     });
   });
 
-  // Theme Logic
+  function toggleAccordion(element) {
+    if (event.target.tagName === 'INPUT') return;
+    element.classList.toggle('open');
+  }
+
   function initTheme() {
     const btn = document.getElementById('theme-toggle');
     const isNight = localStorage.getItem('theme') === 'dark';
@@ -368,7 +347,6 @@
     });
   }
 
-  // API Fetcher
   async function loadBossList() {
     const select = document.getElementById('boss-select');
     try {
@@ -391,20 +369,27 @@
 
     const loader = document.getElementById('loading-status');
     const content = document.getElementById('summary-section');
-    const sections = document.getElementById('sections');
+    const container = document.getElementById('tables-container');
     
     loader.style.display = 'block';
     content.style.display = 'none';
-    sections.innerHTML = '';
+    container.innerHTML = '';
 
     try {
-      const resp = await fetch(`${API_URL}?action=getBossStats&boss=${encodeURIComponent(bossName)}`);
-      const res = await resp.json();
+      // 平行請求：同時抓數據與圖片設定
+      const [statsResp, configResp] = await Promise.all([
+        fetch(`${API_URL}?action=getBossStats&boss=${encodeURIComponent(bossName)}`),
+        fetch(`${API_URL}?action=getBossConfig&boss=${encodeURIComponent(bossName)}`)
+      ]);
+
+      const statsRes = await statsResp.json();
+      const configRes = await configResp.json();
+      
       loader.style.display = 'none';
 
-      if (res.ok && res.data.hasData) {
+      if (statsRes.ok && statsRes.data.hasData) {
         content.style.display = 'block';
-        renderStats(res.data, bossName);
+        renderStats(statsRes.data, configRes.data || {}, bossName);
       } else {
         alert('目前尚無此 BOSS 的統計資料');
       }
@@ -414,70 +399,109 @@
     }
   }
 
-  function renderStats(data, bossName) {
+  function renderStats(data, config, bossName) {
     document.getElementById('sum-boss').innerText = data.boss || bossName;
     document.getElementById('sum-kills').innerText = data.totalKills.toLocaleString();
 
+    // 更新 BOSS 大頭貼
+    const imgEl = document.getElementById('sum-boss-img');
+    // BOSS圖片欄位可能為 bossImage 或 monsterImage，視後端而定
+    const bImg = config.bossImage || config.monsterImage;
+    if (bImg) {
+        imgEl.src = bImg;
+        imgEl.style.opacity = 1;
+    } else {
+        imgEl.style.opacity = 0;
+    }
+
     let html = '';
     
-    // 所有區塊預設展開
-    html += renderSection('裝備', data.equips, true);
-    html += renderSection('大獎', data.jackpots, true);
-    html += renderSection('卷軸', data.scrolls, true);
-    html += renderSection('其他', data.others, true);
+    // 渲染各分類，傳入對應的圖片陣列
+    // 所有區塊預設展開 (true)
+    html += renderSection('⚔️ 裝備', data.equips, config.equipImages, true);
+    html += renderSection('💎 大獎', data.jackpots, config.jackpotImages, true);
+    html += renderSection('📜 卷軸', data.scrolls, config.scrollImages, true);
+    html += renderSection('📦 其他', data.others, config.otherImages, true);
 
-    document.getElementById('sections').innerHTML = html;
+    document.getElementById('tables-container').innerHTML = html;
   }
 
-  function renderSection(title, list, openByDefault) {
-    const tbodyHtml = renderTableRows(list);
+  function renderSection(title, list, images, openByDefault) {
+    const tbodyHtml = renderTableRows(list, images);
     
     return `
-      <details ${openByDefault ? 'open' : ''}>
-        <summary>
-          <span>${title}</span>
-        </summary>
-        <div class="details-body">
-          <table>
-            <thead>
-              <tr>
-                <th>物品名稱</th>
-                <th class="col-right">總掉落數</th>
-                <th class="col-right">掉落機率</th>
-                <th class="col-right">平均擊殺</th>
-              </tr>
-            </thead>
-            <tbody>${tbodyHtml}</tbody>
-          </table>
+      <div class="accordion-group ${openByDefault ? 'open' : ''}" onclick="toggleAccordion(this)">
+        <div class="accordion-header">
+          <div class="accordion-title">${title}</div>
+          <div class="accordion-icon">▼</div>
         </div>
-      </details>
+        <div class="accordion-content">
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>物品名稱</th>
+                  <th class="col-right">總掉落數</th>
+                  <th class="col-right">掉落機率</th>
+                  <th class="col-right">平均擊殺</th>
+                </tr>
+              </thead>
+              <tbody>${tbodyHtml}</tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     `;
   }
 
-  function renderTableRows(list) {
+  function renderTableRows(list, images = []) {
     if (!list || list.length === 0) {
       return `<tr><td colspan="4" class="rate-zero" style="text-align:center;">無資料</td></tr>`;
     }
 
-    return list.map(item => {
+    // 過濾並生成 HTML
+    const rows = list.map((item, index) => {
+      // 自動隱藏：名稱為空或為"無"
+      const name = (item.name || '').trim();
+      if (!name || name === '無') return '';
+
       const rateStr = formatRate(item.rate);
       const rateClass = item.rate > 0 ? 'rate-high' : 'rate-zero';
-      // 計算平均擊殺 (1/機率)
       let avgKills = '-';
       if (item.rate > 0) {
         avgKills = '約 ' + Math.round(1 / item.rate).toLocaleString() + ' 隻';
       }
 
-      // 手機版卡片顯示屬性 data-label
+      // 取得圖片
+      const imgUrl = images[index] || '';
+      let imgHtml = '';
+      if (imgUrl) {
+        imgHtml = `<div class="item-icon"><img src="${imgUrl}" onerror="this.style.display='none'"></div>`;
+      } else {
+        imgHtml = `<div class="item-icon" style="opacity:0"></div>`;
+      }
+
       return `
         <tr>
-          <td data-label="物品名稱">${item.name || '--'}</td>
+          <td data-label="物品名稱">
+            <div class="item-cell">
+              ${imgHtml}
+              <span class="item-name">${name}</span>
+            </div>
+          </td>
           <td data-label="總掉落數" class="col-right">${item.total.toLocaleString()}</td>
           <td data-label="掉落機率" class="col-right ${rateClass}">${rateStr}</td>
           <td data-label="平均擊殺" class="col-right" style="color:var(--text-sub); font-size:14px;">${avgKills}</td>
         </tr>
       `;
     }).join('');
+
+    // 若全部都被隱藏，回傳無資料
+    if (rows === '') {
+      return `<tr><td colspan="4" class="rate-zero" style="text-align:center;">無此類物品資料</td></tr>`;
+    }
+
+    return rows;
   }
 
   function formatRate(rate) {
