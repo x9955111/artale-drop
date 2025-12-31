@@ -63,10 +63,16 @@
 
     .theme-btn { padding: 10px 20px; border-radius: 99px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-main); cursor: pointer; font-weight: 600; font-size: 16px; flex-shrink: 0; }
     
+    /* Nav */
     .nav-bar { display: flex; gap: 12px; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 2px solid var(--border); flex-wrap: wrap; }
     .nav-btn { padding: 12px 22px; border-radius: 12px; text-decoration: none; background: var(--bg-color); color: var(--text-sub); font-weight: 600; border: 1px solid var(--border); transition: 0.3s; }
     .nav-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
     .nav-btn.active { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3); }
+    .nav-btn.guide { border-color: #10b981; color: #059669; }
+    .nav-btn.guide:hover { background: #10b981; color: white; }
+
+    .nav-mobile { display: none; margin-bottom: 30px; }
+    .nav-mobile select { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid var(--accent); background: var(--card-bg); color: var(--text-main); font-size: 17px; font-weight: 700; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f97316' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; background-size: 18px; }
 
     .panel { border: 1px solid var(--border); padding: 25px; border-radius: 18px; background: rgba(0,0,0,0.01); margin-bottom: 25px; }
     input, select { width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--border); background: var(--input-bg); color: var(--text-main); font-size: 17px; }
@@ -110,21 +116,19 @@
     .item-img-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; }
     .item-info { flex: 1; min-width: 0; }
     
-    /* 修正：允許文字換行，防止名稱過長被切掉 */
     .item-label { font-size: 14px; font-weight: 700; margin-bottom: 4px; white-space: normal; line-height: 1.3; }
     
     .live-stat { font-size: 12px; color: var(--accent); font-weight: 600; margin-top: 4px; display: flex; justify-content: space-between; }
     
-    /* 修正：輸入框寬度控制 */
     .qty-group { display: flex; gap: 5px; width: 100%; }
     .qty-group input { 
       text-align: center; 
       font-weight: bold; 
       padding: 6px; 
       font-size: 14px; 
-      width: 0; /* 關鍵：解決 flex 子元素寬度溢出 */
+      width: 0; 
       min-width: 0;
-      flex: 1; /* 讓三個輸入框平均分配寬度 */
+      flex: 1; 
     }
 
     .accordion-group { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 20px; overflow: hidden; }
@@ -154,6 +158,8 @@
     @media (max-width: 768px) {
       .container { padding: 20px; border-radius: 0; }
       .header-text h1 { font-size: 22px; }
+      .nav-bar { display: none; }
+      .nav-mobile { display: block; }
       .drop-grid { grid-template-columns: 1fr; }
       footer { justify-content: center; text-align: center; }
       .footer-links { width: 100%; justify-content: center; gap: 15px; }
@@ -179,11 +185,25 @@
 
   <nav class="nav-bar">
     <a href="index.html" class="nav-btn active">一般回報</a>
-    <a href="stats.html" class="nav-btn">全站統計</a>
-    <a href="playerStats.html" class="nav-btn">個人查詢</a>
+    <a href="stats.html" class="nav-btn">一般統計</a>
+    <a href="playerStats.html" class="nav-btn">個人統計</a>
     <a href="boss.html" class="nav-btn">BOSS回報</a>
     <a href="stats2.html" class="nav-btn">BOSS統計</a>
+    <a href="playerBossStats.html" class="nav-btn">BOSS個人統計</a>
+    <a href="https://forum.gamer.com.tw/C.php?bsn=79354&snA=8900&tnum=3&b" target="_blank" class="nav-btn guide">📘 使用說明</a>
   </nav>
+
+  <div class="nav-mobile">
+    <select onchange="if(this.value.includes('http')) { window.open(this.value, '_blank'); this.value='index.html'; } else { window.location.href=this.value; }">
+      <option value="index.html" selected>功能切換：一般回報</option>
+      <option value="stats.html">一般統計</option>
+      <option value="playerStats.html">個人統計</option>
+      <option value="boss.html">BOSS回報</option>
+      <option value="stats2.html">BOSS統計</option>
+      <option value="playerBossStats.html">BOSS個人統計</option>
+      <option value="https://forum.gamer.com.tw/C.php?bsn=79354&snA=8900&tnum=3&b">📘 使用說明 (外部連結)</option>
+    </select>
+  </div>
 
   <form id="dropForm">
     <div class="panel">
