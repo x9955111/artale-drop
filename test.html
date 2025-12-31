@@ -505,20 +505,23 @@
 
     let html = '';
     names.forEach((name, index) => {
-      // 略過空名稱，但為了保持 ID 對應，這裡我們依然會生成 DOM，
-      // 但如果名字是空的，可以選擇隱藏或顯示為 "未命名"
-      // 這裡選擇：如果名字為空則不渲染，但 ID 必須連續？
-      // ⚠️ 注意：submitBossDrop 邏輯是 loop 1 to Count。
-      // 如果我們跳過某個 index，ID 就會斷號，導致送出資料錯位。
-      // 所以：我們必須生成對應 ID，但如果沒名字，可以隱藏該區塊。
+      // 判定是否顯示：有名稱 且 名稱不為 "無"
+      const realName = (name && name.trim()) ? name.trim() : '';
+      const shouldShow = realName !== '' && realName !== '無';
       
-      const realName = (name && name.trim()) ? name : '';
-      const displayStyle = realName ? '' : 'display:none;';
+      // 如果要隱藏，我們就不生成 HTML 元素，保持介面乾淨。
+      // 但為了確保 ID 對應正確 (index+1)，我們只在 shouldShow 為 true 時生成 HTML。
+      // 注意：這意味著隱藏的欄位不會出現在 DOM 中，
+      // 但 handleSubmit 會嘗試抓取所有可能的 ID (例如 equip1...equip30)，
+      // getElementById 會回傳 null，邏輯會送出 0。這符合預期。
+
+      if (!shouldShow) return;
+
       const imgUrl = (images && images[index]) ? images[index] : '';
       const i = index + 1; // 1-based index for IDs
 
       html += `
-        <div class="item-input-box" style="${displayStyle}">
+        <div class="item-input-box">
           <div class="item-img-wrap">
             <img src="${imgUrl}" onerror="this.style.opacity=0">
           </div>
@@ -533,6 +536,11 @@
         </div>
       `;
     });
+    
+    if (html === '') {
+      html = '<div style="color:var(--text-sub); font-size:14px;">無此類物品</div>';
+    }
+    
     container.innerHTML = html;
   }
 
