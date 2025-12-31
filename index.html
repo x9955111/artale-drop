@@ -57,7 +57,6 @@
     
     .nav-bar { display: flex; gap: 12px; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 2px solid var(--border); flex-wrap: wrap; }
     .nav-btn { padding: 12px 22px; border-radius: 12px; text-decoration: none; background: var(--bg-color); color: var(--text-sub); font-weight: 600; border: 1px solid var(--border); transition: 0.3s; }
-    .nav-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
     .nav-btn.active { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3); }
 
     .nav-mobile { display: none; margin-bottom: 30px; }
@@ -67,11 +66,28 @@
     input, select { width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--border); background: var(--input-bg); color: var(--text-main); font-size: 17px; }
     input:focus { outline: none; border-color: var(--accent); background: var(--input-focus); }
 
-    .item-input-box { background: var(--card-bg); padding: 18px; border-radius: 15px; border: 1px solid var(--border); position: relative; }
-    .item-label { font-size: 15px; font-weight: 700; margin-bottom: 10px; }
-    .live-stat { font-size: 13px; color: var(--accent); font-weight: 600; margin-top: 8px; display: flex; justify-content: space-between; }
-    .qty-group { display: flex; gap: 8px; }
-    .qty-group input { text-align: center; font-weight: bold; }
+    /* 怪物圖片框樣式 */
+    .monster-img-frame {
+      width: 100%; height: 160px;
+      background: rgba(0,0,0,0.02);
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      margin-bottom: 15px; border: 1px solid var(--border); overflow: hidden;
+    }
+    .monster-img-frame img { max-width: 85%; max-height: 85%; object-fit: contain; }
+
+    /* 物品輸入框樣式優化 (橫向排列) */
+    .item-input-box { 
+      background: var(--card-bg); padding: 12px; border-radius: 10px; 
+      border: 1px solid var(--border); display: flex; align-items: center; gap: 10px;
+    }
+    .item-img-wrap { width: 40px; height: 40px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .item-img-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .item-info { flex: 1; min-width: 0; }
+    .item-label { font-size: 14px; font-weight: 700; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    
+    .live-stat { font-size: 12px; color: var(--accent); font-weight: 600; margin-top: 4px; display: flex; justify-content: space-between; }
+    .qty-group { display: flex; gap: 5px; }
+    .qty-group input { text-align: center; font-weight: bold; padding: 8px; font-size: 14px; }
 
     .accordion-group { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 20px; overflow: hidden; }
     .accordion-header { padding: 18px 25px; background: rgba(0,0,0,0.02); cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid transparent; }
@@ -101,6 +117,7 @@
       .nav-bar { display: none; }
       .nav-mobile { display: block; }
       .drop-grid { grid-template-columns: 1fr; }
+      .item-input-box { padding: 10px; }
     }
     .hidden { display: none; }
   </style>
@@ -157,6 +174,9 @@
 
     <div id="panels-wrapper">
       <div class="panel" id="panel-1">
+        <div class="monster-img-frame">
+          <img id="m1-img" src="" alt="請選擇怪物" onerror="this.style.opacity=0">
+        </div>
         <div class="accordion-title" style="margin-bottom:15px; color:var(--accent);">怪物 1：選擇對象</div>
         <select id="monster-select-1" required style="margin-bottom: 20px;"><option value="">連線中...</option></select>
         
@@ -166,14 +186,18 @@
                 <span>核心數據</span><span id="m1-kills-display">推算擊殺數：0</span>
              </div>
              <div class="item-input-box" style="border:1px solid var(--accent);">
-                <div class="item-label" id="label-tail-1" style="color:var(--accent);">主掉落物</div>
-                <div class="qty-group">
-                  <input type="number" id="m1-c4-init" placeholder="始"><input type="number" id="m1-c4-final" placeholder="終">
-                  <input type="number" id="m1-c4-delta" readonly placeholder="0" style="background:var(--bg-color)">
+                <div class="item-img-wrap"><img id="m1-tail-img" src=""></div>
+                <div class="item-info">
+                  <div class="item-label" id="label-tail-1" style="color:var(--accent);">主掉落物</div>
+                  <div class="qty-group">
+                    <input type="number" id="m1-c4-init" placeholder="始"><input type="number" id="m1-c4-final" placeholder="終">
+                    <input type="number" id="m1-c4-delta" readonly placeholder="0" style="background:var(--bg-color)">
+                  </div>
+                  <div class="live-stat"><span id="m1-tail-rate-text">預設掉落率：--</span><span id="m1-kills-text">擊殺數：0</span></div>
                 </div>
-                <div class="live-stat"><span id="m1-tail-rate-text">預設掉落率：--</span><span id="m1-kills-text">擊殺數：0</span></div>
              </div>
           </div>
+          
           <div class="accordion-group open" onclick="toggleAccordion(this)"><div class="accordion-header"><div class="accordion-title">📜 稀有卷軸</div><div class="accordion-icon">▼</div></div><div class="accordion-content"><div class="drop-grid" id="m1-grid-scrolls"></div></div></div>
           <div class="accordion-group open" onclick="toggleAccordion(this)"><div class="accordion-header"><div class="accordion-title">💎 稀有大獎</div><div class="accordion-icon">▼</div></div><div class="accordion-content"><div class="drop-grid" id="m1-grid-jackpots"></div></div></div>
           <div class="accordion-group open" onclick="toggleAccordion(this)"><div class="accordion-header"><div class="accordion-title">⚔️ 裝備掉落</div><div class="accordion-icon">▼</div></div><div class="accordion-content"><div class="drop-grid" id="m1-grid-equip"></div></div></div>
@@ -183,6 +207,9 @@
       </div>
 
       <div class="panel hidden" id="panel-2">
+        <div class="monster-img-frame">
+          <img id="m2-img" src="" alt="請選擇怪物" onerror="this.style.opacity=0">
+        </div>
         <div class="accordion-title" style="margin-bottom:15px; color:var(--accent);">怪物 2：選擇對象</div>
         <select id="monster-select-2" style="margin-bottom: 20px;"><option value="">請選擇怪物</option></select>
         
@@ -192,14 +219,18 @@
                 <span>核心數據</span><span id="m2-kills-display">推算擊殺數：0</span>
              </div>
              <div class="item-input-box" style="border:1px solid var(--accent);">
-                <div class="item-label" id="label-tail-2" style="color:var(--accent);">主掉落物</div>
-                <div class="qty-group">
-                  <input type="number" id="m2-c4-init" placeholder="始"><input type="number" id="m2-c4-final" placeholder="終">
-                  <input type="number" id="m2-c4-delta" readonly placeholder="0" style="background:var(--bg-color)">
+                <div class="item-img-wrap"><img id="m2-tail-img" src=""></div>
+                <div class="item-info">
+                  <div class="item-label" id="label-tail-2" style="color:var(--accent);">主掉落物</div>
+                  <div class="qty-group">
+                    <input type="number" id="m2-c4-init" placeholder="始"><input type="number" id="m2-c4-final" placeholder="終">
+                    <input type="number" id="m2-c4-delta" readonly placeholder="0" style="background:var(--bg-color)">
+                  </div>
+                  <div class="live-stat"><span id="m2-tail-rate-text">預設掉落率：--</span><span id="m2-kills-text">擊殺數：0</span></div>
                 </div>
-                <div class="live-stat"><span id="m2-tail-rate-text">預設掉落率：--</span><span id="m2-kills-text">擊殺數：0</span></div>
              </div>
           </div>
+          
           <div class="accordion-group open" onclick="toggleAccordion(this)"><div class="accordion-header"><div class="accordion-title">📜 稀有卷軸</div><div class="accordion-icon">▼</div></div><div class="accordion-content"><div class="drop-grid" id="m2-grid-scrolls"></div></div></div>
           <div class="accordion-group open" onclick="toggleAccordion(this)"><div class="accordion-header"><div class="accordion-title">💎 稀有大獎</div><div class="accordion-icon">▼</div></div><div class="accordion-content"><div class="drop-grid" id="m2-grid-jackpots"></div></div></div>
           <div class="accordion-group open" onclick="toggleAccordion(this)"><div class="accordion-header"><div class="accordion-title">⚔️ 裝備掉落</div><div class="accordion-icon">▼</div></div><div class="accordion-content"><div class="drop-grid" id="m2-grid-equip"></div></div></div>
@@ -265,6 +296,12 @@
       const res = await resp.json();
       if (res.ok) {
         monsterConfigs[slot] = res.data;
+        // 更新怪物主圖片
+        const monsterImg = document.getElementById(`m${slot}-img`);
+        if(res.data.monsterImage) {
+            monsterImg.src = res.data.monsterImage;
+            monsterImg.style.opacity = 1;
+        }
         renderFields(slot, res.data);
         updateKillCalculation(slot);
       }
@@ -274,21 +311,34 @@
   function renderFields(slot, config) {
     const p = `m${slot}`;
     document.getElementById(`label-tail-${slot}`).innerText = config.tail;
+    document.getElementById(`${p}-tail-img`).src = config.tailImage || '';
     document.getElementById(`${p}-tail-rate-text`).innerText = `預設掉落率：${(config.tailRate * 100).toFixed(1)}%`;
 
-    const createInput = (name, colIndex) => {
+    const createInput = (name, img, colIndex) => {
       if (!name || name.trim() === "") return "";
-      return `<div class="item-input-box"><div class="item-label">${name}</div><div class="qty-group"><input type="number" id="${p}-c${colIndex}-init" placeholder="始"><input type="number" id="${p}-c${colIndex}-final" placeholder="終"><input type="number" id="${p}-c${colIndex}-delta" readonly placeholder="0"></div><div class="live-stat" id="stat-${p}-c${colIndex}">掉落率：--</div></div>`;
+      return `
+        <div class="item-input-box">
+          <div class="item-img-wrap"><img src="${img}" onerror="this.style.opacity=0"></div>
+          <div class="item-info">
+            <div class="item-label">${name}</div>
+            <div class="qty-group">
+              <input type="number" id="${p}-c${colIndex}-init" placeholder="始">
+              <input type="number" id="${p}-c${colIndex}-final" placeholder="終">
+              <input type="number" id="${p}-c${colIndex}-delta" readonly placeholder="0">
+            </div>
+            <div class="live-stat" id="stat-${p}-c${colIndex}">掉落率：--</div>
+          </div>
+        </div>`;
     };
 
     const noData = '<div style="color:var(--text-sub); font-size:14px;">無此類物品</div>';
     const safeSetHTML = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
 
-    safeSetHTML(`${p}-grid-scrolls`, config.scrolls.map((n, i) => createInput(n, 5 + i)).join('') || noData);
-    safeSetHTML(`${p}-grid-jackpots`, config.jackpots.map((n, i) => createInput(n, 10 + i)).join('') || noData);
-    safeSetHTML(`${p}-grid-equip`, config.equips.map((n, i) => createInput(n, 13 + i)).join('') || noData);
-    safeSetHTML(`${p}-grid-ores`, config.ores.map((n, i) => createInput(n, 36 + i)).join('') || noData);
-    safeSetHTML(`${p}-grid-others`, config.others.map((n, i) => createInput(n, 43 + i)).join('') || noData);
+    safeSetHTML(`${p}-grid-scrolls`, config.scrolls.map((n, i) => createInput(n, config.scrollImages[i], 5 + i)).join('') || noData);
+    safeSetHTML(`${p}-grid-jackpots`, config.jackpots.map((n, i) => createInput(n, config.jackpotImages[i], 10 + i)).join('') || noData);
+    safeSetHTML(`${p}-grid-equip`, config.equips.map((n, i) => createInput(n, config.equipImages[i], 13 + i)).join('') || noData);
+    safeSetHTML(`${p}-grid-ores`, config.ores.map((n, i) => createInput(n, config.oreImages[i], 36 + i)).join('') || noData);
+    safeSetHTML(`${p}-grid-others`, config.others.map((n, i) => createInput(n, config.otherImages[i], 43 + i)).join('') || noData);
   }
 
   function setupEventListeners() {
