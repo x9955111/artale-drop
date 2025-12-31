@@ -6,14 +6,6 @@
   
   <title>Artale 掉寶統計站 - 首頁</title>
   <meta name="description" content="Artale 楓之谷掉寶統計站。全網唯一的真實數據平台，提供怪物掉寶率查詢、BOSS 戰利品統計、個人運氣分析，助您掌握打寶效率。">
-  <meta name="keywords" content="Artale, 楓之谷, 掉寶率, 掉寶統計, 掉寶查詢, Artale攻略, 楓之谷私服, 掉寶回報, BOSS掉落">
-  <meta name="author" content="Artale 掉寶統計站">
-
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Artale 掉寶統計站">
-  <meta property="og:url" content="https://artale-drop.com/">
-  <meta property="og:title" content="Artale 掉寶統計站 - 數據驅動的攻略平台">
-  <meta property="og:description" content="查詢 Artale 楓之谷真實掉寶率，比較個人與全服數據，不再憑感覺打寶。">
   
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4011206268996883"
      crossorigin="anonymous"></script>
@@ -70,7 +62,7 @@
       flex: 1;
     }
 
-    /* Header */
+    /* Header & Nav (保持原樣) */
     .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; gap: 15px; }
     .brand { display: flex; align-items: center; gap: 15px; overflow: hidden; }
     .logo-m {
@@ -83,130 +75,72 @@
       flex-shrink: 0;
     }
     .header-text h1 { margin: 0; font-size: 30px; font-weight: 800; white-space: nowrap; }
-
-    .theme-btn {
-      padding: 10px 20px; border-radius: 99px; border: 1px solid var(--border);
-      background: var(--card-bg); color: var(--text-main); cursor: pointer;
-      font-weight: 600; font-size: 16px; flex-shrink: 0;
-    }
-
-    /* Navigation */
-    .nav-bar {
-      display: flex; gap: 12px; margin-bottom: 40px;
-      padding-bottom: 20px; border-bottom: 2px solid var(--border); flex-wrap: wrap;
-    }
-    .nav-btn {
-      padding: 12px 22px; border-radius: 12px; text-decoration: none;
-      background: var(--bg-color); color: var(--text-sub); font-weight: 600;
-      border: 1px solid var(--border); transition: 0.3s;
-    }
+    .theme-btn { padding: 10px 20px; border-radius: 99px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-main); cursor: pointer; font-weight: 600; font-size: 16px; flex-shrink: 0; }
+    .nav-bar { display: flex; gap: 12px; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 2px solid var(--border); flex-wrap: wrap; }
+    .nav-btn { padding: 12px 22px; border-radius: 12px; text-decoration: none; background: var(--bg-color); color: var(--text-sub); font-weight: 600; border: 1px solid var(--border); transition: 0.3s; }
     .nav-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
-    .nav-btn.active {
-      background: var(--accent); color: white; border-color: var(--accent);
-      box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
-    }
+    .nav-btn.active { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3); }
     .nav-btn.guide { border-color: #10b981; color: #059669; }
     .nav-btn.guide:hover { background: #10b981; color: white; }
-
     .nav-mobile { display: none; margin-bottom: 30px; }
-    .nav-mobile select {
-      width: 100%; padding: 15px; border-radius: 12px;
-      border: 2px solid var(--accent); background: var(--card-bg);
-      color: var(--text-main); font-size: 17px; font-weight: 700;
-      cursor: pointer; appearance: none;
-      background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f97316' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: right 15px center; background-size: 18px;
-    }
+    .nav-mobile select { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid var(--accent); background: var(--card-bg); color: var(--text-main); font-size: 17px; font-weight: 700; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f97316' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; background-size: 18px; }
 
     /* 基本樣式 */
     .panel { border: 1px solid var(--border); padding: 25px; border-radius: 18px; background: rgba(0,0,0,0.01); margin-bottom: 25px; }
-    
-    input, select {
-      width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--border);
-      background: var(--input-bg); color: var(--text-main); font-size: 17px;
-    }
+    input, select { width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--border); background: var(--input-bg); color: var(--text-main); font-size: 17px; }
     input:focus { outline: none; border-color: var(--accent); background: var(--input-focus); }
 
-    .item-input-box { background: var(--card-bg); padding: 18px; border-radius: 15px; border: 1px solid var(--border); position: relative; }
-    .item-label { font-size: 15px; font-weight: 700; margin-bottom: 10px; }
-    .live-stat {
-      font-size: 13px; color: var(--accent); font-weight: 600; margin-top: 8px;
-      display: flex; justify-content: space-between;
+    /* 物品輸入框樣式優化 (含圖片) */
+    .item-input-box { background: var(--card-bg); padding: 18px; border-radius: 15px; border: 1px solid var(--border); position: relative; display: flex; flex-direction: column; align-items: center; }
+    
+    /* 物品圖片容器 */
+    .item-img-wrapper {
+        width: 48px; height: 48px; margin-bottom: 8px;
+        display: flex; align-items: center; justify-content: center;
+        border-radius: 8px; background: var(--bg-color); border: 1px solid var(--border);
     }
-    .qty-group { display: flex; gap: 8px; }
-    .qty-group input { text-align: center; font-weight: bold; }
+    .item-img-wrapper img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    
+    .item-label { font-size: 15px; font-weight: 700; margin-bottom: 10px; text-align: center; min-height: 24px; display: flex; align-items: center; justify-content: center; }
+    .live-stat { font-size: 13px; color: var(--accent); font-weight: 600; margin-top: 8px; display: flex; justify-content: space-between; width: 100%; }
+    .qty-group { display: flex; gap: 8px; width: 100%; }
+    .qty-group input { text-align: center; font-weight: bold; width: 100%; }
 
-    .btn-submit {
-      width: 100%; padding: 20px; border: none; border-radius: 15px;
-      background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
-      color: white; font-size: 22px; font-weight: 800; cursor: pointer;
-      margin-top: 20px; transition: 0.3s;
+    /* 怪物選擇與圖片 */
+    .monster-select-wrapper { display: flex; gap: 15px; align-items: center; margin-bottom: 20px; }
+    .monster-img-preview {
+        width: 60px; height: 60px; flex-shrink: 0;
+        border-radius: 12px; border: 2px solid var(--accent);
+        background: var(--bg-color); display: flex; align-items: center; justify-content: center; overflow: hidden;
     }
+    .monster-img-preview img { width: 100%; height: 100%; object-fit: cover; }
+
+    .btn-submit { width: 100%; padding: 20px; border: none; border-radius: 15px; background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); color: white; font-size: 22px; font-weight: 800; cursor: pointer; margin-top: 20px; transition: 0.3s; }
     .btn-submit:hover { transform: scale(1.01); box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4); }
     .btn-submit:disabled { filter: grayscale(1); cursor: not-allowed; }
 
-    /* 收合選單 (Accordion) */
-    .accordion-group {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      margin-bottom: 20px;
-      overflow: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .accordion-header {
-      padding: 18px 25px;
-      background: rgba(0,0,0,0.02);
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      user-select: none;
-      border-bottom: 1px solid transparent;
-      transition: background 0.2s;
-    }
-    
+    /* Accordion */
+    .accordion-group { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 20px; overflow: hidden; transition: all 0.3s ease; }
+    .accordion-header { padding: 18px 25px; background: rgba(0,0,0,0.02); cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; border-bottom: 1px solid transparent; transition: background 0.2s; }
     .accordion-header:hover { background: rgba(0,0,0,0.04); }
     .accordion-group.open .accordion-header { border-bottom-color: var(--border); }
-
-    .accordion-title {
-      font-size: 18px; font-weight: 700; color: var(--accent);
-      display: flex; align-items: center; gap: 10px;
-    }
-    .accordion-title::before {
-      content: ""; width: 4px; height: 18px; 
-      background: var(--accent); border-radius: 2px;
-    }
-
+    .accordion-title { font-size: 18px; font-weight: 700; color: var(--accent); display: flex; align-items: center; gap: 10px; }
+    .accordion-title::before { content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px; }
     .accordion-icon { font-size: 14px; color: var(--text-sub); transition: transform 0.3s ease; }
     .accordion-group.open .accordion-icon { transform: rotate(180deg); }
-
-    .accordion-content {
-      display: none; padding: 20px; background: var(--card-bg);
-    }
-    .accordion-group.open .accordion-content {
-      display: block; animation: fadeIn 0.3s ease;
-    }
+    .accordion-content { display: none; padding: 20px; background: var(--card-bg); }
+    .accordion-group.open .accordion-content { display: block; animation: fadeIn 0.3s ease; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* 預設格狀排列 (電腦版: 一排多個) */
     .drop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 15px; }
-
-    /* Footer */
-    footer {
-      width: 100%; max-width: 1280px; margin-top: 40px; padding: 30px 0;
-      border-top: 1px solid var(--border); display: flex;
-      justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
-    }
+    footer { width: 100%; max-width: 1280px; margin-top: 40px; padding: 30px 0; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
     .footer-links { display: flex; gap: 25px; }
     .footer-links a { text-decoration: none; color: var(--text-sub); font-size: 15px; font-weight: 500; }
     .footer-links a:hover { color: var(--accent); }
     .copyright { font-size: 15px; color: var(--text-sub); }
-
     .hidden { display: none; }
 
-    /* Mobile 優化 (手機版樣式) */
+    /* Mobile */
     @media (max-width: 768px) {
       body { padding: 10px; }
       .container { padding: 20px; border-radius: 16px; }
@@ -219,13 +153,18 @@
       .panel { padding: 15px; }
       .footer-links { width: 100%; justify-content: center; gap: 15px; }
       .copyright { width: 100%; text-align: center; font-size: 13px; }
-      
       .accordion-header { padding: 15px; }
       .accordion-content { padding: 15px; }
       .accordion-title { font-size: 16px; }
-      
-      /* ✨ 這裡改成了 1fr，確保手機上一排只顯示一個輸入框 ✨ */
+      /* Mobile Grid */
       .drop-grid { grid-template-columns: 1fr; }
+      
+      .item-input-box { flex-direction: row; align-items: center; gap: 15px; padding: 12px; }
+      .item-img-wrapper { margin-bottom: 0; width: 40px; height: 40px; flex-shrink: 0; }
+      .item-label { margin-bottom: 0; text-align: left; justify-content: flex-start; flex: 1; }
+      .qty-group { width: auto; gap: 5px; }
+      .qty-group input { width: 50px; padding: 8px; font-size: 14px; }
+      .live-stat { display: none; } /* 手機版空間不足隱藏即時機率，讓畫面簡潔 */
     }
   </style>
 </head>
@@ -287,9 +226,15 @@
           <div style="width:5px; height:22px; background:var(--accent); border-radius:2px;"></div>
           怪物 1：選擇對象
         </div>
-        <select id="monster-select-1" required style="margin-bottom: 20px;">
-          <option value="">正在連線伺服器...</option>
-        </select>
+        
+        <div class="monster-select-wrapper">
+            <div class="monster-img-preview">
+                <img id="m1-img" src="" alt="Monster" style="display:none;">
+            </div>
+            <select id="monster-select-1" required style="width: 100%;">
+              <option value="">正在連線伺服器...</option>
+            </select>
+        </div>
         
         <div id="content-1" class="hidden">
           <div style="margin-bottom: 25px; padding: 15px; background: var(--bg-color); border-radius: 12px; border: 1px solid var(--border);">
@@ -297,7 +242,11 @@
                 <span>核心數據</span>
                 <span id="m1-kills-display">推算擊殺數：0</span>
              </div>
+             
              <div class="item-input-box" style="border:1px solid var(--accent);">
+                <div class="item-img-wrapper">
+                    <img id="m1-tail-img" src="" alt="Icon" style="display:none;">
+                </div>
                 <div class="item-label" id="label-tail-1" style="color:var(--accent);">主掉落物</div>
                 <div class="qty-group">
                   <input type="number" id="m1-c4-init" placeholder="始">
@@ -368,9 +317,15 @@
           <div style="width:5px; height:22px; background:var(--accent); border-radius:2px;"></div>
           怪物 2：選擇對象
         </div>
-        <select id="monster-select-2" style="margin-bottom: 20px;">
-          <option value="">請選擇怪物</option>
-        </select>
+        
+        <div class="monster-select-wrapper">
+            <div class="monster-img-preview">
+                <img id="m2-img" src="" alt="Monster" style="display:none;">
+            </div>
+            <select id="monster-select-2" style="width: 100%;">
+              <option value="">請選擇怪物</option>
+            </select>
+        </div>
         
         <div id="content-2" class="hidden">
            <div style="margin-bottom: 25px; padding: 15px; background: var(--bg-color); border-radius: 12px; border: 1px solid var(--border);">
@@ -378,7 +333,11 @@
                 <span>核心數據</span>
                 <span id="m2-kills-display">推算擊殺數：0</span>
              </div>
+             
              <div class="item-input-box" style="border:1px solid var(--accent);">
+                <div class="item-img-wrapper">
+                    <img id="m2-tail-img" src="" alt="Icon" style="display:none;">
+                </div>
                 <div class="item-label" id="label-tail-2" style="color:var(--accent);">主掉落物</div>
                 <div class="qty-group">
                   <input type="number" id="m2-c4-init" placeholder="始">
@@ -524,24 +483,54 @@
         monsterConfigs[slot] = res.data;
         renderFields(slot, res.data);
         updateKillCalculation(slot);
+        
+        // 更新怪物圖片 (A2 欄位)
+        const monsterImgEl = document.getElementById(`m${slot}-img`);
+        if (res.data.monsterImage) {
+            monsterImgEl.src = res.data.monsterImage;
+            monsterImgEl.style.display = 'block';
+        } else {
+            monsterImgEl.style.display = 'none';
+        }
       }
     } catch (e) { console.error(e); }
   }
 
   function renderFields(slot, config) {
     const p = `m${slot}`;
-    // 安全檢查：確保元素存在
+    
+    // 主掉落物 (Tail)
     const tailLabel = document.getElementById(`label-tail-${slot}`);
     if(tailLabel) tailLabel.innerText = config.tail;
     
+    // 主掉落物圖片
+    const tailImg = document.getElementById(`${p}-tail-img`);
+    if(config.tailImage) {
+        tailImg.src = config.tailImage;
+        tailImg.style.display = 'block';
+    } else {
+        tailImg.style.display = 'none';
+    }
+
     const ratePercent = (config.tailRate * 100).toFixed(1) + '%';
     const rateText = document.getElementById(`${p}-tail-rate-text`);
     if(rateText) rateText.innerText = `預設掉落率：${ratePercent}`;
 
-    const createInput = (name, colIndex) => {
+    // 建立輸入框的 Helper Function (支援圖片)
+    const createInput = (name, imgUrl, colIndex) => {
       if (!name || name.trim() === "") return "";
+      
+      let imgHtml = "";
+      if (imgUrl && imgUrl.trim() !== "") {
+          imgHtml = `<div class="item-img-wrapper"><img src="${imgUrl}" onerror="this.style.display='none'"></div>`;
+      } else {
+          // 佔位，保持排版一致 (可選)
+          imgHtml = `<div class="item-img-wrapper" style="opacity:0;"></div>`;
+      }
+
       return `
         <div class="item-input-box">
+          ${imgHtml}
           <div class="item-label">${name}</div>
           <div class="qty-group">
             <input type="number" id="${p}-c${colIndex}-init" placeholder="始">
@@ -553,31 +542,29 @@
     };
 
     const noData = '<div style="color:var(--text-sub); font-size:14px; padding:10px 0;">無此類物品</div>';
+    const safeSetHTML = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
 
-    // 輔助函式：安全寫入 HTML
-    const safeSetHTML = (id, html) => {
-        const el = document.getElementById(id);
-        if (el) el.innerHTML = html;
-    };
+    // 取得圖片陣列 (如果後端沒回傳陣列，給空陣列避免錯誤)
+    const sImgs = config.scrollImages || [];
+    const jImgs = config.jackpotImages || [];
+    const eImgs = config.equipImages || [];
+    const oImgs = config.oreImages || [];
+    const otImgs = config.otherImages || [];
 
-    // 1. 卷軸
-    const scrollsHtml = config.scrolls.map((n, i) => createInput(n, 5 + i)).join('');
+    // 渲染各區塊 (傳入圖片參數)
+    const scrollsHtml = config.scrolls.map((n, i) => createInput(n, sImgs[i], 5 + i)).join('');
     safeSetHTML(`${p}-grid-scrolls`, scrollsHtml || noData);
 
-    // 2. 大獎
-    const jackpotsHtml = config.jackpots.map((n, i) => createInput(n, 10 + i)).join('');
+    const jackpotsHtml = config.jackpots.map((n, i) => createInput(n, jImgs[i], 10 + i)).join('');
     safeSetHTML(`${p}-grid-jackpots`, jackpotsHtml || noData);
     
-    // 3. 裝備
-    const equipHtml = config.equips.map((n, i) => createInput(n, 13 + i)).join('');
+    const equipHtml = config.equips.map((n, i) => createInput(n, eImgs[i], 13 + i)).join('');
     safeSetHTML(`${p}-grid-equip`, equipHtml || noData);
     
-    // 4. 礦石
-    const oresHtml = config.ores.map((n, i) => createInput(n, 36 + i)).join('');
+    const oresHtml = config.ores.map((n, i) => createInput(n, oImgs[i], 36 + i)).join('');
     safeSetHTML(`${p}-grid-ores`, oresHtml || noData);
 
-    // 5. 其他
-    const othersHtml = config.others.map((n, i) => createInput(n, 43 + i)).join('');
+    const othersHtml = config.others.map((n, i) => createInput(n, otImgs[i], 43 + i)).join('');
     safeSetHTML(`${p}-grid-others`, othersHtml || noData);
   }
 
