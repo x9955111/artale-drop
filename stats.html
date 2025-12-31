@@ -99,7 +99,7 @@
     .summary-value { font-size: 22px; font-weight: 800; color: var(--text-main); }
     .summary-sub { font-size: 13px; color: var(--accent); margin-top: 2px; }
 
-    /* --- 手風琴樣式 (移植自首頁) --- */
+    /* --- 手風琴樣式 --- */
     .accordion-group { 
       background: var(--card-bg); 
       border: 1px solid var(--border); 
@@ -132,7 +132,7 @@
     
     .accordion-content { 
       display: none; 
-      padding: 0; /* 表格本身有 padding，這裡設為 0 */
+      padding: 0;
       background: var(--card-bg); 
     }
     .accordion-group.open .accordion-content { 
@@ -520,8 +520,10 @@
       return;
     }
 
-    tbody.innerHTML = list.map((item, index) => {
-      if (!item.name) return '';
+    const rows = list.map((item, index) => {
+      // ✨ 自動隱藏：名稱為空白或"無"
+      const name = (item.name || '').trim();
+      if (!name || name === '無') return '';
 
       const rateStr = formatRate(item.rate);
       const rateClass = item.rate > 0 ? 'rate-high' : 'rate-zero';
@@ -544,7 +546,7 @@
           <td data-label="物品名稱">
             <div class="item-cell">
               ${imgHtml}
-              <span class="item-name">${item.name}</span>
+              <span class="item-name">${name}</span>
             </div>
           </td>
           <td data-label="總掉落數" class="col-right">${item.total.toLocaleString()}</td>
@@ -553,6 +555,13 @@
         </tr>
       `;
     }).join('');
+
+    // 若全部都被隱藏，回傳無資料
+    if (rows === '') {
+      tbody.innerHTML = `<tr><td colspan="4" class="rate-zero" style="text-align:center;">無相關資料</td></tr>`;
+    } else {
+      tbody.innerHTML = rows;
+    }
   }
 
   function formatRate(rate) {
