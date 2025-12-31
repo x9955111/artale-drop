@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4011206268996883"
+     crossorigin="anonymous"></script>
+  <title>ARTALE BOSS 掉寶回報</title>
   
-  <title>Artale 個人掉寶統計</title>
-  <meta name="description" content="查詢個人在 Artale 楓之谷的掉寶紀錄，並與全服平均機率進行比較。">
-  
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4011206268996883" crossorigin="anonymous"></script>
-
   <style>
+    /* =========================================
+       核心樣式 (與 index.html 完全同步)
+       ========================================= */
     :root {
       --bg-color: #f8fafc;
       --card-bg: #ffffff;
@@ -21,10 +22,6 @@
       --input-bg: #ffffff;
       --input-focus: #ffedd5;
       --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      --table-head-bg: #fff7ed;
-      --table-row-even: #fcfcfc;
-      --success: #16a34a;
-      --mute: #9ca3af;
     }
 
     body.night-mode {
@@ -37,10 +34,6 @@
       --border: #334155;
       --input-bg: #0f172a;
       --input-focus: #262626;
-      --table-head-bg: #334155;
-      --table-row-even: #1e293b;
-      --success: #4ade80;
-      --mute: #64748b;
     }
 
     body {
@@ -51,116 +44,235 @@
       font-size: 18px;
       line-height: 1.6;
       transition: all 0.3s ease;
-      display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
     }
 
-    .container { width: 100%; max-width: 1280px; background: var(--card-bg); border-radius: 24px; box-shadow: var(--shadow); padding: 40px; border: 1px solid var(--border); flex: 1; }
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      background: var(--card-bg);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 40px;
+      border: 1px solid var(--border);
+      flex: 1;
+    }
 
-    /* Header & Nav */
+    /* Header */
     .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; gap: 15px; }
-    .brand { display: flex; align-items: center; gap: 15px; }
-    .logo-m { width: 50px; height: 50px; background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: 900; box-shadow: 0 4px 10px rgba(249, 115, 22, 0.4); flex-shrink: 0; }
+    .brand { display: flex; align-items: center; gap: 15px; overflow: hidden; }
+    .logo-m {
+      width: 50px; height: 50px;
+      background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 30px; font-weight: 900;
+      box-shadow: 0 4px 10px rgba(249, 115, 22, 0.4);
+      flex-shrink: 0;
+    }
     .header-text h1 { margin: 0; font-size: 30px; font-weight: 800; white-space: nowrap; }
-    .theme-btn { padding: 10px 20px; border-radius: 99px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-main); cursor: pointer; font-weight: 600; font-size: 16px; flex-shrink: 0; }
-    
-    .nav-bar { display: flex; gap: 12px; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 2px solid var(--border); flex-wrap: wrap; }
-    .nav-btn { padding: 12px 22px; border-radius: 12px; text-decoration: none; background: var(--bg-color); color: var(--text-sub); font-weight: 600; border: 1px solid var(--border); transition: 0.3s; }
+
+    .theme-btn {
+      padding: 10px 20px; border-radius: 99px; border: 1px solid var(--border);
+      background: var(--card-bg); color: var(--text-main); cursor: pointer;
+      font-weight: 600; font-size: 16px; flex-shrink: 0;
+    }
+
+    /* Navbar */
+    .nav-bar {
+      display: flex; gap: 12px; margin-bottom: 40px;
+      padding-bottom: 20px; border-bottom: 2px solid var(--border); flex-wrap: wrap;
+    }
+    .nav-btn {
+      padding: 12px 22px; border-radius: 12px; text-decoration: none;
+      background: var(--bg-color); color: var(--text-sub); font-weight: 600;
+      border: 1px solid var(--border); transition: 0.3s;
+    }
     .nav-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
-    .nav-btn.active { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3); }
+    .nav-btn.active {
+      background: var(--accent); color: white; border-color: var(--accent);
+      box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+    }
     .nav-btn.guide { border-color: #10b981; color: #059669; }
     .nav-btn.guide:hover { background: #10b981; color: white; }
 
+    /* Mobile Nav */
     .nav-mobile { display: none; margin-bottom: 30px; }
-    .nav-mobile select { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid var(--accent); background: var(--card-bg); color: var(--text-main); font-size: 17px; font-weight: 700; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f97316' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; background-size: 18px; }
+    .nav-mobile select {
+      width: 100%; padding: 15px; border-radius: 12px;
+      border: 2px solid var(--accent); background: var(--card-bg);
+      color: var(--text-main); font-size: 17px; font-weight: 700;
+      cursor: pointer; appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f97316' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 15px center; background-size: 18px;
+    }
 
-    /* Form Area */
-    .section-title { font-size: 20px; font-weight: 700; color: var(--accent); margin: 30px 0 15px; display: flex; align-items: center; gap: 10px; }
-    .section-title::before { content: ""; width: 5px; height: 22px; background: var(--accent); border-radius: 2px; }
-
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr auto; gap: 20px; align-items: end; margin-bottom: 20px; }
+    .panel { border: 1px solid var(--border); padding: 25px; border-radius: 18px; background: rgba(0,0,0,0.01); margin-bottom: 25px; }
+    
+    /* Form Styles */
     label { display: block; font-size: 15px; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
-    input, select { width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--border); background: var(--input-bg); color: var(--text-main); font-size: 17px; box-sizing: border-box; }
+    
+    input, select {
+      width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--border);
+      background: var(--input-bg); color: var(--text-main); font-size: 17px; box-sizing: border-box;
+    }
     input:focus, select:focus { outline: none; border-color: var(--accent); background: var(--input-focus); }
 
-    .btn-search { padding: 14px 30px; border: none; border-radius: 12px; background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); color: white; font-size: 18px; font-weight: 800; cursor: pointer; transition: 0.3s; height: 54px; }
-    .btn-search:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4); }
-
-    /* Summary Dashboard (同步 stats.html 風格) */
-    .summary-wrapper { display: flex; gap: 20px; align-items: center; margin-bottom: 30px; background: var(--bg-color); border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
-    .monster-img-large { width: 100px; height: 100px; flex-shrink: 0; background: var(--card-bg); border-radius: 12px; border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; overflow: hidden; }
-    .monster-img-large img { max-width: 100%; max-height: 100%; object-fit: contain; }
-
-    .summary-info { flex: 1; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; text-align: center; }
-    .summary-item { display: flex; flex-direction: column; justify-content: center; }
-    .summary-label { font-size: 13px; color: var(--text-sub); font-weight: 600; margin-bottom: 5px; }
-    .summary-value { font-size: 22px; font-weight: 800; color: var(--text-main); }
+    /* ----------------------------------
+       仿 Index.html 佈局設定
+       ---------------------------------- */
     
-    /* Accordion Style */
-    .accordion-group { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 20px; overflow: hidden; transition: all 0.3s ease; }
-    .accordion-header { padding: 18px 25px; background: rgba(0,0,0,0.02); cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid transparent; transition: background 0.2s; }
+    /* 第一排：輸入區 */
+    .input-row-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    /* 第二排：圖片與選單區 */
+    .monster-selection-wrapper {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 25px;
+      padding: 5px;
+    }
+
+    .monster-img-small {
+      width: 130px; height: 130px;
+      flex-shrink: 0;
+      background: rgba(0,0,0,0.03);
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      border: 2px solid var(--border);
+      overflow: hidden;
+      padding: 5px;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease;
+    }
+    .monster-img-small:hover { transform: scale(1.05); border-color: var(--accent); }
+    .monster-img-small img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+    .monster-info-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .accordion-title {
+      font-size: 20px; font-weight: 800; color: var(--accent);
+      display: flex; align-items: center; gap: 10px; margin: 0;
+    }
+    .accordion-title::before {
+      content: ""; width: 5px; height: 20px; 
+      background: var(--accent); border-radius: 3px;
+    }
+
+    /* =========================================
+       收合選單 (Accordion) UI
+       ========================================= */
+    .accordion-group {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .accordion-header {
+      padding: 18px 25px;
+      background: rgba(0,0,0,0.02);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+      border-bottom: 1px solid transparent;
+      transition: background 0.2s;
+    }
     .accordion-header:hover { background: rgba(0,0,0,0.04); }
     .accordion-group.open .accordion-header { border-bottom-color: var(--border); }
-    .accordion-title { font-size: 18px; font-weight: 700; color: var(--accent); display: flex; align-items: center; gap: 10px; margin: 0; }
-    .accordion-title::before { content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px; }
+
     .accordion-icon { font-size: 14px; color: var(--text-sub); transition: transform 0.3s ease; }
     .accordion-group.open .accordion-icon { transform: rotate(180deg); }
-    .accordion-content { display: none; padding: 0; background: var(--card-bg); }
-    .accordion-group.open .accordion-content { display: block; animation: fadeIn 0.3s ease; }
+
+    .accordion-content {
+      display: none; padding: 20px; background: var(--card-bg);
+    }
+    .accordion-group.open .accordion-content {
+      display: block; animation: fadeIn 0.3s ease;
+    }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* Table Style */
-    .table-wrapper { width: 100%; overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; background: var(--card-bg); }
-    th { background: var(--table-head-bg); color: var(--text-main); font-weight: 700; padding: 15px; text-align: left; border-bottom: 2px solid var(--border); }
-    td { padding: 12px 15px; border-bottom: 1px solid var(--border); color: var(--text-main); vertical-align: middle; }
-    tr:last-child td { border-bottom: none; }
-    tr:nth-child(even) { background-color: var(--table-row-even); }
+    /* 物品輸入卡片 */
+    .item-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 15px; }
     
-    .col-right { text-align: right; }
-    .rate-good { color: var(--success); font-weight: 700; }
-    .rate-zero { color: var(--mute); font-size: 14px; }
+    .item-card {
+      background: var(--card-bg); padding: 15px; border-radius: 15px; border: 1px solid var(--border);
+    }
+    .item-header { 
+      margin-bottom: 10px; font-weight: 700; font-size: 15px; 
+      color: var(--text-main); text-align: center;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .triple-inputs { display: flex; gap: 8px; }
+    .triple-inputs input { padding: 10px; text-align: center; font-size: 15px; font-weight: 600; min-width: 0; flex: 1; }
+    .input-delta { background: var(--bg-color); color: var(--accent); border-color: var(--border); }
 
-    /* Item Cell (Image + Name) */
-    .item-cell { display: flex; align-items: center; gap: 12px; }
-    .item-icon { width: 36px; height: 36px; flex-shrink: 0; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-color); display: flex; align-items: center; justify-content: center; overflow: hidden; }
-    .item-icon img { width: 100%; height: 100%; object-fit: contain; }
-    .item-name { font-weight: 600; font-size: 15px; }
+    /* Submit Button */
+    .btn-submit {
+      width: 100%; padding: 20px; border: none; border-radius: 15px;
+      background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
+      color: white; font-size: 22px; font-weight: 800; cursor: pointer;
+      margin-top: 30px; transition: 0.3s;
+    }
+    .btn-submit:hover { transform: scale(1.01); box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4); }
+    .btn-submit:disabled { filter: grayscale(1); cursor: not-allowed; }
 
-    footer { width: 100%; max-width: 1280px; margin-top: 40px; padding: 30px 0; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    /* Footer */
+    footer {
+      width: 100%; max-width: 1280px; margin-top: 40px; padding: 30px 0;
+      border-top: 1px solid var(--border); display: flex;
+      justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+    }
     .footer-links { display: flex; gap: 25px; }
     .footer-links a { text-decoration: none; color: var(--text-sub); font-size: 15px; font-weight: 500; }
     .footer-links a:hover { color: var(--accent); }
     .copyright { font-size: 15px; color: var(--text-sub); }
 
-    /* RWD */
+    /* Mobile RWD */
     @media (max-width: 768px) {
       body { padding: 10px; }
       .container { padding: 20px; border-radius: 16px; }
       .header-text h1 { font-size: 20px; }
+      .header-text div { font-size: 12px !important; }
       .logo-m { width: 40px; height: 40px; font-size: 24px; }
+      .theme-btn { padding: 8px 15px; font-size: 14px; }
       .nav-bar { display: none; }
       .nav-mobile { display: block; }
-      .form-grid { grid-template-columns: 1fr; gap: 15px; }
-      .btn-search { width: 100%; }
-      .summary-wrapper { flex-direction: column; text-align: center; }
-      .monster-img-large { width: 80px; height: 80px; margin: 0 auto; }
-      .summary-info { width: 100%; grid-template-columns: 1fr 1fr; }
       
-      footer { justify-content: center; text-align: center; }
+      .input-row-wrapper { grid-template-columns: 1fr; gap: 15px; }
+      
+      .monster-img-small { width: 100px; height: 100px; }
+      .monster-selection-wrapper { gap: 12px; }
+      
+      .accordion-header { padding: 15px; }
+      .accordion-content { padding: 15px; }
+      
+      .item-grid { grid-template-columns: 1fr; }
+      
       .footer-links { width: 100%; justify-content: center; gap: 15px; }
-
-      /* Card Table for Mobile */
-      table, thead, tbody, th, td, tr { display: block; }
-      thead tr { position: absolute; top: -9999px; left: -9999px; }
-      tr { border: 1px solid var(--border); border-radius: 12px; margin: 15px; background: var(--card-bg); box-shadow: 0 2px 5px rgba(0,0,0,0.02); padding: 0; overflow: hidden; }
-      td { border: none; border-bottom: 1px solid var(--border); position: relative; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; text-align: right; min-height: 24px; font-size: 15px; }
-      td:last-child { border-bottom: none; }
-      td:before { content: attr(data-label); font-weight: 600; color: var(--text-sub); font-size: 14px; margin-right: auto; }
-      
-      /* 第一欄 (物品名稱) 轉為標題樣式 */
-      td:first-child { background: var(--bg-color); border-bottom: 2px solid var(--border); display: block; text-align: left; }
-      td:first-child:before { display: none; }
+      .copyright { width: 100%; text-align: center; font-size: 13px; }
     }
+    
+    .hidden { display: none; }
   </style>
 </head>
 <body>
@@ -171,7 +283,7 @@
       <div class="logo-m">M</div>
       <div class="header-text">
         <h1>Artale 掉寶統計站</h1>
-        <div style="color:var(--text-sub); font-size: 15px; font-weight: 500;">個人掉落率 vs 全伺服器平均</div>
+        <div style="color:var(--text-sub); font-size: 15px; font-weight: 500;">BOSS 戰利品回報</div>
       </div>
     </div>
     <button class="theme-btn" id="theme-toggle">🌙 夜間模式</button>
@@ -180,72 +292,97 @@
   <nav class="nav-bar">
     <a href="index.html" class="nav-btn">一般回報</a>
     <a href="stats.html" class="nav-btn">一般統計</a>
-    <a href="playerStats.html" class="nav-btn active">個人統計</a>
-    <a href="boss.html" class="nav-btn">BOSS回報</a>
+    <a href="playerStats.html" class="nav-btn">個人統計</a>
+    <a href="boss.html" class="nav-btn active">BOSS回報</a>
     <a href="stats2.html" class="nav-btn">BOSS統計</a>
     <a href="playerBossStats.html" class="nav-btn">BOSS個人統計</a>
     <a href="https://forum.gamer.com.tw/C.php?bsn=79354&snA=8900&tnum=3&b" target="_blank" class="nav-btn guide">📘 使用說明</a>
   </nav>
 
   <div class="nav-mobile">
-    <select onchange="if(this.value.includes('http')) { window.open(this.value, '_blank'); this.value='playerStats.html'; } else { window.location.href=this.value; }">
+    <select onchange="if(this.value.includes('http')) { window.open(this.value, '_blank'); this.value='boss.html'; } else { window.location.href=this.value; }">
       <option value="index.html">一般回報</option>
       <option value="stats.html">一般統計</option>
-      <option value="playerStats.html" selected>功能切換：個人統計</option>
-      <option value="boss.html">BOSS回報</option>
+      <option value="playerStats.html">個人統計</option>
+      <option value="boss.html" selected>功能切換：BOSS回報</option>
       <option value="stats2.html">BOSS統計</option>
       <option value="playerBossStats.html">BOSS個人統計</option>
       <option value="https://forum.gamer.com.tw/C.php?bsn=79354&snA=8900&tnum=3&b">📘 使用說明 (外部連結)</option>
     </select>
   </div>
 
-  <div class="section-title">查詢條件</div>
-  <div class="form-grid">
-    <div>
-      <label>玩家角色 ID</label>
-      <input type="text" id="player-input" placeholder="例如：RainYu#A1b2C" required>
-    </div>
-    <div>
-      <label>選擇怪物</label>
-      <select id="monster-select">
-        <option value="">正在載入怪物清單...</option>
-      </select>
-    </div>
-    <button type="button" id="btn-search" class="btn-search">搜尋數據</button>
-  </div>
-
-  <div id="loading-status" style="text-align:center; color:var(--text-sub); margin: 30px 0; display:none;">
-    <div style="font-size:24px;">⏳</div>
-    <div>數據讀取中，請稍候...</div>
-  </div>
-
-  <div id="summary-section" style="display:none;">
-    <div class="summary-wrapper">
-      <div class="monster-img-large">
-        <img id="sum-monster-img" src="" alt="Monster" onerror="this.style.opacity=0">
-      </div>
-      <div class="summary-info">
-        <div class="summary-item">
-          <div class="summary-label">玩家</div>
-          <div class="summary-value" id="sum-player">-</div>
+  <form id="bossForm">
+    <div class="panel">
+      <div class="input-row-wrapper">
+        <div>
+          <label>玩家 ID (含 #12345)</label>
+          <input type="text" id="player-input" placeholder="例如：RainYu#A1b2C" required>
         </div>
-        <div class="summary-item">
-          <div class="summary-label">目標怪物</div>
-          <div class="summary-value" id="sum-monster">-</div>
-        </div>
-        <div class="summary-item">
-          <div class="summary-label">個人擊殺數</div>
-          <div class="summary-value" id="sum-kills-player">0</div>
-        </div>
-        <div class="summary-item">
-          <div class="summary-label">全體樣本數</div>
-          <div class="summary-value" id="sum-kills-all">0</div>
+        <div>
+          <label>本次擊殺數</label>
+          <input type="number" id="kills-input" min="1" placeholder="例：10" required>
         </div>
       </div>
     </div>
 
-    <div id="tables-container"></div>
-  </div>
+    <div class="panel">
+      <div class="monster-selection-wrapper">
+        <div class="monster-img-small">
+          <img id="boss-img" src="" alt="請選擇BOSS" onerror="this.style.opacity=0">
+        </div>
+        <div class="monster-info-col">
+          <div class="accordion-title">BOSS 選擇</div>
+          <select id="boss-select" required style="width: 100%;">
+            <option value="">讀取中...</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="content-area" class="hidden">
+        <div class="accordion-group open" onclick="toggleAccordion(this)">
+          <div class="accordion-header">
+            <div class="accordion-title">⚔️ 裝備 </div>
+            <div class="accordion-icon">▼</div>
+          </div>
+          <div class="accordion-content">
+            <div id="equip-container" class="item-grid"></div>
+          </div>
+        </div>
+
+        <div class="accordion-group open" onclick="toggleAccordion(this)">
+          <div class="accordion-header">
+            <div class="accordion-title">💎 大獎 </div>
+            <div class="accordion-icon">▼</div>
+          </div>
+          <div class="accordion-content">
+            <div id="jackpot-container" class="item-grid"></div>
+          </div>
+        </div>
+
+        <div class="accordion-group open" onclick="toggleAccordion(this)">
+          <div class="accordion-header">
+            <div class="accordion-title">📜 卷軸 </div>
+            <div class="accordion-icon">▼</div>
+          </div>
+          <div class="accordion-content">
+            <div id="scroll-container" class="item-grid"></div>
+          </div>
+        </div>
+
+        <div class="accordion-group open" onclick="toggleAccordion(this)">
+          <div class="accordion-header">
+            <div class="accordion-title">📦 其他 </div>
+            <div class="accordion-icon">▼</div>
+          </div>
+          <div class="accordion-content">
+            <div id="other-container" class="item-grid"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" id="submit-btn" class="btn-submit">送出 BOSS 回報</button>
+  </form>
 
   <footer>
     <div class="footer-links">
@@ -257,7 +394,7 @@
       
     <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin: 25px 0;">
       <div style="font-size: 15px; color: var(--text-sub); font-weight: 600; display: flex; align-items: center; gap: 6px;">
-        ☕ 贊助辛苦的站長一杯咖啡
+        ☕ 贊助辛苦的站長一杯咖啡👇
       </div>
       
       <a href="https://www.buymeacoffee.com/yuyujay" target="_blank" style="display: inline-block; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
@@ -275,14 +412,29 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     initTheme();
-    loadMonsterList();
-    document.getElementById('btn-search').addEventListener('click', doSearch);
+    loadBossList();
+    buildAllInputs();
+    
+    document.getElementById('boss-select').addEventListener('change', (e) => {
+      handleBossChange(e.target.value);
+    });
+
+    document.getElementById('bossForm').addEventListener('submit', handleSubmit);
+    
+    document.addEventListener('input', (e) => {
+      if(e.target.id.includes('-initial') || e.target.id.includes('-final')) {
+        updateAllDeltas();
+      }
+    });
   });
 
+  // 收合功能
   function toggleAccordion(element) {
+    if (event.target.tagName === 'INPUT') return;
     element.classList.toggle('open');
   }
 
+  // Theme Logic
   function initTheme() {
     const btn = document.getElementById('theme-toggle');
     const isNight = localStorage.getItem('theme') === 'dark';
@@ -294,13 +446,14 @@
     });
   }
 
-  async function loadMonsterList() {
-    const select = document.getElementById('monster-select');
+  // API Helper
+  async function loadBossList() {
+    const select = document.getElementById('boss-select');
     try {
-      const resp = await fetch(`${API_URL}?action=getMonsterList`);
+      const resp = await fetch(`${API_URL}?action=getBossList`);
       const res = await resp.json();
       if (res.ok) {
-        select.innerHTML = '<option value="">請選擇怪物</option>' + 
+        select.innerHTML = '<option value="">請選擇 BOSS</option>' + 
           res.data.map(m => `<option value="${m}">${m}</option>`).join('');
       } else {
         select.innerHTML = '<option value="">讀取失敗</option>';
@@ -308,191 +461,160 @@
     } catch (e) { console.error(e); }
   }
 
-  function validatePlayerId(pid) {
-    return pid && pid.includes('#');
-  }
-
-  async function doSearch() {
-    const player = document.getElementById('player-input').value.trim();
-    const monster = document.getElementById('monster-select').value;
-    const loader = document.getElementById('loading-status');
-    const content = document.getElementById('summary-section');
-    const container = document.getElementById('tables-container');
-
-    if (!player) return alert('請輸入角色 ID');
-    if (!validatePlayerId(player)) return alert('角色 ID 格式錯誤 (需包含 #)');
-    if (!monster) return alert('請選擇怪物');
-
-    loader.style.display = 'block';
-    content.style.display = 'none';
-    container.innerHTML = '';
+  async function handleBossChange(bossName) {
+    if (!bossName) {
+        document.getElementById('content-area').classList.add('hidden');
+        return;
+    }
+    document.getElementById('content-area').classList.remove('hidden');
 
     try {
-      // ✅ 同時抓取：個人數據、全體數據、怪物設定(圖片)
-      const [pRes, aRes, cRes] = await Promise.all([
-        fetch(`${API_URL}?action=getPlayerMonsterStats&player=${encodeURIComponent(player)}&monster=${encodeURIComponent(monster)}`).then(r => r.json()),
-        fetch(`${API_URL}?action=getMonsterStats&monster=${encodeURIComponent(monster)}`).then(r => r.json()),
-        fetch(`${API_URL}?action=getMonsterConfig&monster=${encodeURIComponent(monster)}`).then(r => r.json())
-      ]);
+      const resp = await fetch(`${API_URL}?action=getBossConfig&boss=${encodeURIComponent(bossName)}`);
+      const res = await resp.json();
+      if (res.ok) {
+        const cfg = res.data;
+        
+        // 更新圖片
+        const imgEl = document.getElementById('boss-img');
+        // 若後端有提供圖片連結 (假設欄位為 monsterImage 或 bossImage)
+        if (cfg.bossImage || cfg.monsterImage) {
+            imgEl.src = cfg.bossImage || cfg.monsterImage;
+            imgEl.style.opacity = 1;
+        } else {
+            imgEl.style.opacity = 0; 
+        }
 
-      loader.style.display = 'none';
-
-      if (!pRes.ok) throw new Error(pRes.error || '查詢失敗');
-      
-      const pData = pRes.data;
-      const aData = aRes.ok ? aRes.data : null; 
-      const config = cRes.ok ? cRes.data : {};
-
-      if (!pData.hasData) {
-        alert('找不到該角色的回報資料，請確認 ID 是否正確或是否有回報紀錄。');
-        return;
+        applyNames('equip',   cfg.equips,   30, '裝備');
+        applyNames('jackpot', cfg.jackpots, 3,  '大獎');
+        applyNames('scroll',  cfg.scrolls,  33, '卷軸');
+        applyNames('other',   cfg.others,   3,  '其他');
       }
+    } catch (e) { console.error(e); }
+  }
 
-      content.style.display = 'block';
-      renderSummary(player, monster, pData, aData, config);
-      renderAllTables(pData, aData, config);
-
-    } catch (e) {
-      loader.style.display = 'none';
-      alert('發生錯誤：' + e.message);
+  function applyNames(prefix, names, count, baseText) {
+    names = names || [];
+    for (let i = 1; i <= count; i++) {
+      const label = document.getElementById(prefix + i + '-label');
+      if (!label) continue;
+      const n = names[i - 1];
+      label.textContent = (n && String(n).trim()) ? n : baseText + ' ' + i;
     }
   }
 
-  function renderSummary(player, monster, pData, aData, config) {
-    document.getElementById('sum-player').innerText = player;
-    document.getElementById('sum-monster').innerText = monster;
-    document.getElementById('sum-kills-player').innerText = pData.totalKills.toLocaleString();
-    document.getElementById('sum-kills-all').innerText = aData ? aData.totalKills.toLocaleString() : '-';
-    
-    // 更新大頭貼
-    const imgEl = document.getElementById('sum-monster-img');
-    if(config.monsterImage) {
-        imgEl.src = config.monsterImage;
-        imgEl.style.opacity = 1;
-    } else {
-        imgEl.style.opacity = 0;
-    }
+  function buildAllInputs() {
+    buildGroup('equip',   'equip-container',   30, '裝備');
+    buildGroup('jackpot', 'jackpot-container', 3,  '大獎');
+    buildGroup('scroll',  'scroll-container',  33, '卷軸');
+    buildGroup('other',   'other-container',   3,  '其他');
   }
 
-  function buildRateMap(allStats) {
-    const map = {
-      mainDrop: new Map(),
-      scrolls: new Map(),
-      jackpots: new Map(),
-      equips: new Map(),
-      ores: new Map(),
-      others: new Map()
-    };
-    if (!allStats) return map;
-
-    if (allStats.mainDrop) {
-      map.mainDrop.set((allStats.mainDrop.name || '主掉落').trim(), allStats.mainDrop.rate || 0);
-    }
-    const put = (listName, arr) => {
-      if (Array.isArray(arr)) arr.forEach(it => map[listName].set((it.name || '').trim(), it.rate || 0));
-    };
-    put('scrolls', allStats.scrolls);
-    put('jackpots', allStats.jackpots);
-    put('equips', allStats.equips);
-    put('ores', allStats.ores);
-    put('others', allStats.others);
-    return map;
-  }
-
-  function renderAllTables(pData, aData, config) {
-    const map = buildRateMap(aData);
+  function buildGroup(prefix, containerId, count, labelBase) {
+    const container = document.getElementById(containerId);
     let html = '';
-
-    // 主掉落 (圖片來自 tailImage)
-    const mainList = pData.mainDrop.name ? [{name: pData.mainDrop.name, total: pData.mainDrop.total, rate: pData.mainDrop.rate}] : [];
-    const mainImgs = config.tailImage ? [config.tailImage] : [];
-    
-    html += renderSection('主掉落', mainList, map.mainDrop, mainImgs);
-    html += renderSection('📜 稀有卷軸', pData.scrolls, map.scrolls, config.scrollImages);
-    html += renderSection('💎 稀有大獎', pData.jackpots, map.jackpots, config.jackpotImages);
-    html += renderSection('⚔️ 裝備掉落', pData.equips, map.equips, config.equipImages);
-    html += renderSection('🪨 母礦與礦石', pData.ores, map.ores, config.oreImages);
-    html += renderSection('📦 其他物品', pData.others, map.others, config.otherImages);
-
-    document.getElementById('tables-container').innerHTML = html;
-  }
-
-  function renderSection(title, items, allRateMap, images) {
-    const tbody = renderTableRows(items, allRateMap, images);
-    
-    return `
-      <div class="accordion-group open" onclick="toggleAccordion(this)">
-        <div class="accordion-header">
-          <div class="accordion-title">${title}</div>
-          <div class="accordion-icon">▼</div>
-        </div>
-        <div class="accordion-content">
-          <div class="table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  <th>物品名稱</th>
-                  <th class="col-right">個人總數</th>
-                  <th class="col-right">個人機率</th>
-                  <th class="col-right">全體機率</th>
-                </tr>
-              </thead>
-              <tbody>${tbody}</tbody>
-            </table>
+    for (let i = 1; i <= count; i++) {
+      html += `
+        <div class="item-card">
+          <div class="item-header" id="${prefix}${i}-label">${labelBase} ${i}</div>
+          <div class="triple-inputs">
+            <input type="number" id="${prefix}${i}-initial" placeholder="始">
+            <input type="number" id="${prefix}${i}-final" placeholder="終">
+            <input type="number" id="${prefix}${i}-delta" class="input-delta" readonly placeholder="0">
           </div>
         </div>
-      </div>
-    `;
+      `;
+    }
+    container.innerHTML = html;
   }
 
-  function renderTableRows(items, allRateMap, images = []) {
-    if (!items || items.length === 0) {
-      return `<tr><td colspan="4" class="rate-zero" style="text-align:center;">無資料</td></tr>`;
+  function updateAllDeltas() {
+    const update = (prefix, count) => {
+      for(let i=1; i<=count; i++) {
+        const init = parseInt(document.getElementById(`${prefix}${i}-initial`).value) || 0;
+        const final = parseInt(document.getElementById(`${prefix}${i}-final`).value) || 0;
+        const delta = Math.max(0, final - init);
+        document.getElementById(`${prefix}${i}-delta`).value = delta;
+      }
+    };
+    update('equip', 30);
+    update('jackpot', 3);
+    update('scroll', 33);
+    update('other', 3);
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submit-btn');
+    const player = document.getElementById('player-input').value.trim();
+    const boss = document.getElementById('boss-select').value;
+    const kills = parseInt(document.getElementById('kills-input').value) || 0;
+
+    if (!player.includes('#')) return alert('ID 格式錯誤 (需含 #)');
+    if (!boss) return alert('請選擇 BOSS');
+    if (kills <= 0) return alert('擊殺數必須大於 0');
+
+    let hasError = false;
+    const checkGroup = (prefix, count) => {
+      for(let i=1; i<=count; i++) {
+        const v = parseInt(document.getElementById(`${prefix}${i}-delta`).value) || 0;
+        if (v > kills) hasError = true;
+      }
+    };
+    checkGroup('equip', 30);
+    checkGroup('jackpot', 3);
+    checkGroup('scroll', 33);
+    checkGroup('other', 3);
+
+    if (hasError) {
+      alert('【警告】有掉落物數量大於擊殺數，請檢查輸入是否正確！');
+      return;
     }
 
-    return items.map((it, idx) => {
-      // 處理數據
-      const name = (it.name || '').trim();
-      if(!name) return ''; // 跳過空名稱
+    btn.disabled = true;
+    btn.innerText = '傳送中...';
 
-      const total = it.total != null ? it.total : 0;
-      const rateP = it.rate || 0;
-      const rateA = allRateMap && allRateMap.has(name) ? allRateMap.get(name) : null;
+    const payload = {
+      action: 'submitBossDrop',
+      player, boss, kills,
+      type: 'boss'
+    };
 
-      const pRateStr = formatRate(rateP);
-      const aRateStr = rateA === null ? '-' : formatRate(rateA);
-      const clsPlayer = total > 0 ? 'rate-good' : 'rate-zero';
-
-      // 處理圖片
-      const imgUrl = images[idx] || '';
-      let imgHtml = '';
-      if(imgUrl) {
-        imgHtml = `<div class="item-icon"><img src="${imgUrl}" onerror="this.style.display='none'"></div>`;
-      } else {
-        imgHtml = `<div class="item-icon" style="opacity:0"></div>`;
+    const collect = (prefix, count, baseIndex) => {
+      for(let i=1; i<=count; i++) {
+        payload['c' + (baseIndex + i - 1)] = parseInt(document.getElementById(`${prefix}${i}-delta`).value) || 0;
       }
+    };
+    collect('equip', 30, 4);
+    collect('jackpot', 3, 34);
+    collect('scroll', 33, 37);
+    collect('other', 3, 70);
 
-      return `
-        <tr>
-          <td data-label="物品名稱">
-            <div class="item-cell">
-              ${imgHtml}
-              <span class="item-name">${name}</span>
-            </div>
-          </td>
-          <td data-label="個人總數" class="col-right">${total.toLocaleString()}</td>
-          <td data-label="個人機率" class="col-right ${clsPlayer}">${pRateStr}</td>
-          <td data-label="全體機率" class="col-right" style="color:var(--text-sub)">${aRateStr}</td>
-        </tr>
-      `;
-    }).join('');
-  }
+    try {
+      const resp = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const res = await resp.json();
 
-  function formatRate(rate) {
-    if (!rate) return '0%';
-    const pct = rate * 100;
-    if (pct < 0.01) return pct.toFixed(4) + '%';
-    return pct.toFixed(2) + '%';
+      if (!res.ok) throw new Error(res.error);
+
+      // ✨ 根據後端回傳的狀態顯示提示 (優先級: 大獎 > 疑慮 > 成功)
+      if (res.data.hasJackpot) {
+        alert('【系統提示】麻煩提供大獎截圖予管理員，經審核確認後才會記入系統。');
+      } else if (res.data.status === 'SUSPECT') {
+        alert('【系統提示】送出資料有疑慮，請截圖通知管理員，經審核後才會列入統計。');
+      } else {
+        alert('BOSS 回報成功！');
+      }
+      
+      location.reload();
+
+    } catch (err) {
+      alert('發生錯誤：' + err.message);
+      btn.disabled = false;
+      btn.innerText = '重新送出';
+    }
   }
 </script>
 
