@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Artale 掉寶統計站 - 首頁</title>
-  <meta name="description" content="Artale 楓之谷掉寶統計站。提供怪物掉寶率查詢、個人運氣分析，助您掌握打寶效率。">
+  <meta name="description" content="Artale 楓之谷掉寶統計站。提供精準的擊殺數計算與掉落率統計。">
   
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4011206268996883" crossorigin="anonymous"></script>
 
@@ -40,128 +40,68 @@
       background-color: var(--bg-color);
       color: var(--text-main);
       font-family: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
-      font-size: 16px;
+      font-size: 18px;
       line-height: 1.6;
       transition: all 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
+      display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px;
     }
 
-    .container {
-      width: 100%;
-      max-width: 1280px;
-      background: var(--card-bg);
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-      padding: 30px;
-      border: 1px solid var(--border);
-      flex: 1;
-    }
+    .container { width: 100%; max-width: 1280px; background: var(--card-bg); border-radius: 24px; box-shadow: var(--shadow); padding: 40px; border: 1px solid var(--border); flex: 1; }
 
-    /* Header & Nav */
-    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; gap: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; gap: 15px; }
     .brand { display: flex; align-items: center; gap: 15px; }
-    .logo-m {
-      width: 45px; height: 45px;
-      background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
-      border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      color: white; font-size: 26px; font-weight: 900;
-      box-shadow: 0 4px 10px rgba(249, 115, 22, 0.4);
-    }
-    .header-text h1 { margin: 0; font-size: 26px; font-weight: 800; }
-    .theme-btn { padding: 8px 16px; border-radius: 99px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-main); cursor: pointer; font-weight: 600; font-size: 14px; }
+    .logo-m { width: 50px; height: 50px; background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: 900; box-shadow: 0 4px 10px rgba(249, 115, 22, 0.4); flex-shrink: 0; }
+    .header-text h1 { margin: 0; font-size: 30px; font-weight: 800; white-space: nowrap; }
+
+    .theme-btn { padding: 10px 20px; border-radius: 99px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-main); cursor: pointer; font-weight: 600; font-size: 16px; flex-shrink: 0; }
     
-    .nav-bar { display: flex; gap: 10px; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 2px solid var(--border); flex-wrap: wrap; }
-    .nav-btn { padding: 10px 18px; border-radius: 10px; text-decoration: none; background: var(--bg-color); color: var(--text-sub); font-weight: 600; border: 1px solid var(--border); transition: 0.2s; font-size: 15px; }
+    .nav-bar { display: flex; gap: 12px; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 2px solid var(--border); flex-wrap: wrap; }
+    .nav-btn { padding: 12px 22px; border-radius: 12px; text-decoration: none; background: var(--bg-color); color: var(--text-sub); font-weight: 600; border: 1px solid var(--border); transition: 0.3s; }
     .nav-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
-    .nav-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+    .nav-btn.active { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3); }
 
-    /* Monster Display Area */
-    .dual-monster-wrapper { display: flex; gap: 25px; margin-top: 20px; }
-    .monster-panel { flex: 1; min-width: 0; }
-    
-    /* 放大怪物圖片容器 */
-    .monster-img-frame {
-      width: 100%;
-      height: 220px; /* 放大高度 */
-      background: rgba(0,0,0,0.03);
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 15px;
-      border: 2px dashed var(--border);
-      overflow: hidden;
-      position: relative;
-    }
-    .monster-img-frame img {
-      max-width: 90%;
-      max-height: 90%;
-      object-fit: contain; /* 確保不切邊 */
-      transition: opacity 0.3s;
-    }
+    .nav-mobile { display: none; margin-bottom: 30px; }
+    .nav-mobile select { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid var(--accent); background: var(--card-bg); color: var(--text-main); font-size: 17px; font-weight: 700; appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f97316' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; background-size: 18px; }
 
-    .panel { border: 1px solid var(--border); padding: 20px; border-radius: 18px; background: rgba(0,0,0,0.01); margin-bottom: 20px; }
-    input, select { width: 100%; padding: 12px; border-radius: 10px; border: 2px solid var(--border); background: var(--input-bg); color: var(--text-main); font-size: 16px; }
+    .panel { border: 1px solid var(--border); padding: 25px; border-radius: 18px; background: rgba(0,0,0,0.01); margin-bottom: 25px; }
+    input, select { width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--border); background: var(--input-bg); color: var(--text-main); font-size: 17px; }
     input:focus { outline: none; border-color: var(--accent); background: var(--input-focus); }
 
-    /* 物品輸入區 */
-    .drop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
-    .item-input-box { 
-      background: var(--card-bg); 
-      padding: 15px; 
-      border-radius: 12px; 
-      border: 1px solid var(--border); 
-      display: flex; 
-      flex-direction: column; 
-      align-items: center;
-      transition: 0.2s;
-    }
-    .item-input-box:hover { border-color: var(--accent); transform: translateY(-2px); }
-    
-    .item-img-wrap { width: 44px; height: 44px; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; }
-    .item-img-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; }
-    .item-label { font-size: 14px; font-weight: 700; margin-bottom: 10px; text-align: center; }
-    .qty-group { display: flex; gap: 5px; width: 100%; }
-    .qty-group input { text-align: center; padding: 8px; font-size: 14px; }
-    
-    .live-stat { font-size: 12px; color: var(--accent); margin-top: 8px; font-weight: 600; width: 100%; text-align: center; }
+    .item-input-box { background: var(--card-bg); padding: 18px; border-radius: 15px; border: 1px solid var(--border); position: relative; }
+    .item-label { font-size: 15px; font-weight: 700; margin-bottom: 10px; }
+    .live-stat { font-size: 13px; color: var(--accent); font-weight: 600; margin-top: 8px; display: flex; justify-content: space-between; }
+    .qty-group { display: flex; gap: 8px; }
+    .qty-group input { text-align: center; font-weight: bold; }
 
-    /* Accordion */
-    .accordion-group { border: 1px solid var(--border); border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
-    .accordion-header { padding: 12px 20px; background: rgba(0,0,0,0.02); cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 700; color: var(--accent); }
-    .accordion-content { display: none; padding: 15px; background: var(--card-bg); }
-    .accordion-group.open .accordion-content { display: block; }
+    .accordion-group { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 20px; overflow: hidden; }
+    .accordion-header { padding: 18px 25px; background: rgba(0,0,0,0.02); cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid transparent; }
+    .accordion-group.open .accordion-header { border-bottom-color: var(--border); }
+    .accordion-title { font-size: 18px; font-weight: 700; color: var(--accent); display: flex; align-items: center; gap: 10px; }
+    .accordion-title::before { content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px; }
+    .accordion-icon { font-size: 14px; color: var(--text-sub); transition: transform 0.3s ease; }
+    .accordion-group.open .accordion-icon { transform: rotate(180deg); }
+    .accordion-content { display: none; padding: 20px; background: var(--card-bg); }
+    .accordion-group.open .accordion-content { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
-    .btn-submit { width: 100%; padding: 18px; border: none; border-radius: 12px; background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); color: white; font-size: 20px; font-weight: 800; cursor: pointer; margin-top: 15px; box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3); }
+    .drop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 15px; }
 
-    /* 手機介面優化 (Mobile Design) */
+    .btn-submit { width: 100%; padding: 20px; border: none; border-radius: 15px; background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); color: white; font-size: 22px; font-weight: 800; cursor: pointer; margin-top: 20px; transition: 0.3s; }
+    .btn-submit:hover { transform: scale(1.01); box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4); }
+
+    footer { width: 100%; max-width: 1280px; margin-top: 40px; padding: 30px 0; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .footer-links { display: flex; gap: 25px; }
+    .footer-links a { text-decoration: none; color: var(--text-sub); font-size: 15px; font-weight: 500; }
+    .copyright { font-size: 15px; color: var(--text-sub); }
+
     @media (max-width: 768px) {
-      .dual-monster-wrapper { flex-direction: column; }
-      .container { padding: 15px; border-radius: 0; }
-      .monster-img-frame { height: 180px; }
+      body { padding: 10px; }
+      .container { padding: 20px; border-radius: 16px; }
       .header-text h1 { font-size: 20px; }
-      
-      /* 手機版物品改為橫向排列比較好操作 */
-      .item-input-box { 
-        flex-direction: row; 
-        align-items: center; 
-        padding: 10px; 
-        gap: 10px;
-      }
-      .item-img-wrap { margin-bottom: 0; width: 32px; height: 32px; flex-shrink: 0; }
-      .item-label { margin-bottom: 0; text-align: left; flex: 1; font-size: 13px; }
-      .qty-group { width: auto; }
-      .qty-group input { width: 55px; padding: 6px; }
-      .live-stat { display: none; } /* 手機版隱藏即時率以省空間 */
-      
+      .nav-bar { display: none; }
+      .nav-mobile { display: block; }
       .drop-grid { grid-template-columns: 1fr; }
     }
-
     .hidden { display: none; }
   </style>
 </head>
@@ -170,10 +110,10 @@
 <div class="container">
   <div class="header">
     <div class="brand">
-      <div class="logo-m">A</div>
+      <div class="logo-m">M</div>
       <div class="header-text">
         <h1>Artale 掉寶統計站</h1>
-        <div style="color:var(--text-sub); font-size: 13px;">正式版 - 真實掉落數據回報</div>
+        <div style="color:var(--text-sub); font-size: 15px; font-weight: 500;">精準計算擊殺數與掉落率</div>
       </div>
     </div>
     <button class="theme-btn" id="theme-toggle">🌙 夜間模式</button>
@@ -181,120 +121,100 @@
 
   <nav class="nav-bar">
     <a href="index.html" class="nav-btn active">一般回報</a>
-    <a href="stats.html" class="nav-btn">全站統計</a>
-    <a href="playerStats.html" class="nav-btn">個人查詢</a>
+    <a href="stats.html" class="nav-btn">一般統計</a>
+    <a href="playerStats.html" class="nav-btn">個人統計</a>
     <a href="boss.html" class="nav-btn">BOSS回報</a>
     <a href="stats2.html" class="nav-btn">BOSS統計</a>
+    <a href="playerBossStats.html" class="nav-btn">BOSS個人統計</a>
   </nav>
+
+  <div class="nav-mobile">
+    <select onchange="window.location.href=this.value;">
+      <option value="index.html" selected>功能切換：一般回報</option>
+      <option value="stats.html">一般統計</option>
+      <option value="playerStats.html">個人統計</option>
+      <option value="boss.html">BOSS回報</option>
+      <option value="stats2.html">BOSS統計</option>
+      <option value="playerBossStats.html">BOSS個人統計</option>
+    </select>
+  </div>
 
   <form id="dropForm">
     <div class="panel">
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; align-items: center;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
         <div>
-          <label style="font-weight:700; margin-bottom:5px; display:block;">玩家角色 ID (需含 # 號)</label>
-          <input type="text" id="player-id" placeholder="例如：RainYu#12345" required>
+          <label style="font-weight:700; margin-bottom:5px; display:block;">玩家角色 ID (包含 #12345)</label>
+          <input type="text" id="player-id" placeholder="例如：RainYu#B1234" required>
         </div>
-        <div style="padding-top: 10px;">
-          <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
-            <input type="checkbox" id="dual-mode-toggle" style="width: 20px; height: 20px;"> 
+        <div style="display: flex; align-items: center; padding-top: 25px;">
+          <label style="display: flex; align-items: center; gap: 12px; cursor: pointer;">
+            <input type="checkbox" id="dual-mode-toggle" style="width: 22px; height: 22px;"> 
             <span style="font-weight:700;">開啟雙怪回報模式</span>
           </label>
         </div>
       </div>
     </div>
 
-    <div class="dual-monster-wrapper">
-      <div class="monster-panel" id="panel-1">
-        <div class="monster-img-frame">
-          <img id="m1-img" src="" alt="請選擇怪物" onerror="this.style.opacity=0">
-        </div>
-        <div style="margin-bottom: 15px;">
-           <select id="monster-select-1" required>
-              <option value="">正在載入清單...</option>
-           </select>
-        </div>
-
+    <div id="panels-wrapper">
+      <div class="panel" id="panel-1">
+        <div class="accordion-title" style="margin-bottom:15px; color:var(--accent);">怪物 1：選擇對象</div>
+        <select id="monster-select-1" required style="margin-bottom: 20px;"><option value="">連線中...</option></select>
+        
         <div id="content-1" class="hidden">
-           <div class="panel" style="background: var(--bg-color); border: 2px solid var(--accent);">
-             <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-weight:800; font-size:14px;">
-               <span>核心數據</span>
-               <span id="m1-kills-display" style="color:var(--accent);">推算擊殺：0</span>
+          <div style="margin-bottom: 25px; padding: 15px; background: var(--bg-color); border-radius: 12px; border: 1px solid var(--border);">
+             <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-weight:bold; color:var(--text-sub);">
+                <span>核心數據</span><span id="m1-kills-display">推算擊殺數：0</span>
              </div>
-             <div class="item-input-box" style="border-color: var(--accent);">
-               <div class="item-img-wrap"><img id="m1-tail-img" src=""></div>
-               <div class="item-label" id="label-tail-1">主掉落物</div>
-               <div class="qty-group">
-                  <input type="number" id="m1-c4-init" placeholder="起始">
-                  <input type="number" id="m1-c4-final" placeholder="結束">
-                  <input type="number" id="m1-c4-delta" readonly placeholder="0" style="background:var(--border)">
-               </div>
+             <div class="item-input-box" style="border:1px solid var(--accent);">
+                <div class="item-label" id="label-tail-1" style="color:var(--accent);">主掉落物</div>
+                <div class="qty-group">
+                  <input type="number" id="m1-c4-init" placeholder="始"><input type="number" id="m1-c4-final" placeholder="終">
+                  <input type="number" id="m1-c4-delta" readonly placeholder="0" style="background:var(--bg-color)">
+                </div>
+                <div class="live-stat"><span id="m1-tail-rate-text">預設掉落率：--</span><span id="m1-kills-text">擊殺數：0</span></div>
              </div>
-           </div>
-
-           <div class="accordion-group open" onclick="toggleAccordion(this)">
-             <div class="accordion-header">📜 稀有卷軸 <span>▼</span></div>
-             <div class="accordion-content"><div class="drop-grid" id="m1-grid-scrolls"></div></div>
-           </div>
-           <div class="accordion-group open" onclick="toggleAccordion(this)">
-             <div class="accordion-header">💎 稀有大獎 <span>▼</span></div>
-             <div class="accordion-content"><div class="drop-grid" id="m1-grid-jackpots"></div></div>
-           </div>
-           <div class="accordion-group" onclick="toggleAccordion(this)">
-             <div class="accordion-header">⚔️ 裝備掉落 <span>▼</span></div>
-             <div class="accordion-content"><div class="drop-grid" id="m1-grid-equip"></div></div>
-           </div>
-           <div class="accordion-group" onclick="toggleAccordion(this)">
-             <div class="accordion-header">🪨 礦石母礦 <span>▼</span></div>
-             <div class="accordion-content"><div class="drop-grid" id="m1-grid-ores"></div></div>
-           </div>
+          </div>
+          <div class="accordion-group open" onclick="toggleAccordion(this)"><div class="accordion-header"><div class="accordion-title">📜 稀有卷軸</div><div class="accordion-icon">▼</div></div><div class="accordion-content"><div class="drop-grid" id="m1-grid-scrolls"></div></div></div>
+          <div class="accordion-group open" onclick="toggleAccordion(this)"><div class="accordion-header"><div class="accordion-title">💎 稀有大獎</div><div class="accordion-icon">▼</div></div><div class="accordion-content"><div class="drop-grid" id="m1-grid-jackpots"></div></div></div>
+          <div class="accordion-group open" onclick="toggleAccordion(this)"><div class="accordion-header"><div class="accordion-title">⚔️ 裝備掉落</div><div class="accordion-icon">▼</div></div><div class="accordion-content"><div class="drop-grid" id="m1-grid-equip"></div></div></div>
+          <div class="accordion-group open" onclick="toggleAccordion(this)"><div class="accordion-header"><div class="accordion-title">🪨 母礦與礦石</div><div class="accordion-icon">▼</div></div><div class="accordion-content"><div class="drop-grid" id="m1-grid-ores"></div></div></div>
+          <div class="accordion-group open" onclick="toggleAccordion(this)"><div class="accordion-header"><div class="accordion-title">📦 其他物品</div><div class="accordion-icon">▼</div></div><div class="accordion-content"><div class="drop-grid" id="m1-grid-others"></div></div></div>
         </div>
       </div>
 
-      <div class="monster-panel hidden" id="panel-2">
-        <div class="monster-img-frame">
-          <img id="m2-img" src="" alt="請選擇怪物" onerror="this.style.opacity=0">
-        </div>
-        <div style="margin-bottom: 15px;">
-           <select id="monster-select-2">
-              <option value="">請選擇怪物...</option>
-           </select>
-        </div>
-
+      <div class="panel hidden" id="panel-2">
+        <div class="accordion-title" style="margin-bottom:15px; color:var(--accent);">怪物 2：選擇對象</div>
+        <select id="monster-select-2" style="margin-bottom: 20px;"><option value="">請選擇怪物</option></select>
+        
         <div id="content-2" class="hidden">
-           <div class="panel" style="background: var(--bg-color); border: 2px solid var(--accent);">
-             <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-weight:800; font-size:14px;">
-               <span>核心數據</span>
-               <span id="m2-kills-display" style="color:var(--accent);">推算擊殺：0</span>
+           <div style="margin-bottom: 25px; padding: 15px; background: var(--bg-color); border-radius: 12px; border: 1px solid var(--border);">
+             <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-weight:bold; color:var(--text-sub);">
+                <span>核心數據</span><span id="m2-kills-display">推算擊殺數：0</span>
              </div>
-             <div class="item-input-box" style="border-color: var(--accent);">
-               <div class="item-img-wrap"><img id="m2-tail-img" src=""></div>
-               <div class="item-label" id="label-tail-2">主掉落物</div>
-               <div class="qty-group">
-                  <input type="number" id="m2-c4-init" placeholder="起始">
-                  <input type="number" id="m2-c4-final" placeholder="結束">
-                  <input type="number" id="m2-c4-delta" readonly placeholder="0" style="background:var(--border)">
-               </div>
+             <div class="item-input-box" style="border:1px solid var(--accent);">
+                <div class="item-label" id="label-tail-2" style="color:var(--accent);">主掉落物</div>
+                <div class="qty-group">
+                  <input type="number" id="m2-c4-init" placeholder="始"><input type="number" id="m2-c4-final" placeholder="終">
+                  <input type="number" id="m2-c4-delta" readonly placeholder="0" style="background:var(--bg-color)">
+                </div>
+                <div class="live-stat"><span id="m2-tail-rate-text">預設掉落率：--</span><span id="m2-kills-text">擊殺數：0</span></div>
              </div>
-           </div>
-
-           <div class="accordion-group open" onclick="toggleAccordion(this)">
-             <div class="accordion-header">📜 稀有卷軸 <span>▼</span></div>
-             <div class="accordion-content"><div class="drop-grid" id="m2-grid-scrolls"></div></div>
-           </div>
-           <div class="accordion-group" onclick="toggleAccordion(this)">
-             <div class="accordion-header">⚔️ 裝備掉落 <span>▼</span></div>
-             <div class="accordion-content"><div class="drop-grid" id="m2-grid-equip"></div></div>
-           </div>
+          </div>
+          <div class="accordion-group open" onclick="toggleAccordion(this)"><div class="accordion-header"><div class="accordion-title">📜 稀有卷軸</div><div class="accordion-icon">▼</div></div><div class="accordion-content"><div class="drop-grid" id="m2-grid-scrolls"></div></div></div>
+          <div class="accordion-group open" onclick="toggleAccordion(this)"><div class="accordion-header"><div class="accordion-title">💎 稀有大獎</div><div class="accordion-icon">▼</div></div><div class="accordion-content"><div class="drop-grid" id="m2-grid-jackpots"></div></div></div>
+          <div class="accordion-group open" onclick="toggleAccordion(this)"><div class="accordion-header"><div class="accordion-title">⚔️ 裝備掉落</div><div class="accordion-icon">▼</div></div><div class="accordion-content"><div class="drop-grid" id="m2-grid-equip"></div></div></div>
+          <div class="accordion-group open" onclick="toggleAccordion(this)"><div class="accordion-header"><div class="accordion-title">🪨 母礦與礦石</div><div class="accordion-icon">▼</div></div><div class="accordion-content"><div class="drop-grid" id="m2-grid-ores"></div></div></div>
+          <div class="accordion-group open" onclick="toggleAccordion(this)"><div class="accordion-header"><div class="accordion-title">📦 其他物品</div><div class="accordion-icon">▼</div></div><div class="accordion-content"><div class="drop-grid" id="m2-grid-others"></div></div></div>
         </div>
       </div>
     </div>
 
-    <button type="submit" class="btn-submit" id="submit-btn">送出今日統計數據</button>
+    <button type="submit" class="btn-submit" id="submit-btn">送出統計資料</button>
   </form>
 
-  <footer style="margin-top: 40px; text-align: center; color: var(--text-sub); font-size: 13px; border-top: 1px solid var(--border); padding-top: 20px;">
-    &copy; 2025 Artale Drop Statistics. All rights reserved.<br>
-    本站與官方無關，數據僅供遊戲參考。
+  <footer>
+    <div class="footer-links"><a href="about.html">關於本站</a><a href="terms.html">條款</a><a href="contact.html">聯絡我們</a></div>
+    <div class="copyright">&copy; 2025 Artale Drop Statistics.</div>
   </footer>
 </div>
 
@@ -309,9 +229,9 @@
     setupEventListeners();
   });
 
-  function toggleAccordion(el) {
+  function toggleAccordion(element) {
     if (event.target.tagName === 'INPUT') return;
-    el.classList.toggle('open');
+    element.classList.toggle('open');
   }
 
   function initTheme() {
@@ -330,26 +250,23 @@
       const resp = await fetch(`${API_URL}?api=1&action=getMonsterList`);
       const res = await resp.json();
       if (res.ok) {
-        const options = '<option value="">-- 請選擇怪物 --</option>' + res.data.map(m => `<option value="${m}">${m}</option>`).join('');
+        const options = '<option value="">請選擇怪物...</option>' + res.data.map(m => `<option value="${m}">${m}</option>`).join('');
         document.getElementById('monster-select-1').innerHTML = options;
         document.getElementById('monster-select-2').innerHTML = options;
       }
     } catch (e) { console.error(e); }
   }
 
-  async function handleMonsterChange(slot, name) {
-    if (!name) return;
+  async function handleMonsterChange(slot, monsterName) {
+    if (!monsterName) return;
     document.getElementById(`content-${slot}`).classList.remove('hidden');
     try {
-      const resp = await fetch(`${API_URL}?api=1&action=getMonsterConfig&monster=${encodeURIComponent(name)}`);
+      const resp = await fetch(`${API_URL}?api=1&action=getMonsterConfig&monster=${encodeURIComponent(monsterName)}`);
       const res = await resp.json();
       if (res.ok) {
         monsterConfigs[slot] = res.data;
-        // 更新大頭貼
-        const img = document.getElementById(`m${slot}-img`);
-        img.src = res.data.monsterImage || '';
-        img.style.opacity = 1;
         renderFields(slot, res.data);
+        updateKillCalculation(slot);
       }
     } catch (e) { console.error(e); }
   }
@@ -357,109 +274,87 @@
   function renderFields(slot, config) {
     const p = `m${slot}`;
     document.getElementById(`label-tail-${slot}`).innerText = config.tail;
-    document.getElementById(`${p}-tail-img`).src = config.tailImage || '';
+    document.getElementById(`${p}-tail-rate-text`).innerText = `預設掉落率：${(config.tailRate * 100).toFixed(1)}%`;
 
-    const createBox = (name, img, col) => {
-      if(!name) return "";
-      return `
-        <div class="item-input-box">
-          <div class="item-img-wrap"><img src="${img}" onerror="this.style.opacity=0"></div>
-          <div class="item-label">${name}</div>
-          <div class="qty-group">
-            <input type="number" id="${p}-c${col}-init" placeholder="始">
-            <input type="number" id="${p}-c${col}-final" placeholder="終">
-            <input type="number" id="${p}-c${col}-delta" readonly placeholder="0" style="background:var(--bg-color)">
-          </div>
-          <div class="live-stat" id="stat-${p}-c${col}">掉率：--</div>
-        </div>`;
+    const createInput = (name, colIndex) => {
+      if (!name || name.trim() === "") return "";
+      return `<div class="item-input-box"><div class="item-label">${name}</div><div class="qty-group"><input type="number" id="${p}-c${colIndex}-init" placeholder="始"><input type="number" id="${p}-c${colIndex}-final" placeholder="終"><input type="number" id="${p}-c${colIndex}-delta" readonly placeholder="0"></div><div class="live-stat" id="stat-${p}-c${colIndex}">掉落率：--</div></div>`;
     };
 
-    const safeSet = (id, html) => { document.getElementById(id).innerHTML = html || '<div style="font-size:12px;color:#999">無資料</div>'; };
-    
-    safeSet(`${p}-grid-scrolls`, config.scrolls.map((n, i) => createBox(n, config.scrollImages[i], 5+i)).join(''));
-    safeSet(`${p}-grid-jackpots`, config.jackpots.map((n, i) => createBox(n, config.jackpotImages[i], 10+i)).join(''));
-    safeSet(`${p}-grid-equip`, config.equips.map((n, i) => createBox(n, config.equipImages[i], 13+i)).join(''));
-    safeSet(`${p}-grid-ores`, config.ores.map((n, i) => createBox(n, config.oreImages[i], 36+i)).join(''));
+    const noData = '<div style="color:var(--text-sub); font-size:14px;">無此類物品</div>';
+    const safeSetHTML = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
+
+    safeSetHTML(`${p}-grid-scrolls`, config.scrolls.map((n, i) => createInput(n, 5 + i)).join('') || noData);
+    safeSetHTML(`${p}-grid-jackpots`, config.jackpots.map((n, i) => createInput(n, 10 + i)).join('') || noData);
+    safeSetHTML(`${p}-grid-equip`, config.equips.map((n, i) => createInput(n, 13 + i)).join('') || noData);
+    safeSetHTML(`${p}-grid-ores`, config.ores.map((n, i) => createInput(n, 36 + i)).join('') || noData);
+    safeSetHTML(`${p}-grid-others`, config.others.map((n, i) => createInput(n, 43 + i)).join('') || noData);
   }
 
   function setupEventListeners() {
-    document.getElementById('monster-select-1').addEventListener('change', e => handleMonsterChange(1, e.target.value));
-    document.getElementById('monster-select-2').addEventListener('change', e => handleMonsterChange(2, e.target.value));
-    document.getElementById('dual-mode-toggle').addEventListener('change', e => {
-      document.getElementById('panel-2').classList.toggle('hidden', !e.target.checked);
-    });
-
-    document.addEventListener('input', e => {
+    document.getElementById('monster-select-1').addEventListener('change', (e) => handleMonsterChange(1, e.target.value));
+    document.getElementById('monster-select-2').addEventListener('change', (e) => handleMonsterChange(2, e.target.value));
+    document.getElementById('dual-mode-toggle').addEventListener('change', (e) => document.getElementById('panel-2').classList.toggle('hidden', !e.target.checked));
+    document.addEventListener('input', (e) => {
       if (e.target.id.includes('-init') || e.target.id.includes('-final')) {
         const parts = e.target.id.split('-');
         const slot = parts[0] === 'm1' ? 1 : 2;
-        const colId = parts[1];
-        const base = `${parts[0]}-${parts[1]}`;
-        const init = parseInt(document.getElementById(base + '-init').value) || 0;
-        const final = parseInt(document.getElementById(base + '-final').value) || 0;
-        const delta = Math.max(0, final - init);
-        document.getElementById(base + '-delta').value = delta;
-
-        if (colId === 'c4') updateKills(slot);
-        else updateRate(slot, colId, delta);
+        const baseId = `${parts[0]}-${parts[1]}`;
+        const init = parseInt(document.getElementById(baseId + '-init').value) || 0;
+        const final = parseInt(document.getElementById(baseId + '-final').value) || 0;
+        document.getElementById(baseId + '-delta').value = Math.max(0, final - init);
+        if (parts[1] === 'c4') updateKillCalculation(slot);
+        else updateItemRate(slot, parts[1], Math.max(0, final - init));
       }
     });
-
     document.getElementById('dropForm').addEventListener('submit', handleSubmit);
   }
 
-  function updateKills(slot) {
+  function updateKillCalculation(slot) {
     const config = monsterConfigs[slot];
-    if(!config) return;
+    if (!config) return;
     const delta = parseInt(document.getElementById(`m${slot}-c4-delta`).value) || 0;
     const kills = Math.floor(delta / (config.tailRate || 0.01));
     estimatedKills[slot] = kills;
-    document.getElementById(`m${slot}-kills-display`).innerText = `推算擊殺：${kills}`;
+    document.getElementById(`m${slot}-kills-text`).innerText = `擊殺數：${kills}`;
+    document.getElementById(`m${slot}-kills-display`).innerText = `推算擊殺數：${kills}`;
   }
 
-  function updateRate(slot, col, delta) {
-    const k = estimatedKills[slot];
-    const el = document.getElementById(`stat-m${slot}-${col}`);
-    if(!el || k <= 0 || delta <= 0) return;
-    el.innerText = `掉率：${(delta/k*100).toFixed(3)}% (1/${Math.round(k/delta)})`;
+  function updateItemRate(slot, colId, delta) {
+    const kills = estimatedKills[slot];
+    const statEl = document.getElementById(`stat-m${slot}-${colId}`);
+    if (!statEl) return;
+    if (kills <= 0 || delta <= 0) { statEl.innerText = '掉落率：--'; return; }
+    statEl.innerText = `掉落率：${(delta / kills * 100).toFixed(3)}% (1/${Math.round(kills / delta)})`;
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
     const btn = document.getElementById('submit-btn');
-    btn.disabled = true; btn.innerText = '正在傳送數據...';
+    btn.disabled = true; btn.innerText = '上傳中...';
     try {
-      await submitOne(1);
-      if(document.getElementById('dual-mode-toggle').checked) await submitOne(2);
-      alert('回報成功！感謝您的貢獻。');
+      await submitSingleMonster(1);
+      if (document.getElementById('dual-mode-toggle').checked) await submitSingleMonster(2);
+      alert('回報成功！');
       location.reload();
-    } catch(err) {
-      alert('錯誤：' + err.message);
-      btn.disabled = false; btn.innerText = '重新送出';
-    }
+    } catch (err) { alert(err.message); btn.disabled = false; btn.innerText = '重新送出'; }
   }
 
-  async function submitOne(slot) {
+  async function submitSingleMonster(slot) {
     const m = document.getElementById(`monster-select-${slot}`).value;
-    if(!m) return;
+    if (!m) return;
     const p = document.getElementById('player-id').value;
     const k = estimatedKills[slot];
-    if(k < 100) throw new Error(`[${m}] 擊殺數低於 100 暫不開放回報`);
-
-    const body = { action:'submitDrop', player:p, monster:m, kills:k };
-    for(let i=4; i<=47; i++) {
-      const val = parseInt(document.getElementById(`m${slot}-c${i}-delta`)?.value) || 0;
-      body[`c${i}`] = val;
+    if (k < 100) throw new Error(`[${m}] 擊殺不足 100`);
+    const payload = { action: 'submitDrop', player: p, monster: m, kills: k, type: 'normal' };
+    for (let i = 4; i <= 47; i++) {
+      const el = document.getElementById(`m${slot}-c${i}-delta`);
+      if (el) payload[`c${i}`] = parseInt(el.value) || 0;
     }
-
-    const resp = await fetch(API_URL + '?api=1', {
-      method: 'POST',
-      body: JSON.stringify(body)
-    });
+    const resp = await fetch(API_URL + '?api=1', { method: 'POST', body: JSON.stringify(payload) });
     const res = await resp.json();
-    if(!res.ok) throw new Error(res.error);
+    if (!res.ok) throw new Error(res.error);
   }
 </script>
-
 </body>
 </html>
