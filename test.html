@@ -1,447 +1,447 @@
-!DOCTYPE html
-html lang=zh-TW
-head
-  meta charset=UTF-8
-  meta name=viewport content=width=device-width, initial-scale=1.0
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  titleArtale 掉寶統計站 - 測試版title
-  meta name=description content=Artale 楓之谷掉寶統計站。全網唯一的真實數據平台，提供怪物掉寶率查詢、BOSS 戰利品統計、個人運氣分析，助您掌握打寶效率。
+  <title>Artale 掉寶統計站 - 測試版</title>
+  <meta name="description" content="Artale 楓之谷掉寶統計站。全網唯一的真實數據平台，提供怪物掉寶率查詢、BOSS 戰利品統計、個人運氣分析，助您掌握打寶效率。">
   
-  script async src=httpspagead2.googlesyndication.compageadjsadsbygoogle.jsclient=ca-pub-4011206268996883
-     crossorigin=anonymousscript
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4011206268996883"
+     crossorigin="anonymous"></script>
 
-  style
-    root {
-      --bg-color #f8fafc;
-      --card-bg #ffffff;
-      --text-main #0f172a;
-      --text-sub #475569;
-      --accent #f97316;
-      --accent-hover #ea580c;
-      --border #e2e8f0;
-      --input-bg #ffffff;
-      --input-focus #ffedd5;
-      --shadow 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  <style>
+    :root {
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-sub: #475569;
+      --accent: #f97316;
+      --accent-hover: #ea580c;
+      --border: #e2e8f0;
+      --input-bg: #ffffff;
+      --input-focus: #ffedd5;
+      --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     }
 
     body.night-mode {
-      --bg-color #0f172a;
-      --card-bg #1e293b;
-      --text-main #f1f5f9;
-      --text-sub #94a3b8;
-      --accent #fb923c;
-      --accent-hover #fdba74;
-      --border #334155;
-      --input-bg #0f172a;
-      --input-focus #262626;
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --text-main: #f1f5f9;
+      --text-sub: #94a3b8;
+      --accent: #fb923c;
+      --accent-hover: #fdba74;
+      --border: #334155;
+      --input-bg: #0f172a;
+      --input-focus: #262626;
     }
 
     body {
-      margin 0;
-      background-color var(--bg-color);
-      color var(--text-main);
-      font-family PingFang TC, Noto Sans TC, Microsoft JhengHei, system-ui, sans-serif;
-      font-size 18px;
-      line-height 1.6;
-      transition all 0.3s ease;
-      display flex;
-      flex-direction column;
-      align-items center;
-      min-height 100vh;
-      padding 20px;
+      margin: 0;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
     }
 
     .container {
-      width 100%;
-      max-width 1280px;
-      background var(--card-bg);
-      border-radius 24px;
-      box-shadow var(--shadow);
-      padding 40px;
-      border 1px solid var(--border);
-      flex 1;
+      width: 100%;
+      max-width: 1280px;
+      background: var(--card-bg);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 40px;
+      border: 1px solid var(--border);
+      flex: 1;
     }
 
-     Header & Nav 
-    .header { display flex; justify-content space-between; align-items center; margin-bottom 30px; gap 15px; }
-    .brand { display flex; align-items center; gap 15px; overflow hidden; }
+    /* Header & Nav */
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; gap: 15px; }
+    .brand { display: flex; align-items: center; gap: 15px; overflow: hidden; }
     .logo-m {
-      width 50px; height 50px;
-      background linear-gradient(135deg, #fb923c 0%, #f97316 100%);
-      border-radius 12px;
-      display flex; align-items center; justify-content center;
-      color white; font-size 30px; font-weight 900;
-      box-shadow 0 4px 10px rgba(249, 115, 22, 0.4);
-      flex-shrink 0;
+      width: 50px; height: 50px;
+      background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 30px; font-weight: 900;
+      box-shadow: 0 4px 10px rgba(249, 115, 22, 0.4);
+      flex-shrink: 0;
     }
-    .header-text h1 { margin 0; font-size 30px; font-weight 800; white-space nowrap; }
-    .theme-btn { padding 10px 20px; border-radius 99px; border 1px solid var(--border); background var(--card-bg); color var(--text-main); cursor pointer; font-weight 600; font-size 16px; flex-shrink 0; }
+    .header-text h1 { margin: 0; font-size: 30px; font-weight: 800; white-space: nowrap; }
+    .theme-btn { padding: 10px 20px; border-radius: 99px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-main); cursor: pointer; font-weight: 600; font-size: 16px; flex-shrink: 0; }
     
-    .nav-bar { display flex; gap 12px; margin-bottom 40px; padding-bottom 20px; border-bottom 2px solid var(--border); flex-wrap wrap; }
-    .nav-btn { padding 12px 22px; border-radius 12px; text-decoration none; background var(--bg-color); color var(--text-sub); font-weight 600; border 1px solid var(--border); transition 0.3s; }
-    .nav-btnhover { border-color var(--accent); color var(--accent); transform translateY(-2px); }
-    .nav-btn.active { background var(--accent); color white; border-color var(--accent); box-shadow 0 4px 12px rgba(249, 115, 22, 0.3); }
-    .nav-btn.guide { border-color #10b981; color #059669; }
-    .nav-btn.guidehover { background #10b981; color white; }
+    .nav-bar { display: flex; gap: 12px; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 2px solid var(--border); flex-wrap: wrap; }
+    .nav-btn { padding: 12px 22px; border-radius: 12px; text-decoration: none; background: var(--bg-color); color: var(--text-sub); font-weight: 600; border: 1px solid var(--border); transition: 0.3s; }
+    .nav-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+    .nav-btn.active { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3); }
+    .nav-btn.guide { border-color: #10b981; color: #059669; }
+    .nav-btn.guide:hover { background: #10b981; color: white; }
     
-    .nav-mobile { display none; margin-bottom 30px; }
-    .nav-mobile select { width 100%; padding 15px; border-radius 12px; border 2px solid var(--accent); background var(--card-bg); color var(--text-main); font-size 17px; font-weight 700; cursor pointer; appearance none; background-image url(dataimagesvg+xml;charset=UTF-8,%3Csvg xmlns='httpwww.w3.org2000svg' viewBox='0 0 24 24' fill='none' stroke='%23f97316' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3Cpolyline%3E%3Csvg%3E); background-repeat no-repeat; background-position right 15px center; background-size 18px; }
+    .nav-mobile { display: none; margin-bottom: 30px; }
+    .nav-mobile select { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid var(--accent); background: var(--card-bg); color: var(--text-main); font-size: 17px; font-weight: 700; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f97316' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; background-size: 18px; }
 
-     基本樣式 
-    .panel { border 1px solid var(--border); padding 25px; border-radius 18px; background rgba(0,0,0,0.01); margin-bottom 25px; }
-    input, select { width 100%; padding 14px; border-radius 12px; border 2px solid var(--border); background var(--input-bg); color var(--text-main); font-size 17px; }
-    inputfocus { outline none; border-color var(--accent); background var(--input-focus); }
+    /* 基本樣式 */
+    .panel { border: 1px solid var(--border); padding: 25px; border-radius: 18px; background: rgba(0,0,0,0.01); margin-bottom: 25px; }
+    input, select { width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--border); background: var(--input-bg); color: var(--text-main); font-size: 17px; }
+    input:focus { outline: none; border-color: var(--accent); background: var(--input-focus); }
 
-     物品輸入框樣式優化 (含圖片) 
-    .item-input-box { background var(--card-bg); padding 18px; border-radius 15px; border 1px solid var(--border); position relative; display flex; flex-direction column; align-items center; }
+    /* 物品輸入框樣式優化 (含圖片) */
+    .item-input-box { background: var(--card-bg); padding: 18px; border-radius: 15px; border: 1px solid var(--border); position: relative; display: flex; flex-direction: column; align-items: center; }
     
-     物品圖片容器 
+    /* 物品圖片容器 */
     .item-img-wrapper {
-        width 48px; height 48px; margin-bottom 8px;
-        display flex; align-items center; justify-content center;
-        border-radius 8px; background var(--bg-color); border 1px solid var(--border);
+        width: 48px; height: 48px; margin-bottom: 8px;
+        display: flex; align-items: center; justify-content: center;
+        border-radius: 8px; background: var(--bg-color); border: 1px solid var(--border);
     }
-    .item-img-wrapper img { max-width 100%; max-height 100%; object-fit contain; }
+    .item-img-wrapper img { max-width: 100%; max-height: 100%; object-fit: contain; }
     
-    .item-label { font-size 15px; font-weight 700; margin-bottom 10px; text-align center; min-height 24px; display flex; align-items center; justify-content center; }
-    .live-stat { font-size 13px; color var(--accent); font-weight 600; margin-top 8px; display flex; justify-content space-between; width 100%; }
-    .qty-group { display flex; gap 8px; width 100%; }
-    .qty-group input { text-align center; font-weight bold; width 100%; }
+    .item-label { font-size: 15px; font-weight: 700; margin-bottom: 10px; text-align: center; min-height: 24px; display: flex; align-items: center; justify-content: center; }
+    .live-stat { font-size: 13px; color: var(--accent); font-weight: 600; margin-top: 8px; display: flex; justify-content: space-between; width: 100%; }
+    .qty-group { display: flex; gap: 8px; width: 100%; }
+    .qty-group input { text-align: center; font-weight: bold; width: 100%; }
 
-     怪物選擇與圖片 
-    .monster-select-wrapper { display flex; gap 15px; align-items center; margin-bottom 20px; }
+    /* 怪物選擇與圖片 */
+    .monster-select-wrapper { display: flex; gap: 15px; align-items: center; margin-bottom: 20px; }
     .monster-img-preview {
-        width 60px; height 60px; flex-shrink 0;
-        border-radius 12px; border 2px solid var(--accent);
-        background var(--bg-color); display flex; align-items center; justify-content center; overflow hidden;
+        width: 60px; height: 60px; flex-shrink: 0;
+        border-radius: 12px; border: 2px solid var(--accent);
+        background: var(--bg-color); display: flex; align-items: center; justify-content: center; overflow: hidden;
     }
-    .monster-img-preview img { width 100%; height 100%; object-fit cover; }
+    .monster-img-preview img { width: 100%; height: 100%; object-fit: cover; }
 
-    .btn-submit { width 100%; padding 20px; border none; border-radius 15px; background linear-gradient(135deg, #fb923c 0%, #f97316 100%); color white; font-size 22px; font-weight 800; cursor pointer; margin-top 20px; transition 0.3s; }
-    .btn-submithover { transform scale(1.01); box-shadow 0 6px 20px rgba(249, 115, 22, 0.4); }
-    .btn-submitdisabled { filter grayscale(1); cursor not-allowed; }
+    .btn-submit { width: 100%; padding: 20px; border: none; border-radius: 15px; background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); color: white; font-size: 22px; font-weight: 800; cursor: pointer; margin-top: 20px; transition: 0.3s; }
+    .btn-submit:hover { transform: scale(1.01); box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4); }
+    .btn-submit:disabled { filter: grayscale(1); cursor: not-allowed; }
 
-     Accordion 
-    .accordion-group { background var(--card-bg); border 1px solid var(--border); border-radius 16px; margin-bottom 20px; overflow hidden; transition all 0.3s ease; }
-    .accordion-header { padding 18px 25px; background rgba(0,0,0,0.02); cursor pointer; display flex; justify-content space-between; align-items center; user-select none; border-bottom 1px solid transparent; transition background 0.2s; }
-    .accordion-headerhover { background rgba(0,0,0,0.04); }
-    .accordion-group.open .accordion-header { border-bottom-color var(--border); }
-    .accordion-title { font-size 18px; font-weight 700; color var(--accent); display flex; align-items center; gap 10px; }
-    .accordion-titlebefore { content ; width 4px; height 18px; background var(--accent); border-radius 2px; }
-    .accordion-icon { font-size 14px; color var(--text-sub); transition transform 0.3s ease; }
-    .accordion-group.open .accordion-icon { transform rotate(180deg); }
-    .accordion-content { display none; padding 20px; background var(--card-bg); }
-    .accordion-group.open .accordion-content { display block; animation fadeIn 0.3s ease; }
-    @keyframes fadeIn { from { opacity 0; transform translateY(-5px); } to { opacity 1; transform translateY(0); } }
+    /* Accordion */
+    .accordion-group { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 20px; overflow: hidden; transition: all 0.3s ease; }
+    .accordion-header { padding: 18px 25px; background: rgba(0,0,0,0.02); cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; border-bottom: 1px solid transparent; transition: background 0.2s; }
+    .accordion-header:hover { background: rgba(0,0,0,0.04); }
+    .accordion-group.open .accordion-header { border-bottom-color: var(--border); }
+    .accordion-title { font-size: 18px; font-weight: 700; color: var(--accent); display: flex; align-items: center; gap: 10px; }
+    .accordion-title::before { content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px; }
+    .accordion-icon { font-size: 14px; color: var(--text-sub); transition: transform 0.3s ease; }
+    .accordion-group.open .accordion-icon { transform: rotate(180deg); }
+    .accordion-content { display: none; padding: 20px; background: var(--card-bg); }
+    .accordion-group.open .accordion-content { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
-    .drop-grid { display grid; grid-template-columns repeat(auto-fill, minmax(240px, 1fr)); gap 15px; }
-    footer { width 100%; max-width 1280px; margin-top 40px; padding 30px 0; border-top 1px solid var(--border); display flex; justify-content space-between; align-items center; flex-wrap wrap; gap 20px; }
-    .footer-links { display flex; gap 25px; }
-    .footer-links a { text-decoration none; color var(--text-sub); font-size 15px; font-weight 500; }
-    .footer-links ahover { color var(--accent); }
-    .copyright { font-size 15px; color var(--text-sub); }
-    .hidden { display none; }
+    .drop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 15px; }
+    footer { width: 100%; max-width: 1280px; margin-top: 40px; padding: 30px 0; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .footer-links { display: flex; gap: 25px; }
+    .footer-links a { text-decoration: none; color: var(--text-sub); font-size: 15px; font-weight: 500; }
+    .footer-links a:hover { color: var(--accent); }
+    .copyright { font-size: 15px; color: var(--text-sub); }
+    .hidden { display: none; }
 
-     Mobile 
-    @media (max-width 768px) {
-      body { padding 10px; }
-      .container { padding 20px; border-radius 16px; }
-      .header-text h1 { font-size 20px; }
-      .header-text div { font-size 12px !important; }
-      .logo-m { width 40px; height 40px; font-size 24px; }
-      .theme-btn { padding 8px 15px; font-size 14px; }
-      .nav-bar { display none; }
-      .nav-mobile { display block; }
-      .panel { padding 15px; }
-      .footer-links { width 100%; justify-content center; gap 15px; }
-      .copyright { width 100%; text-align center; font-size 13px; }
-      .accordion-header { padding 15px; }
-      .accordion-content { padding 15px; }
-      .accordion-title { font-size 16px; }
-       Mobile Grid 
-      .drop-grid { grid-template-columns 1fr; }
+    /* Mobile */
+    @media (max-width: 768px) {
+      body { padding: 10px; }
+      .container { padding: 20px; border-radius: 16px; }
+      .header-text h1 { font-size: 20px; }
+      .header-text div { font-size: 12px !important; }
+      .logo-m { width: 40px; height: 40px; font-size: 24px; }
+      .theme-btn { padding: 8px 15px; font-size: 14px; }
+      .nav-bar { display: none; }
+      .nav-mobile { display: block; }
+      .panel { padding: 15px; }
+      .footer-links { width: 100%; justify-content: center; gap: 15px; }
+      .copyright { width: 100%; text-align: center; font-size: 13px; }
+      .accordion-header { padding: 15px; }
+      .accordion-content { padding: 15px; }
+      .accordion-title { font-size: 16px; }
+      /* Mobile Grid */
+      .drop-grid { grid-template-columns: 1fr; }
       
-      .item-input-box { flex-direction row; align-items center; gap 15px; padding 12px; }
-      .item-img-wrapper { margin-bottom 0; width 40px; height 40px; flex-shrink 0; }
-      .item-label { margin-bottom 0; text-align left; justify-content flex-start; flex 1; }
-      .qty-group { width auto; gap 5px; }
-      .qty-group input { width 50px; padding 8px; font-size 14px; }
-      .live-stat { display none; }
+      .item-input-box { flex-direction: row; align-items: center; gap: 15px; padding: 12px; }
+      .item-img-wrapper { margin-bottom: 0; width: 40px; height: 40px; flex-shrink: 0; }
+      .item-label { margin-bottom: 0; text-align: left; justify-content: flex-start; flex: 1; }
+      .qty-group { width: auto; gap: 5px; }
+      .qty-group input { width: 50px; padding: 8px; font-size: 14px; }
+      .live-stat { display: none; }
     }
-  style
-head
-body
+  </style>
+</head>
+<body>
 
-div class=container
-  div class=header
-    div class=brand
-      div class=logo-mMdiv
-      div class=header-text
-        h1Artale 掉寶統計站h1
-        div style=colorvar(--text-sub); font-size 15px; font-weight 500;精準計算擊殺數與掉落率 (測試版)div
-      div
-    div
-    button class=theme-btn id=theme-toggle🌙 夜間模式button
-  div
+<div class="container">
+  <div class="header">
+    <div class="brand">
+      <div class="logo-m">M</div>
+      <div class="header-text">
+        <h1>Artale 掉寶統計站</h1>
+        <div style="color:var(--text-sub); font-size: 15px; font-weight: 500;">精準計算擊殺數與掉落率 (測試版)</div>
+      </div>
+    </div>
+    <button class="theme-btn" id="theme-toggle">🌙 夜間模式</button>
+  </div>
 
-  nav class=nav-bar
-    a href=index.html class=nav-btn active一般回報a
-    a href=stats.html class=nav-btn一般統計a
-    a href=playerStats.html class=nav-btn個人統計a
-    a href=boss.html class=nav-btnBOSS回報a
-    a href=stats2.html class=nav-btnBOSS統計a
-    a href=playerBossStats.html class=nav-btnBOSS個人統計a
-    a href=httpsforum.gamer.com.twC.phpbsn=79354&snA=8900&tnum=3&b target=_blank class=nav-btn guide📘 使用說明a
-  nav
+  <nav class="nav-bar">
+    <a href="index.html" class="nav-btn active">一般回報</a>
+    <a href="stats.html" class="nav-btn">一般統計</a>
+    <a href="playerStats.html" class="nav-btn">個人統計</a>
+    <a href="boss.html" class="nav-btn">BOSS回報</a>
+    <a href="stats2.html" class="nav-btn">BOSS統計</a>
+    <a href="playerBossStats.html" class="nav-btn">BOSS個人統計</a>
+    <a href="https://forum.gamer.com.tw/C.php?bsn=79354&snA=8900&tnum=3&b" target="_blank" class="nav-btn guide">📘 使用說明</a>
+  </nav>
 
-  div class=nav-mobile
-    select onchange=if(this.value.includes('http')) { window.open(this.value, '_blank'); this.value='index.html'; } else { window.location.href=this.value; }
-      option value=index.html selected功能切換：一般回報option
-      option value=stats.html一般統計option
-      option value=playerStats.html個人統計option
-      option value=boss.htmlBOSS回報option
-      option value=stats2.htmlBOSS統計option
-      option value=playerBossStats.htmlBOSS個人統計option
-      option value=httpsforum.gamer.com.twC.phpbsn=79354&snA=8900&tnum=3&b📘 使用說明 (外部連結)option
-    select
-  div
+  <div class="nav-mobile">
+    <select onchange="if(this.value.includes('http')) { window.open(this.value, '_blank'); this.value='index.html'; } else { window.location.href=this.value; }">
+      <option value="index.html" selected>功能切換：一般回報</option>
+      <option value="stats.html">一般統計</option>
+      <option value="playerStats.html">個人統計</option>
+      <option value="boss.html">BOSS回報</option>
+      <option value="stats2.html">BOSS統計</option>
+      <option value="playerBossStats.html">BOSS個人統計</option>
+      <option value="https://forum.gamer.com.tw/C.php?bsn=79354&snA=8900&tnum=3&b">📘 使用說明 (外部連結)</option>
+    </select>
+  </div>
 
-  form id=dropForm
-    div class=panel
-      div style=display grid; grid-template-columns repeat(auto-fit, minmax(300px, 1fr)); gap 30px;
-        div
-          label style=font-weight700; margin-bottom5px; displayblock;玩家角色 ID (包含 #12345)label
-          input type=text id=player-id placeholder=例如：RainYu#B1234 required
-        div
-        div style=display flex; align-items center; padding-top 25px;
-          label style=display flex; align-items center; gap 12px; cursor pointer; margin 0;
-            input type=checkbox id=dual-mode-toggle style=width 22px; height 22px; 
-            span style=font-weight700;開啟雙怪回報模式span
-          label
-        div
-      div
-    div
+  <form id="dropForm">
+    <div class="panel">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+        <div>
+          <label style="font-weight:700; margin-bottom:5px; display:block;">玩家角色 ID (包含 #12345)</label>
+          <input type="text" id="player-id" placeholder="例如：RainYu#B1234" required>
+        </div>
+        <div style="display: flex; align-items: center; padding-top: 25px;">
+          <label style="display: flex; align-items: center; gap: 12px; cursor: pointer; margin: 0;">
+            <input type="checkbox" id="dual-mode-toggle" style="width: 22px; height: 22px;"> 
+            <span style="font-weight:700;">開啟雙怪回報模式</span>
+          </label>
+        </div>
+      </div>
+    </div>
 
-    div id=panels-wrapper
-      div class=panel id=panel-1
-        div class=section-title style=margin-top0; colorvar(--accent); font-size20px; font-weight700; margin-bottom15px; displayflex; align-itemscenter; gap10px;
-          div style=width5px; height22px; backgroundvar(--accent); border-radius2px;div
+    <div id="panels-wrapper">
+      <div class="panel" id="panel-1">
+        <div class="section-title" style="margin-top:0; color:var(--accent); font-size:20px; font-weight:700; margin-bottom:15px; display:flex; align-items:center; gap:10px;">
+          <div style="width:5px; height:22px; background:var(--accent); border-radius:2px;"></div>
           怪物 1：選擇對象
-        div
+        </div>
         
-        div class=monster-select-wrapper
-            div class=monster-img-preview
-                img id=m1-img src= alt=Monster style=displaynone;
-            div
-            select id=monster-select-1 required style=width 100%;
-              option value=正在連線伺服器...option
-            select
-        div
+        <div class="monster-select-wrapper">
+            <div class="monster-img-preview">
+                <img id="m1-img" src="" alt="Monster" style="display:none;">
+            </div>
+            <select id="monster-select-1" required style="width: 100%;">
+              <option value="">正在連線伺服器...</option>
+            </select>
+        </div>
         
-        div id=content-1 class=hidden
-          div style=margin-bottom 25px; padding 15px; background var(--bg-color); border-radius 12px; border 1px solid var(--border);
-             div style=displayflex; justify-contentspace-between; margin-bottom10px; font-weightbold; colorvar(--text-sub);
-                span核心數據span
-                span id=m1-kills-display推算擊殺數：0span
-             div
+        <div id="content-1" class="hidden">
+          <div style="margin-bottom: 25px; padding: 15px; background: var(--bg-color); border-radius: 12px; border: 1px solid var(--border);">
+             <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-weight:bold; color:var(--text-sub);">
+                <span>核心數據</span>
+                <span id="m1-kills-display">推算擊殺數：0</span>
+             </div>
              
-             div class=item-input-box style=border1px solid var(--accent);
-                div class=item-img-wrapper
-                    img id=m1-tail-img src= alt=Icon style=displaynone;
-                div
-                div class=item-label id=label-tail-1 style=colorvar(--accent);主掉落物div
-                div class=qty-group
-                  input type=number id=m1-c4-init placeholder=始
-                  input type=number id=m1-c4-final placeholder=終
-                  input type=number id=m1-c4-delta readonly placeholder=0 style=backgroundvar(--bg-color)
-                div
-                div class=live-stat
-                  span id=m1-tail-rate-text預設掉落率：--span
-                  span id=m1-kills-text擊殺數：0span
-                div
-             div
-          div
+             <div class="item-input-box" style="border:1px solid var(--accent);">
+                <div class="item-img-wrapper">
+                    <img id="m1-tail-img" src="" alt="Icon" style="display:none;">
+                </div>
+                <div class="item-label" id="label-tail-1" style="color:var(--accent);">主掉落物</div>
+                <div class="qty-group">
+                  <input type="number" id="m1-c4-init" placeholder="始">
+                  <input type="number" id="m1-c4-final" placeholder="終">
+                  <input type="number" id="m1-c4-delta" readonly placeholder="0" style="background:var(--bg-color)">
+                </div>
+                <div class="live-stat">
+                  <span id="m1-tail-rate-text">預設掉落率：--</span>
+                  <span id="m1-kills-text">擊殺數：0</span>
+                </div>
+             </div>
+          </div>
 
-          div class=accordion-group open onclick=toggleAccordion(this)
-            div class=accordion-header
-              div class=accordion-title📜 稀有卷軸div
-              div class=accordion-icon▼div
-            div
-            div class=accordion-content
-              div class=drop-grid id=m1-grid-scrollsdiv
-            div
-          div
+          <div class="accordion-group open" onclick="toggleAccordion(this)">
+            <div class="accordion-header">
+              <div class="accordion-title">📜 稀有卷軸</div>
+              <div class="accordion-icon">▼</div>
+            </div>
+            <div class="accordion-content">
+              <div class="drop-grid" id="m1-grid-scrolls"></div>
+            </div>
+          </div>
 
-          div class=accordion-group open onclick=toggleAccordion(this)
-            div class=accordion-header
-              div class=accordion-title💎 稀有大獎div
-              div class=accordion-icon▼div
-            div
-            div class=accordion-content
-              div class=drop-grid id=m1-grid-jackpotsdiv
-            div
-          div
+          <div class="accordion-group open" onclick="toggleAccordion(this)">
+            <div class="accordion-header">
+              <div class="accordion-title">💎 稀有大獎</div>
+              <div class="accordion-icon">▼</div>
+            </div>
+            <div class="accordion-content">
+              <div class="drop-grid" id="m1-grid-jackpots"></div>
+            </div>
+          </div>
 
-          div class=accordion-group open onclick=toggleAccordion(this)
-            div class=accordion-header
-              div class=accordion-title⚔️ 裝備掉落div
-              div class=accordion-icon▼div
-            div
-            div class=accordion-content
-              div class=drop-grid id=m1-grid-equipdiv
-            div
-          div
+          <div class="accordion-group open" onclick="toggleAccordion(this)">
+            <div class="accordion-header">
+              <div class="accordion-title"⚔️ 裝備掉落</div>
+              <div class="accordion-icon">▼</div>
+            </div>
+            <div class="accordion-content">
+              <div class="drop-grid" id="m1-grid-equip"></div>
+            </div>
+          </div>
 
-          div class=accordion-group open onclick=toggleAccordion(this)
-            div class=accordion-header
-              div class=accordion-title🪨 母礦與礦石div
-              div class=accordion-icon▼div
-            div
-            div class=accordion-content
-              div class=drop-grid id=m1-grid-oresdiv
-            div
-          div
+          <div class="accordion-group open" onclick="toggleAccordion(this)">
+            <div class="accordion-header">
+              <div class="accordion-title">🪨 母礦與礦石</div>
+              <div class="accordion-icon">▼</div>
+            </div>
+            <div class="accordion-content">
+              <div class="drop-grid" id="m1-grid-ores"></div>
+            </div>
+          </div>
 
-          div class=accordion-group open onclick=toggleAccordion(this)
-            div class=accordion-header
-              div class=accordion-title📦 其他物品div
-              div class=accordion-icon▼div
-            div
-            div class=accordion-content
-              div class=drop-grid id=m1-grid-othersdiv
-            div
-          div
-        div
-      div
+          <div class="accordion-group open" onclick="toggleAccordion(this)">
+            <div class="accordion-header">
+              <div class="accordion-title">📦 其他物品</div>
+              <div class="accordion-icon">▼</div>
+            </div>
+            <div class="accordion-content">
+              <div class="drop-grid" id="m1-grid-others"></div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      div class=panel hidden id=panel-2
-        div class=section-title style=margin-top0; colorvar(--accent); font-size20px; font-weight700; margin-bottom15px; displayflex; align-itemscenter; gap10px;
-          div style=width5px; height22px; backgroundvar(--accent); border-radius2px;div
+      <div class="panel hidden" id="panel-2">
+        <div class="section-title" style="margin-top:0; color:var(--accent); font-size:20px; font-weight:700; margin-bottom:15px; display:flex; align-items:center; gap:10px;">
+          <div style="width:5px; height:22px; background:var(--accent); border-radius:2px;"></div>
           怪物 2：選擇對象
-        div
+        </div>
         
-        div class=monster-select-wrapper
-            div class=monster-img-preview
-                img id=m2-img src= alt=Monster style=displaynone;
-            div
-            select id=monster-select-2 style=width 100%;
-              option value=請選擇怪物option
-            select
-        div
+        <div class="monster-select-wrapper">
+            <div class="monster-img-preview">
+                <img id="m2-img" src="" alt="Monster" style="display:none;">
+            </div>
+            <select id="monster-select-2" style="width: 100%;">
+              <option value="">請選擇怪物</option>
+            </select>
+        </div>
         
-        div id=content-2 class=hidden
-           div style=margin-bottom 25px; padding 15px; background var(--bg-color); border-radius 12px; border 1px solid var(--border);
-             div style=displayflex; justify-contentspace-between; margin-bottom10px; font-weightbold; colorvar(--text-sub);
-                span核心數據span
-                span id=m2-kills-display推算擊殺數：0span
-             div
+        <div id="content-2" class="hidden">
+           <div style="margin-bottom: 25px; padding: 15px; background: var(--bg-color); border-radius: 12px; border: 1px solid var(--border);">
+             <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-weight:bold; color:var(--text-sub);">
+                <span>核心數據</span>
+                <span id="m2-kills-display">推算擊殺數：0</span>
+             </div>
              
-             div class=item-input-box style=border1px solid var(--accent);
-                div class=item-img-wrapper
-                    img id=m2-tail-img src= alt=Icon style=displaynone;
-                div
-                div class=item-label id=label-tail-2 style=colorvar(--accent);主掉落物div
-                div class=qty-group
-                  input type=number id=m2-c4-init placeholder=始
-                  input type=number id=m2-c4-final placeholder=終
-                  input type=number id=m2-c4-delta readonly placeholder=0 style=backgroundvar(--bg-color)
-                div
-                div class=live-stat
-                  span id=m2-tail-rate-text預設掉落率：--span
-                  span id=m2-kills-text擊殺數：0span
-                div
-             div
-          div
+             <div class="item-input-box" style="border:1px solid var(--accent);">
+                <div class="item-img-wrapper">
+                    <img id="m2-tail-img" src="" alt="Icon" style="display:none;">
+                </div>
+                <div class="item-label" id="label-tail-2" style="color:var(--accent);">主掉落物</div>
+                <div class="qty-group">
+                  <input type="number" id="m2-c4-init" placeholder="始">
+                  <input type="number" id="m2-c4-final" placeholder="終">
+                  <input type="number" id="m2-c4-delta" readonly placeholder="0" style="background:var(--bg-color)">
+                </div>
+                <div class="live-stat">
+                  <span id="m2-tail-rate-text">預設掉落率：--</span>
+                  <span id="m2-kills-text">擊殺數：0</span>
+                </div>
+             </div>
+          </div>
 
-          div class=accordion-group open onclick=toggleAccordion(this)
-            div class=accordion-header
-              div class=accordion-title📜 稀有卷軸div
-              div class=accordion-icon▼div
-            div
-            div class=accordion-content
-              div class=drop-grid id=m2-grid-scrollsdiv
-            div
-          div
+          <div class="accordion-group open" onclick="toggleAccordion(this)">
+            <div class="accordion-header">
+              <div class="accordion-title">📜 稀有卷軸</div>
+              <div class="accordion-icon">▼</div>
+            </div>
+            <div class="accordion-content">
+              <div class="drop-grid" id="m2-grid-scrolls"></div>
+            </div>
+          </div>
 
-          div class=accordion-group open onclick=toggleAccordion(this)
-            div class=accordion-header
-              div class=accordion-title💎 稀有大獎div
-              div class=accordion-icon▼div
-            div
-            div class=accordion-content
-              div class=drop-grid id=m2-grid-jackpotsdiv
-            div
-          div
+          <div class="accordion-group open" onclick="toggleAccordion(this)">
+            <div class="accordion-header">
+              <div class="accordion-title">💎 稀有大獎</div>
+              <div class="accordion-icon">▼</div>
+            </div>
+            <div class="accordion-content">
+              <div class="drop-grid" id="m2-grid-jackpots"></div>
+            </div>
+          </div>
 
-          div class=accordion-group open onclick=toggleAccordion(this)
-            div class=accordion-header
-              div class=accordion-title⚔️ 裝備掉落div
-              div class=accordion-icon▼div
-            div
-            div class=accordion-content
-              div class=drop-grid id=m2-grid-equipdiv
-            div
-          div
+          <div class="accordion-group open" onclick="toggleAccordion(this)">
+            <div class="accordion-header">
+              <div class="accordion-title">⚔️ 裝備掉落</div>
+              <div class="accordion-icon">▼</div>
+            </div>
+            <div class="accordion-content">
+              <div class="drop-grid" id="m2-grid-equip"></div>
+            </div>
+          </div>
 
-          div class=accordion-group open onclick=toggleAccordion(this)
-            div class=accordion-header
-              div class=accordion-title🪨 母礦與礦石div
-              div class=accordion-icon▼div
-            div
-            div class=accordion-content
-              div class=drop-grid id=m2-grid-oresdiv
-            div
-          div
+          <div class="accordion-group open" onclick="toggleAccordion(this)">
+            <div class="accordion-header">
+              <div class="accordion-title">🪨 母礦與礦石</div>
+              <div class="accordion-icon">▼</div>
+            </div>
+            <div class="accordion-content">
+              <div class="drop-grid" id="m2-grid-ores"></div>
+            </div>
+          </div>
 
-          div class=accordion-group open onclick=toggleAccordion(this)
-            div class=accordion-header
-              div class=accordion-title📦 其他物品div
-              div class=accordion-icon▼div
-            div
-            div class=accordion-content
-              div class=drop-grid id=m2-grid-othersdiv
-            div
-          div
-        div
-      div
-    div
+          <div class="accordion-group open" onclick="toggleAccordion(this)">
+            <div class="accordion-header">
+              <div class="accordion-title">📦 其他物品</div>
+              <div class="accordion-icon">▼</div>
+            </div>
+            <div class="accordion-content">
+              <div class="drop-grid" id="m2-grid-others"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    button type=submit class=btn-submit id=submit-btn送出統計資料button
-  form
+    <button type="submit" class="btn-submit" id="submit-btn">送出統計資料</button>
+  </form>
 
-  footer
-    div class=footer-links
-      a href=about.html關於本站a
-      a href=terms.html使用條款a
-      a href=privacy-policy.html隱私權政策a
-      a href=contact.html聯絡我們a
-    div
+  <footer>
+    <div class="footer-links">
+      <a href="about.html">關於本站</a>
+      <a href="terms.html">使用條款</a>
+      <a href="privacy-policy.html">隱私權政策</a>
+      <a href="contact.html">聯絡我們</a>
+    </div>
 
-    div style=display flex; flex-direction column; align-items center; gap 10px; margin 25px 0;
-      div style=font-size 15px; color var(--text-sub); font-weight 600; display flex; align-items center; gap 6px;
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin: 25px 0;">
+      <div style="font-size: 15px; color: var(--text-sub); font-weight: 600; display: flex; align-items: center; gap: 6px;">
         ☕ 贊助辛苦的站長一杯咖啡
-      div
+      </div>
       
-      a href=httpswww.buymeacoffee.comyuyujay target=_blank style=display inline-block; transition transform 0.2s; onmouseover=this.style.transform='scale(1.05)' onmouseout=this.style.transform='scale(1)'
-        img src=httpscdn.buymeacoffee.combuttonsv2default-orange.png alt=Buy Me A Coffee style=height 40px !important; width 150px !important; display block;
-      a
-    div
+      <a href="https://www.buymeacoffee.com/yuyujay" target="_blank" style="display: inline-block; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        <img src="https://cdn.buymeacoffee.com/buttons/v2/default-orange.png" alt="Buy Me A Coffee" style="height: 40px !important; width: 150px !important; display: block;">
+      </a>
+    </div>
 
-    div class=copyright
+    <div class="copyright">
       &copy; 2025 Artale Drop Statistics. All rights reserved.
-    div
-  footer
-div
+    </div>
+  </footer>
+</div>
 
-script
-   ✅ 1. 正確設定 Cloudflare 環境下的 API 網址 (同網域)
-  const API_URL = 'api'; 
+<script>
+  // ✅ 1. 正確設定 Cloudflare 環境下的 API 網址 (同網域)
+  const API_URL = '/api'; 
 
-  let monsterConfigs = { 1 null, 2 null };
-  let estimatedKills = { 1 0, 2 0 };
-  const COOLDOWN_MS = 3  60  1000;  3分鐘
+  let monsterConfigs = { 1: null, 2: null };
+  let estimatedKills = { 1: 0, 2: 0 };
+  const COOLDOWN_MS = 3 * 60 * 1000; // 3分鐘
 
-  document.addEventListener('DOMContentLoaded', () = {
+  document.addEventListener('DOMContentLoaded', () => {
     initTheme();
     loadMonsterList();
     setupEventListeners();
@@ -456,20 +456,20 @@ script
     const btn = document.getElementById('theme-toggle');
     const isNight = localStorage.getItem('theme') === 'dark';
     if (isNight) { document.body.classList.add('night-mode'); btn.innerText = '☀️ 日間模式'; }
-    btn.addEventListener('click', () = {
+    btn.addEventListener('click', () => {
       const active = document.body.classList.toggle('night-mode');
-      localStorage.setItem('theme', active  'dark'  'light');
-      btn.innerText = active  '☀️ 日間模式'  '🌙 夜間模式';
+      localStorage.setItem('theme', active ? 'dark' : 'light');
+      btn.innerText = active ? '☀️ 日間模式' : '🌙 夜間模式';
     });
   }
 
   async function loadMonsterList() {
     try {
-       ✅ 2. 加上 api=1 參數
-      const resp = await fetch(`${API_URL}api=1&action=getMonsterList`);
+      // ✅ 2. 加上 api=1 參數
+      const resp = await fetch(`${API_URL}?api=1&action=getMonsterList`);
       const res = await resp.json();
       if (res.ok) {
-        const options = 'option value=請選擇怪物...option' + res.data.map(m = `option value=${m}${m}option`).join('');
+        const options = '<option value="">請選擇怪物...</option>' + res.data.map(m => `<option value="${m}">${m}</option>`).join('');
         document.getElementById('monster-select-1').innerHTML = options;
         document.getElementById('monster-select-2').innerHTML = options;
       }
@@ -482,15 +482,15 @@ script
     if (container) container.classList.remove('hidden');
 
     try {
-       ✅ 3. 加上 api=1 參數
-      const resp = await fetch(`${API_URL}api=1&action=getMonsterConfig&monster=${encodeURIComponent(monsterName)}`);
+      // ✅ 3. 加上 api=1 參數
+      const resp = await fetch(`${API_URL}?api=1&action=getMonsterConfig&monster=${encodeURIComponent(monsterName)}`);
       const res = await resp.json();
       if (res.ok) {
         monsterConfigs[slot] = res.data;
         renderFields(slot, res.data);
         updateKillCalculation(slot);
         
-         更新怪物圖片 (A2 欄位)
+        // 更新怪物圖片 (A2 欄位)
         const monsterImgEl = document.getElementById(`m${slot}-img`);
         if (res.data.monsterImage) {
             monsterImgEl.src = res.data.monsterImage;
@@ -505,11 +505,11 @@ script
   function renderFields(slot, config) {
     const p = `m${slot}`;
     
-     主掉落物 (Tail)
+    // 主掉落物 (Tail)
     const tailLabel = document.getElementById(`label-tail-${slot}`);
     if(tailLabel) tailLabel.innerText = config.tail;
     
-     主掉落物圖片
+    // 主掉落物圖片
     const tailImg = document.getElementById(`${p}-tail-img`);
     if(config.tailImage) {
         tailImg.src = config.tailImage;
@@ -518,79 +518,79 @@ script
         tailImg.style.display = 'none';
     }
 
-    const ratePercent = (config.tailRate  100).toFixed(1) + '%';
+    const ratePercent = (config.tailRate * 100).toFixed(1) + '%';
     const rateText = document.getElementById(`${p}-tail-rate-text`);
     if(rateText) rateText.innerText = `預設掉落率：${ratePercent}`;
 
-     建立輸入框的 Helper Function (支援圖片)
-    const createInput = (name, imgUrl, colIndex) = {
-      if (!name  name.trim() === ) return ;
+    // 建立輸入框的 Helper Function (支援圖片)
+    const createInput = (name, imgUrl, colIndex) => {
+      if (!name || name.trim() === "") return "";
       
-      let imgHtml = ;
-      if (imgUrl && imgUrl.trim() !== ) {
-          imgHtml = `div class=item-img-wrapperimg src=${imgUrl} onerror=this.style.display='none'div`;
+      let imgHtml = "";
+      if (imgUrl && imgUrl.trim() !== "") {
+          imgHtml = `<div class="item-img-wrapper"><img src="${imgUrl}" onerror="this.style.display='none'"></div>`;
       } else {
-           佔位，保持排版一致 (可選)
-          imgHtml = `div class=item-img-wrapper style=opacity0;div`;
+          // 佔位，保持排版一致 (可選)
+          imgHtml = `<div class="item-img-wrapper" style="opacity:0;"></div>`;
       }
 
       return `
-        div class=item-input-box
+        <div class="item-input-box">
           ${imgHtml}
-          div class=item-label${name}div
-          div class=qty-group
-            input type=number id=${p}-c${colIndex}-init placeholder=始
-            input type=number id=${p}-c${colIndex}-final placeholder=終
-            input type=number id=${p}-c${colIndex}-delta readonly placeholder=0
-          div
-          div class=live-stat id=stat-${p}-c${colIndex}掉落率：--div
-        div`;
+          <div class="item-label">${name}</div>
+          <div class="qty-group">
+            <input type="number" id="${p}-c${colIndex}-init" placeholder="始">
+            <input type="number" id="${p}-c${colIndex}-final" placeholder="終">
+            <input type="number" id="${p}-c${colIndex}-delta" readonly placeholder="0">
+          </div>
+          <div class="live-stat" id="stat-${p}-c${colIndex}">掉落率：--</div>
+        </div>`;
     };
 
-    const noData = 'div style=colorvar(--text-sub); font-size14px; padding10px 0;無此類物品div';
-    const safeSetHTML = (id, html) = { const el = document.getElementById(id); if (el) el.innerHTML = html; };
+    const noData = '<div style="color:var(--text-sub); font-size:14px; padding:10px 0;">無此類物品</div>';
+    const safeSetHTML = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
 
-     取得圖片陣列
-    const sImgs = config.scrollImages  [];
-    const jImgs = config.jackpotImages  [];
-    const eImgs = config.equipImages  [];
-    const oImgs = config.oreImages  [];
-    const otImgs = config.otherImages  [];
+    // 取得圖片陣列
+    const sImgs = config.scrollImages || [];
+    const jImgs = config.jackpotImages || [];
+    const eImgs = config.equipImages || [];
+    const oImgs = config.oreImages || [];
+    const otImgs = config.otherImages || [];
 
-     渲染各區塊
-    const scrollsHtml = config.scrolls.map((n, i) = createInput(n, sImgs[i], 5 + i)).join('');
-    safeSetHTML(`${p}-grid-scrolls`, scrollsHtml  noData);
+    // 渲染各區塊
+    const scrollsHtml = config.scrolls.map((n, i) => createInput(n, sImgs[i], 5 + i)).join('');
+    safeSetHTML(`${p}-grid-scrolls`, scrollsHtml || noData);
 
-    const jackpotsHtml = config.jackpots.map((n, i) = createInput(n, jImgs[i], 10 + i)).join('');
-    safeSetHTML(`${p}-grid-jackpots`, jackpotsHtml  noData);
+    const jackpotsHtml = config.jackpots.map((n, i) => createInput(n, jImgs[i], 10 + i)).join('');
+    safeSetHTML(`${p}-grid-jackpots`, jackpotsHtml || noData);
     
-    const equipHtml = config.equips.map((n, i) = createInput(n, eImgs[i], 13 + i)).join('');
-    safeSetHTML(`${p}-grid-equip`, equipHtml  noData);
+    const equipHtml = config.equips.map((n, i) => createInput(n, eImgs[i], 13 + i)).join('');
+    safeSetHTML(`${p}-grid-equip`, equipHtml || noData);
     
-    const oresHtml = config.ores.map((n, i) = createInput(n, oImgs[i], 36 + i)).join('');
-    safeSetHTML(`${p}-grid-ores`, oresHtml  noData);
+    const oresHtml = config.ores.map((n, i) => createInput(n, oImgs[i], 36 + i)).join('');
+    safeSetHTML(`${p}-grid-ores`, oresHtml || noData);
 
-    const othersHtml = config.others.map((n, i) = createInput(n, otImgs[i], 43 + i)).join('');
-    safeSetHTML(`${p}-grid-others`, othersHtml  noData);
+    const othersHtml = config.others.map((n, i) => createInput(n, otImgs[i], 43 + i)).join('');
+    safeSetHTML(`${p}-grid-others`, othersHtml || noData);
   }
 
   function setupEventListeners() {
-    document.getElementById('monster-select-1').addEventListener('change', (e) = handleMonsterChange(1, e.target.value));
-    document.getElementById('monster-select-2').addEventListener('change', (e) = handleMonsterChange(2, e.target.value));
+    document.getElementById('monster-select-1').addEventListener('change', (e) => handleMonsterChange(1, e.target.value));
+    document.getElementById('monster-select-2').addEventListener('change', (e) => handleMonsterChange(2, e.target.value));
 
-    document.getElementById('dual-mode-toggle').addEventListener('change', (e) = {
+    document.getElementById('dual-mode-toggle').addEventListener('change', (e) => {
       document.getElementById('panel-2').classList.toggle('hidden', !e.target.checked);
     });
 
-    document.addEventListener('input', (e) = {
-      if (e.target.id.includes('-init')  e.target.id.includes('-final')) {
+    document.addEventListener('input', (e) => {
+      if (e.target.id.includes('-init') || e.target.id.includes('-final')) {
         const parts = e.target.id.split('-');
-        const slot = parts[0] === 'm1'  1  2;
+        const slot = parts[0] === 'm1' ? 1 : 2;
         const colId = parts[1];
 
         const baseId = `${parts[0]}-${parts[1]}`;
-        const initVal = parseInt(document.getElementById(baseId + '-init').value)  0;
-        const finalVal = parseInt(document.getElementById(baseId + '-final').value)  0;
+        const initVal = parseInt(document.getElementById(baseId + '-init').value) || 0;
+        const finalVal = parseInt(document.getElementById(baseId + '-final').value) || 0;
         const delta = Math.max(0, finalVal - initVal);
         
         const deltaEl = document.getElementById(baseId + '-delta');
@@ -612,9 +612,9 @@ script
     if (!config) return;
 
     const deltaEl = document.getElementById(`m${slot}-c4-delta`);
-    const delta = deltaEl  (parseInt(deltaEl.value)  0)  0;
+    const delta = deltaEl ? (parseInt(deltaEl.value) || 0) : 0;
     
-    const kills = Math.floor(delta  (config.tailRate  0.01));
+    const kills = Math.floor(delta / (config.tailRate || 0.01));
     estimatedKills[slot] = kills;
 
     const kText = document.getElementById(`m${slot}-kills-text`);
@@ -623,9 +623,9 @@ script
     const kDisplay = document.getElementById(`m${slot}-kills-display`);
     if(kDisplay) kDisplay.innerText = `推算擊殺數：${kills}`;
 
-    for (let i = 5; i = 47; i++) {
+    for (let i = 5; i <= 47; i++) {
       const dEl = document.getElementById(`m${slot}-c${i}-delta`);
-      if (dEl) updateItemRate(slot, `c${i}`, parseInt(dEl.value)  0);
+      if (dEl) updateItemRate(slot, `c${i}`, parseInt(dEl.value) || 0);
     }
   }
 
@@ -634,14 +634,14 @@ script
     const statEl = document.getElementById(`stat-m${slot}-${colId}`);
     if (!statEl) return;
 
-    if (kills = 0  delta = 0) {
+    if (kills <= 0 || delta <= 0) {
       statEl.innerText = '掉落率：--';
       return;
     }
 
-    const rate = delta  kills;
-    const invRate = Math.round(kills  delta);
-    statEl.innerText = `掉落率：${(rate  100).toFixed(3)}% (1${invRate})`;
+    const rate = delta / kills;
+    const invRate = Math.round(kills / delta);
+    statEl.innerText = `掉落率：${(rate * 100).toFixed(3)}% (1/${invRate})`;
   }
 
   async function handleSubmit(e) {
@@ -649,17 +649,17 @@ script
 
     const lastSubmit = localStorage.getItem('lastSubmitTime');
     const now = Date.now();
-    if (lastSubmit && now - lastSubmit  COOLDOWN_MS) {
-      const remaining = Math.ceil((COOLDOWN_MS - (now - lastSubmit))  1000);
+    if (lastSubmit && now - lastSubmit < COOLDOWN_MS) {
+      const remaining = Math.ceil((COOLDOWN_MS - (now - lastSubmit)) / 1000);
       alert(`請間隔3分鐘後再填入 (剩餘 ${remaining} 秒)`);
       return;
     }
 
     let hasJackpot = false;
-    const checkJackpot = (slot) = {
-      for(let i=10; i=12; i++) {
-        const val = parseInt(document.getElementById(`m${slot}-c${i}-delta`).value)  0;
-        if(val  0) hasJackpot = true;
+    const checkJackpot = (slot) => {
+      for(let i=10; i<=12; i++) {
+        const val = parseInt(document.getElementById(`m${slot}-c${i}-delta`)?.value) || 0;
+        if(val > 0) hasJackpot = true;
       }
     };
     checkJackpot(1);
@@ -683,10 +683,10 @@ script
 
       let msg = '回報成功！';
       if(hasJackpot) {
-        msg += 'nn【提醒】偵測到大獎資料，請聯絡管理員提供截圖資訊，本資料才會登錄系統。';
+        msg += '\n\n【提醒】偵測到大獎資料，請聯絡管理員提供截圖資訊，本資料才會登錄系統。';
       }
       if(isSuspicious) {
-        msg += 'nn【注意】送出資料含有可疑資料，將交由管理員複查。';
+        msg += '\n\n【注意】送出資料含有可疑資料，將交由管理員複查。';
       }
 
       alert(msg);
@@ -701,31 +701,31 @@ script
 
   async function submitSingleMonster(slot) {
     const monster = document.getElementById(`monster-select-${slot}`).value;
-    if (!monster) return { status 'OK' }; 
+    if (!monster) return { status: 'OK' }; 
 
     const player = document.getElementById('player-id').value;
     const kills = estimatedKills[slot];
 
-    if (kills  100) throw new Error(`[${monster}] 推算擊殺數不足 100，請累積更多數據`);
+    if (kills < 100) throw new Error(`[${monster}] 推算擊殺數不足 100，請累積更多數據`);
 
-    const payload = { action 'submitDrop', player, monster, kills, type 'normal' };
-    for (let i = 4; i = 47; i++) {
+    const payload = { action: 'submitDrop', player, monster, kills, type: 'normal' };
+    for (let i = 4; i <= 47; i++) {
       const el = document.getElementById(`m${slot}-c${i}-delta`);
-      if (el) payload[`c${i}`] = parseInt(el.value)  0;
+      if (el) payload[`c${i}`] = parseInt(el.value) || 0;
     }
 
-     ✅ 4. POST 也補上 api=1，確保後端正確切換模式
-    const resp = await fetch(API_URL + 'api=1', {
-      method 'POST',
-      headers { 'Content-Type' 'applicationjson' },
-      body JSON.stringify(payload)
+    // ✅ 4. POST 也補上 api=1，確保後端正確切換模式
+    const resp = await fetch(API_URL + '?api=1', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
     });
     const res = await resp.json();
     
     if (!res.ok) throw new Error(res.error);
     return res.data; 
   }
-script
+</script>
 
-body
-html
+</body>
+</html>
