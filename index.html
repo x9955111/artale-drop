@@ -57,16 +57,14 @@
     
     .nav-bar { display: flex; gap: 12px; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 2px solid var(--border); flex-wrap: wrap; }
     .nav-btn { padding: 12px 22px; border-radius: 12px; text-decoration: none; background: var(--bg-color); color: var(--text-sub); font-weight: 600; border: 1px solid var(--border); transition: 0.3s; }
+    .nav-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
     .nav-btn.active { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3); }
-
-    .nav-mobile { display: none; margin-bottom: 30px; }
-    .nav-mobile select { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid var(--accent); background: var(--card-bg); color: var(--text-main); font-size: 17px; font-weight: 700; appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f97316' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; background-size: 18px; }
 
     .panel { border: 1px solid var(--border); padding: 25px; border-radius: 18px; background: rgba(0,0,0,0.01); margin-bottom: 25px; }
     input, select { width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--border); background: var(--input-bg); color: var(--text-main); font-size: 17px; }
-    input:focus { outline: none; border-color: var(--accent); background: var(--input-focus); }
+    input:focus { border-color: var(--accent); background: var(--input-focus); outline: none; }
 
-    /* 怪物圖片框樣式 */
+    /* 圖片框架 */
     .monster-img-frame {
       width: 100%; height: 160px;
       background: rgba(0,0,0,0.02);
@@ -75,7 +73,7 @@
     }
     .monster-img-frame img { max-width: 85%; max-height: 85%; object-fit: contain; }
 
-    /* 物品輸入框樣式優化 (橫向排列) */
+    /* 物品輸入列 */
     .item-input-box { 
       background: var(--card-bg); padding: 12px; border-radius: 10px; 
       border: 1px solid var(--border); display: flex; align-items: center; gap: 10px;
@@ -89,6 +87,7 @@
     .qty-group { display: flex; gap: 5px; }
     .qty-group input { text-align: center; font-weight: bold; padding: 8px; font-size: 14px; }
 
+    /* 收合區塊與標籤 */
     .accordion-group { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 20px; overflow: hidden; }
     .accordion-header { padding: 18px 25px; background: rgba(0,0,0,0.02); cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid transparent; }
     .accordion-group.open .accordion-header { border-bottom-color: var(--border); }
@@ -101,21 +100,17 @@
     @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
     .drop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 15px; }
-
     .btn-submit { width: 100%; padding: 20px; border: none; border-radius: 15px; background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); color: white; font-size: 22px; font-weight: 800; cursor: pointer; margin-top: 20px; transition: 0.3s; }
     .btn-submit:hover { transform: scale(1.01); box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4); }
 
-    footer { width: 100%; max-width: 1280px; margin-top: 40px; padding: 30px 0; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-    .footer-links { display: flex; gap: 25px; }
-    .footer-links a { text-decoration: none; color: var(--text-sub); font-size: 15px; font-weight: 500; }
+    footer { width: 100%; max-width: 1280px; margin-top: 40px; padding: 30px 0; border-top: 1px solid var(--border); text-align: center; }
+    .footer-links { display: flex; justify-content: center; gap: 25px; margin-bottom: 10px; }
+    .footer-links a { text-decoration: none; color: var(--text-sub); font-size: 15px; }
     .copyright { font-size: 15px; color: var(--text-sub); }
 
     @media (max-width: 768px) {
-      body { padding: 10px; }
-      .container { padding: 20px; border-radius: 16px; }
-      .header-text h1 { font-size: 20px; }
-      .nav-bar { display: none; }
-      .nav-mobile { display: block; }
+      .container { padding: 20px; border-radius: 0; }
+      .header-text h1 { font-size: 22px; }
       .drop-grid { grid-template-columns: 1fr; }
       .item-input-box { padding: 10px; }
     }
@@ -130,7 +125,7 @@
       <div class="logo-m">M</div>
       <div class="header-text">
         <h1>Artale 掉寶統計站</h1>
-        <div style="color:var(--text-sub); font-size: 15px; font-weight: 500;">精準計算擊殺數與掉落率</div>
+        <div style="color:var(--text-sub); font-size: 15px;">真實數據回報系統</div>
       </div>
     </div>
     <button class="theme-btn" id="theme-toggle">🌙 夜間模式</button>
@@ -138,29 +133,17 @@
 
   <nav class="nav-bar">
     <a href="index.html" class="nav-btn active">一般回報</a>
-    <a href="stats.html" class="nav-btn">一般統計</a>
-    <a href="playerStats.html" class="nav-btn">個人統計</a>
+    <a href="stats.html" class="nav-btn">全站統計</a>
+    <a href="playerStats.html" class="nav-btn">個人查詢</a>
     <a href="boss.html" class="nav-btn">BOSS回報</a>
     <a href="stats2.html" class="nav-btn">BOSS統計</a>
-    <a href="playerBossStats.html" class="nav-btn">BOSS個人統計</a>
   </nav>
-
-  <div class="nav-mobile">
-    <select onchange="window.location.href=this.value;">
-      <option value="index.html" selected>功能切換：一般回報</option>
-      <option value="stats.html">一般統計</option>
-      <option value="playerStats.html">個人統計</option>
-      <option value="boss.html">BOSS回報</option>
-      <option value="stats2.html">BOSS統計</option>
-      <option value="playerBossStats.html">BOSS個人統計</option>
-    </select>
-  </div>
 
   <form id="dropForm">
     <div class="panel">
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
         <div>
-          <label style="font-weight:700; margin-bottom:5px; display:block;">玩家角色 ID (包含 #12345)</label>
+          <label style="font-weight:700; margin-bottom:5px; display:block;">玩家角色 ID (務必包含名字與#5碼編號)</label>
           <input type="text" id="player-id" placeholder="例如：RainYu#B1234" required>
         </div>
         <div style="display: flex; align-items: center; padding-top: 25px;">
@@ -178,7 +161,7 @@
           <img id="m1-img" src="" alt="請選擇怪物" onerror="this.style.opacity=0">
         </div>
         <div class="accordion-title" style="margin-bottom:15px; color:var(--accent);">怪物 1：選擇對象</div>
-        <select id="monster-select-1" required style="margin-bottom: 20px;"><option value="">連線中...</option></select>
+        <select id="monster-select-1" required style="margin-bottom: 20px;"><option value="">載入中...</option></select>
         
         <div id="content-1" class="hidden">
           <div style="margin-bottom: 25px; padding: 15px; background: var(--bg-color); border-radius: 12px; border: 1px solid var(--border);">
@@ -193,11 +176,10 @@
                     <input type="number" id="m1-c4-init" placeholder="始"><input type="number" id="m1-c4-final" placeholder="終">
                     <input type="number" id="m1-c4-delta" readonly placeholder="0" style="background:var(--bg-color)">
                   </div>
-                  <div class="live-stat"><span id="m1-tail-rate-text">預設掉落率：--</span><span id="m1-kills-text">擊殺數：0</span></div>
+                  <div class="live-stat"><span id="m1-tail-rate-text">預設率：--</span><span id="m1-kills-text">擊殺：0</span></div>
                 </div>
              </div>
           </div>
-          
           <div class="accordion-group open" onclick="toggleAccordion(this)"><div class="accordion-header"><div class="accordion-title">📜 稀有卷軸</div><div class="accordion-icon">▼</div></div><div class="accordion-content"><div class="drop-grid" id="m1-grid-scrolls"></div></div></div>
           <div class="accordion-group open" onclick="toggleAccordion(this)"><div class="accordion-header"><div class="accordion-title">💎 稀有大獎</div><div class="accordion-icon">▼</div></div><div class="accordion-content"><div class="drop-grid" id="m1-grid-jackpots"></div></div></div>
           <div class="accordion-group open" onclick="toggleAccordion(this)"><div class="accordion-header"><div class="accordion-title">⚔️ 裝備掉落</div><div class="accordion-icon">▼</div></div><div class="accordion-content"><div class="drop-grid" id="m1-grid-equip"></div></div></div>
@@ -226,11 +208,10 @@
                     <input type="number" id="m2-c4-init" placeholder="始"><input type="number" id="m2-c4-final" placeholder="終">
                     <input type="number" id="m2-c4-delta" readonly placeholder="0" style="background:var(--bg-color)">
                   </div>
-                  <div class="live-stat"><span id="m2-tail-rate-text">預設掉落率：--</span><span id="m2-kills-text">擊殺數：0</span></div>
+                  <div class="live-stat"><span id="m2-tail-rate-text">預設率：--</span><span id="m2-kills-text">擊殺：0</span></div>
                 </div>
              </div>
           </div>
-          
           <div class="accordion-group open" onclick="toggleAccordion(this)"><div class="accordion-header"><div class="accordion-title">📜 稀有卷軸</div><div class="accordion-icon">▼</div></div><div class="accordion-content"><div class="drop-grid" id="m2-grid-scrolls"></div></div></div>
           <div class="accordion-group open" onclick="toggleAccordion(this)"><div class="accordion-header"><div class="accordion-title">💎 稀有大獎</div><div class="accordion-icon">▼</div></div><div class="accordion-content"><div class="drop-grid" id="m2-grid-jackpots"></div></div></div>
           <div class="accordion-group open" onclick="toggleAccordion(this)"><div class="accordion-header"><div class="accordion-title">⚔️ 裝備掉落</div><div class="accordion-icon">▼</div></div><div class="accordion-content"><div class="drop-grid" id="m2-grid-equip"></div></div></div>
@@ -296,12 +277,8 @@
       const res = await resp.json();
       if (res.ok) {
         monsterConfigs[slot] = res.data;
-        // 更新怪物主圖片
         const monsterImg = document.getElementById(`m${slot}-img`);
-        if(res.data.monsterImage) {
-            monsterImg.src = res.data.monsterImage;
-            monsterImg.style.opacity = 1;
-        }
+        if(res.data.monsterImage) { monsterImg.src = res.data.monsterImage; monsterImg.style.opacity = 1; }
         renderFields(slot, res.data);
         updateKillCalculation(slot);
       }
@@ -312,23 +289,11 @@
     const p = `m${slot}`;
     document.getElementById(`label-tail-${slot}`).innerText = config.tail;
     document.getElementById(`${p}-tail-img`).src = config.tailImage || '';
-    document.getElementById(`${p}-tail-rate-text`).innerText = `預設掉落率：${(config.tailRate * 100).toFixed(1)}%`;
+    document.getElementById(`${p}-tail-rate-text`).innerText = `預設率：${(config.tailRate * 100).toFixed(1)}%`;
 
     const createInput = (name, img, colIndex) => {
       if (!name || name.trim() === "") return "";
-      return `
-        <div class="item-input-box">
-          <div class="item-img-wrap"><img src="${img}" onerror="this.style.opacity=0"></div>
-          <div class="item-info">
-            <div class="item-label">${name}</div>
-            <div class="qty-group">
-              <input type="number" id="${p}-c${colIndex}-init" placeholder="始">
-              <input type="number" id="${p}-c${colIndex}-final" placeholder="終">
-              <input type="number" id="${p}-c${colIndex}-delta" readonly placeholder="0">
-            </div>
-            <div class="live-stat" id="stat-${p}-c${colIndex}">掉落率：--</div>
-          </div>
-        </div>`;
+      return `<div class="item-input-box"><div class="item-img-wrap"><img src="${img}" onerror="this.style.opacity=0"></div><div class="item-info"><div class="item-label">${name}</div><div class="qty-group"><input type="number" id="${p}-c${colIndex}-init" placeholder="始"><input type="number" id="${p}-c${colIndex}-final" placeholder="終"><input type="number" id="${p}-c${colIndex}-delta" readonly placeholder="0"></div><div class="live-stat" id="stat-${p}-c${colIndex}">掉落率：--</div></div></div>`;
     };
 
     const noData = '<div style="color:var(--text-sub); font-size:14px;">無此類物品</div>';
@@ -352,9 +317,10 @@
         const baseId = `${parts[0]}-${parts[1]}`;
         const init = parseInt(document.getElementById(baseId + '-init').value) || 0;
         const final = parseInt(document.getElementById(baseId + '-final').value) || 0;
-        document.getElementById(baseId + '-delta').value = Math.max(0, final - init);
+        const delta = Math.max(0, final - init);
+        document.getElementById(baseId + '-delta').value = delta;
         if (parts[1] === 'c4') updateKillCalculation(slot);
-        else updateItemRate(slot, parts[1], Math.max(0, final - init));
+        else updateItemRate(slot, parts[1], delta);
       }
     });
     document.getElementById('dropForm').addEventListener('submit', handleSubmit);
@@ -366,7 +332,7 @@
     const delta = parseInt(document.getElementById(`m${slot}-c4-delta`).value) || 0;
     const kills = Math.floor(delta / (config.tailRate || 0.01));
     estimatedKills[slot] = kills;
-    document.getElementById(`m${slot}-kills-text`).innerText = `擊殺數：${kills}`;
+    document.getElementById(`m${slot}-kills-text`).innerText = `擊殺：${kills}`;
     document.getElementById(`m${slot}-kills-display`).innerText = `推算擊殺數：${kills}`;
   }
 
@@ -393,9 +359,17 @@
   async function submitSingleMonster(slot) {
     const m = document.getElementById(`monster-select-${slot}`).value;
     if (!m) return;
-    const p = document.getElementById('player-id').value;
+
+    // ✅ 加入玩家 ID 審核機制
+    const p = document.getElementById('player-id').value.trim();
+    const idPattern = /^[\u4e00-\u9fffA-Za-z0-9]+#[A-Za-z0-9]{5}$/;
+    if (!idPattern.test(p)) {
+      throw new Error(`[${m}] 角色ID格式錯誤！請務必包含「#」及後續5碼編號（例如：RainYu#B1234）`);
+    }
+
     const k = estimatedKills[slot];
-    if (k < 100) throw new Error(`[${m}] 擊殺不足 100`);
+    if (k < 100) throw new Error(`[${m}] 擊殺不足 100，請累積更多數據`);
+    
     const payload = { action: 'submitDrop', player: p, monster: m, kills: k, type: 'normal' };
     for (let i = 4; i <= 47; i++) {
       const el = document.getElementById(`m${slot}-c${i}-delta`);
