@@ -8,9 +8,6 @@
   <title>ARTALE BOSS 掉寶回報</title>
   
   <style>
-    /* =========================================
-       核心樣式 (與 index.html 完全同步)
-       ========================================= */
     :root {
       --bg-color: #f8fafc;
       --card-bg: #ffffff;
@@ -62,7 +59,6 @@
       flex: 1;
     }
 
-    /* Header */
     .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; gap: 15px; }
     .brand { display: flex; align-items: center; gap: 15px; overflow: hidden; }
     .logo-m {
@@ -82,7 +78,6 @@
       font-weight: 600; font-size: 16px; flex-shrink: 0;
     }
 
-    /* Navbar */
     .nav-bar {
       display: flex; gap: 12px; margin-bottom: 40px;
       padding-bottom: 20px; border-bottom: 2px solid var(--border); flex-wrap: wrap;
@@ -100,7 +95,6 @@
     .nav-btn.guide { border-color: #10b981; color: #059669; }
     .nav-btn.guide:hover { background: #10b981; color: white; }
 
-    /* Mobile Nav */
     .nav-mobile { display: none; margin-bottom: 30px; }
     .nav-mobile select {
       width: 100%; padding: 15px; border-radius: 12px;
@@ -113,7 +107,6 @@
 
     .panel { border: 1px solid var(--border); padding: 25px; border-radius: 18px; background: rgba(0,0,0,0.01); margin-bottom: 25px; }
     
-    /* Form Styles */
     label { display: block; font-size: 15px; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
     
     input, select {
@@ -122,45 +115,28 @@
     }
     input:focus, select:focus { outline: none; border-color: var(--accent); background: var(--input-focus); }
 
-    /* ----------------------------------
-       仿 Index.html 佈局設定
-       ---------------------------------- */
-    
+    /* 輸入區塊排版 */
     .input-row-wrapper {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
     }
 
+    /* BOSS 選擇區 (左圖右選單) */
     .monster-selection-wrapper {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-      margin-bottom: 25px;
-      padding: 5px;
+      display: flex; gap: 20px; align-items: center; margin-bottom: 25px; padding: 5px;
     }
 
     .monster-img-small {
-      width: 130px; height: 130px;
-      flex-shrink: 0;
-      background: rgba(0,0,0,0.03);
-      border-radius: 16px;
+      width: 130px; height: 130px; flex-shrink: 0;
+      background: rgba(0,0,0,0.03); border-radius: 16px;
       display: flex; align-items: center; justify-content: center;
-      border: 2px solid var(--border);
-      overflow: hidden;
-      padding: 5px;
-      box-shadow: var(--shadow);
-      transition: transform 0.3s ease;
+      border: 2px solid var(--border); overflow: hidden;
+      padding: 5px; box-shadow: var(--shadow); transition: transform 0.3s ease;
     }
     .monster-img-small:hover { transform: scale(1.05); border-color: var(--accent); }
     .monster-img-small img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
     .monster-info-col {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      justify-content: center;
+      flex: 1; display: flex; flex-direction: column; gap: 15px; justify-content: center;
     }
 
     .accordion-title {
@@ -168,46 +144,28 @@
       display: flex; align-items: center; gap: 10px; margin: 0;
     }
     .accordion-title::before {
-      content: ""; width: 5px; height: 20px; 
-      background: var(--accent); border-radius: 3px;
+      content: ""; width: 5px; height: 20px; background: var(--accent); border-radius: 3px;
     }
 
     /* Accordion */
     .accordion-group {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      margin-bottom: 20px;
-      overflow: hidden;
-      transition: all 0.3s ease;
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px;
+      margin-bottom: 20px; overflow: hidden; transition: all 0.3s ease;
     }
-
     .accordion-header {
-      padding: 18px 25px;
-      background: rgba(0,0,0,0.02);
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      user-select: none;
-      border-bottom: 1px solid transparent;
-      transition: background 0.2s;
+      padding: 18px 25px; background: rgba(0,0,0,0.02); cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center;
+      user-select: none; border-bottom: 1px solid transparent; transition: background 0.2s;
     }
     .accordion-header:hover { background: rgba(0,0,0,0.04); }
     .accordion-group.open .accordion-header { border-bottom-color: var(--border); }
-
     .accordion-icon { font-size: 14px; color: var(--text-sub); transition: transform 0.3s ease; }
     .accordion-group.open .accordion-icon { transform: rotate(180deg); }
-
-    .accordion-content {
-      display: none; padding: 20px; background: var(--card-bg);
-    }
-    .accordion-group.open .accordion-content {
-      display: block; animation: fadeIn 0.3s ease;
-    }
+    .accordion-content { display: none; padding: 20px; background: var(--card-bg); }
+    .accordion-group.open .accordion-content { display: block; animation: fadeIn 0.3s ease; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* --- 物品輸入卡片樣式 (仿 index.html) --- */
+    /* 物品輸入卡片 (仿 index.html) */
     .item-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 15px; }
     
     .item-input-box { 
@@ -230,7 +188,6 @@
     }
     .input-delta { background: var(--bg-color); color: var(--text-sub); }
 
-    /* Submit Button */
     .btn-submit {
       width: 100%; padding: 20px; border: none; border-radius: 15px;
       background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
@@ -240,7 +197,6 @@
     .btn-submit:hover { transform: scale(1.01); box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4); }
     .btn-submit:disabled { filter: grayscale(1); cursor: not-allowed; }
 
-    /* Footer */
     footer {
       width: 100%; max-width: 1280px; margin-top: 40px; padding: 30px 0;
       border-top: 1px solid var(--border); display: flex;
@@ -251,7 +207,6 @@
     .footer-links a:hover { color: var(--accent); }
     .copyright { font-size: 15px; color: var(--text-sub); }
 
-    /* Mobile RWD */
     @media (max-width: 768px) {
       body { padding: 10px; }
       .container { padding: 20px; border-radius: 16px; }
@@ -261,17 +216,12 @@
       .theme-btn { padding: 8px 15px; font-size: 14px; }
       .nav-bar { display: none; }
       .nav-mobile { display: block; }
-      
       .input-row-wrapper { grid-template-columns: 1fr; gap: 15px; }
-      
       .monster-img-small { width: 100px; height: 100px; }
       .monster-selection-wrapper { gap: 12px; }
-      
       .accordion-header { padding: 15px; }
       .accordion-content { padding: 15px; }
-      
       .item-grid { grid-template-columns: 1fr; }
-      
       .footer-links { width: 100%; justify-content: center; gap: 15px; }
       .copyright { width: 100%; text-align: center; font-size: 13px; }
     }
@@ -431,13 +381,11 @@
     });
   });
 
-  // 收合功能
   function toggleAccordion(element) {
     if (event.target.tagName === 'INPUT') return;
     element.classList.toggle('open');
   }
 
-  // Theme Logic
   function initTheme() {
     const btn = document.getElementById('theme-toggle');
     const isNight = localStorage.getItem('theme') === 'dark';
@@ -449,7 +397,6 @@
     });
   }
 
-  // API Helper
   async function loadBossList() {
     const select = document.getElementById('boss-select');
     try {
@@ -477,7 +424,7 @@
       if (res.ok) {
         const cfg = res.data;
         
-        // 更新圖片
+        // 更新 BOSS 大頭貼
         const imgEl = document.getElementById('boss-img');
         if (cfg.bossImage || cfg.monsterImage) {
             imgEl.src = cfg.bossImage || cfg.monsterImage;
@@ -486,7 +433,7 @@
             imgEl.style.opacity = 0; 
         }
 
-        // 動態渲染各區塊
+        // 動態渲染各區塊 (隱藏空欄位)
         renderBossCategory('equip',   'equip-container',   cfg.equips,   cfg.equipImages);
         renderBossCategory('jackpot', 'jackpot-container', cfg.jackpots, cfg.jackpotImages);
         renderBossCategory('scroll',  'scroll-container',  cfg.scrolls,  cfg.scrollImages);
@@ -495,7 +442,7 @@
     } catch (e) { console.error(e); }
   }
 
-  // 新版渲染函式：動態產生含圖片的輸入框
+  // 渲染函式：動態產生含圖片的輸入框，並隱藏名稱為空或"無"的項目
   function renderBossCategory(prefix, containerId, names, images) {
     const container = document.getElementById(containerId);
     if (!names || names.length === 0) {
@@ -504,21 +451,20 @@
     }
 
     let html = '';
+    let hasVisibleItems = false;
+
     names.forEach((name, index) => {
-      // 判定是否顯示：有名稱 且 名稱不為 "無"
+      // 邏輯：如果名字是 空字串 或 "無"，就不產生這個 input 的 HTML
+      // 注意：為了讓 ID 對應正確 (index+1)，我們還是會計算 ID，只是決定要不要渲染 DOM
+      
       const realName = (name && name.trim()) ? name.trim() : '';
       const shouldShow = realName !== '' && realName !== '無';
       
-      // 如果要隱藏，我們就不生成 HTML 元素，保持介面乾淨。
-      // 但為了確保 ID 對應正確 (index+1)，我們只在 shouldShow 為 true 時生成 HTML。
-      // 注意：這意味著隱藏的欄位不會出現在 DOM 中，
-      // 但 handleSubmit 會嘗試抓取所有可能的 ID (例如 equip1...equip30)，
-      // getElementById 會回傳 null，邏輯會送出 0。這符合預期。
+      if (!shouldShow) return; // 直接跳過不顯示
 
-      if (!shouldShow) return;
-
+      hasVisibleItems = true;
       const imgUrl = (images && images[index]) ? images[index] : '';
-      const i = index + 1; // 1-based index for IDs
+      const i = index + 1; // 1-based index，確保送出時對應到正確的 C 欄位
 
       html += `
         <div class="item-input-box">
@@ -537,7 +483,7 @@
       `;
     });
     
-    if (html === '') {
+    if (!hasVisibleItems) {
       html = '<div style="color:var(--text-sub); font-size:14px;">無此類物品</div>';
     }
     
@@ -545,8 +491,8 @@
   }
 
   function updateAllDeltas() {
-    // 雖然 renderBossCategory 可能隱藏了部分輸入框，但計算邏輯依然需要遍歷所有可能的 ID
-    // 裝備30, 大獎3, 卷軸33, 其他3
+    // 即使某些輸入框被隱藏了，這個迴圈依然會嘗試抓取所有可能的 ID
+    // getElementById 會回傳 null，if 判斷會自動略過，不會報錯
     const update = (prefix, count) => {
       for(let i=1; i<=count; i++) {
         const initEl = document.getElementById(`${prefix}${i}-initial`);
@@ -606,10 +552,10 @@
       type: 'boss'
     };
 
+    // 收集數據時，若元素不存在 (被隱藏)，則送出 0
     const collect = (prefix, count, baseIndex) => {
       for(let i=1; i<=count; i++) {
         const el = document.getElementById(`${prefix}${i}-delta`);
-        // 使用 ?.value 避免 null 錯誤，若隱藏則為 0
         payload['c' + (baseIndex + i - 1)] = el ? (parseInt(el.value) || 0) : 0;
       }
     };
@@ -628,7 +574,6 @@
 
       if (!res.ok) throw new Error(res.error);
 
-      // ✨ 根據後端回傳的狀態顯示提示 (優先級: 大獎 > 疑慮 > 成功)
       if (res.data.hasJackpot) {
         alert('【系統提示】麻煩提供大獎截圖予管理員，經審核確認後才會記入系統。');
       } else if (res.data.status === 'SUSPECT') {
