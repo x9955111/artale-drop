@@ -72,7 +72,7 @@
     input, select { width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--border); background: var(--input-bg); color: var(--text-main); font-size: 17px; }
     input:focus { border-color: var(--accent); background: var(--input-focus); outline: none; }
 
-    /* 新增：怪物選擇區塊的橫向容器 */
+    /* --- 怪物選擇區塊樣式 (優化版) --- */
     .monster-selection-wrapper {
       display: flex;
       gap: 20px;
@@ -81,30 +81,29 @@
       padding: 5px;
     }
 
-    /* 修改：改為緊湊的方形圖片框 */
     .monster-img-small {
-      width: 130px; height: 130px; /* 固定方形大小 */
-      flex-shrink: 0; /* 防止被壓縮 */
+      width: 130px; height: 130px;
+      flex-shrink: 0;
       background: rgba(0,0,0,0.03);
       border-radius: 16px;
       display: flex; align-items: center; justify-content: center;
       border: 2px solid var(--border);
       overflow: hidden;
-      padding: 5px; /* 內距讓圖片不貼邊 */
+      padding: 5px;
       box-shadow: var(--shadow);
       transition: transform 0.3s ease;
     }
     .monster-img-small:hover { transform: scale(1.05); border-color: var(--accent); }
     .monster-img-small img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
-    /* 新增：右側資訊欄位容器 */
     .monster-info-col {
-      flex: 1; /* 佔滿剩餘空間 */
+      flex: 1;
       display: flex;
       flex-direction: column;
       gap: 15px;
       justify-content: center;
     }
+    /* --------------------------------- */
 
     .item-input-box { background: var(--card-bg); padding: 12px; border-radius: 10px; border: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
     .item-img-wrap { width: 40px; height: 40px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
@@ -119,7 +118,7 @@
     .accordion-group { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 20px; overflow: hidden; }
     .accordion-header { padding: 18px 25px; background: rgba(0,0,0,0.02); cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid transparent; }
     .accordion-group.open .accordion-header { border-bottom-color: var(--border); }
-    .accordion-title { font-size: 20px; font-weight: 800; color: var(--accent); display: flex; align-items: center; gap: 10px; margin: 0; /* 移除 margin */ }
+    .accordion-title { font-size: 20px; font-weight: 800; color: var(--accent); display: flex; align-items: center; gap: 10px; margin: 0; }
     .accordion-title::before { content: ""; width: 5px; height: 20px; background: var(--accent); border-radius: 3px; }
     .accordion-icon { font-size: 14px; color: var(--text-sub); transition: transform 0.3s ease; }
     .accordion-group.open .accordion-icon { transform: rotate(180deg); }
@@ -146,7 +145,6 @@
       .drop-grid { grid-template-columns: 1fr; }
       footer { justify-content: center; text-align: center; }
       .footer-links { width: 100%; justify-content: center; gap: 15px; }
-      /* 手機版微調圖片大小 */
       .monster-img-small { width: 100px; height: 100px; }
       .monster-selection-wrapper { gap: 12px; }
     }
@@ -332,12 +330,15 @@
 
   async function handleMonsterChange(slot, monsterName) {
     if (!monsterName) return;
-    document.getElementById(`content-${slot}`).classList.remove('hidden');
+    const container = document.getElementById(`content-${slot}`);
+    if (container) container.classList.remove('hidden');
+
     try {
       const resp = await fetch(`${API_URL}?api=1&action=getMonsterConfig&monster=${encodeURIComponent(monsterName)}`);
       const res = await resp.json();
       if (res.ok) {
         monsterConfigs[slot] = res.data;
+        // 更新大頭貼
         const monsterImg = document.getElementById(`m${slot}-img`);
         if(res.data.monsterImage) { monsterImg.src = res.data.monsterImage; monsterImg.style.opacity = 1; }
         renderFields(slot, res.data);
