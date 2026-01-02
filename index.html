@@ -480,7 +480,7 @@
     if (!m) return null;
 
     const p = document.getElementById('player-id').value.trim();
-    const idPattern = /^[\u4e00-\u9fffA-Za-z0-9]+#[A-Za-z0-9]{5}$/;
+    const idPattern = /^[^#]+#[A-Za-z0-9]{5}$/;
     if (!idPattern.test(p)) {
       throw new Error(`[${m}] 角色ID格式錯誤！請務必包含「#」及後續5碼編號（例如：RainYu#B1234）`);
     }
