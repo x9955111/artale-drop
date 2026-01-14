@@ -8,6 +8,9 @@
   <title>ARTALE BOSS 掉寶回報</title>
   
   <style>
+    /* =========================================
+       核心樣式 (UI同步)
+       ========================================= */
     :root {
       --bg-color: #f8fafc;
       --card-bg: #ffffff;
@@ -41,122 +44,47 @@
       font-size: 18px;
       line-height: 1.6;
       transition: all 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
+      display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px;
     }
 
-    .container {
-      width: 100%;
-      max-width: 1280px;
-      background: var(--card-bg);
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-      padding: 40px;
-      border: 1px solid var(--border);
-      flex: 1;
-    }
+    .container { width: 100%; max-width: 1280px; background: var(--card-bg); border-radius: 24px; box-shadow: var(--shadow); padding: 40px; border: 1px solid var(--border); flex: 1; }
 
+    /* Header */
     .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; gap: 15px; }
     .brand { display: flex; align-items: center; gap: 15px; overflow: hidden; }
-    .logo-m {
-      width: 50px; height: 50px;
-      background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
-      border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      color: white; font-size: 30px; font-weight: 900;
-      box-shadow: 0 4px 10px rgba(249, 115, 22, 0.4);
-      flex-shrink: 0;
-    }
+    .logo-m { width: 50px; height: 50px; background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: 900; box-shadow: 0 4px 10px rgba(249, 115, 22, 0.4); flex-shrink: 0; }
     .header-text h1 { margin: 0; font-size: 30px; font-weight: 800; white-space: nowrap; }
+    .theme-btn { padding: 10px 20px; border-radius: 99px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-main); cursor: pointer; font-weight: 600; font-size: 16px; flex-shrink: 0; }
 
-    .theme-btn {
-      padding: 10px 20px; border-radius: 99px; border: 1px solid var(--border);
-      background: var(--card-bg); color: var(--text-main); cursor: pointer;
-      font-weight: 600; font-size: 16px; flex-shrink: 0;
-    }
-
-    .nav-bar {
-      display: flex; gap: 12px; margin-bottom: 40px;
-      padding-bottom: 20px; border-bottom: 2px solid var(--border); flex-wrap: wrap;
-    }
-    .nav-btn {
-      padding: 12px 22px; border-radius: 12px; text-decoration: none;
-      background: var(--bg-color); color: var(--text-sub); font-weight: 600;
-      border: 1px solid var(--border); transition: 0.3s;
-    }
+    /* Nav */
+    .nav-bar { display: flex; gap: 12px; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 2px solid var(--border); flex-wrap: wrap; }
+    .nav-btn { padding: 12px 22px; border-radius: 12px; text-decoration: none; background: var(--bg-color); color: var(--text-sub); font-weight: 600; border: 1px solid var(--border); transition: 0.3s; }
     .nav-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
-    .nav-btn.active {
-      background: var(--accent); color: white; border-color: var(--accent);
-      box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
-    }
+    .nav-btn.active { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3); }
     .nav-btn.guide { border-color: #10b981; color: #059669; }
     .nav-btn.guide:hover { background: #10b981; color: white; }
 
     .nav-mobile { display: none; margin-bottom: 30px; }
-    .nav-mobile select {
-      width: 100%; padding: 15px; border-radius: 12px;
-      border: 2px solid var(--accent); background: var(--card-bg);
-      color: var(--text-main); font-size: 17px; font-weight: 700;
-      cursor: pointer; appearance: none;
-      background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f97316' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: right 15px center; background-size: 18px;
-    }
+    .nav-mobile select { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid var(--accent); background: var(--card-bg); color: var(--text-main); font-size: 17px; font-weight: 700; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f97316' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; background-size: 18px; }
 
     .panel { border: 1px solid var(--border); padding: 25px; border-radius: 18px; background: rgba(0,0,0,0.01); margin-bottom: 25px; }
-    
     label { display: block; font-size: 15px; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
-    
-    input, select {
-      width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--border);
-      background: var(--input-bg); color: var(--text-main); font-size: 17px; box-sizing: border-box;
-    }
+    input, select { width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--border); background: var(--input-bg); color: var(--text-main); font-size: 17px; box-sizing: border-box; }
     input:focus, select:focus { outline: none; border-color: var(--accent); background: var(--input-focus); }
 
-    /* 輸入區塊排版 */
-    .input-row-wrapper {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
-    }
-
-    /* BOSS 選擇區 (左圖右選單) */
-    .monster-selection-wrapper {
-      display: flex; gap: 20px; align-items: center; margin-bottom: 25px; padding: 5px;
-    }
-
-    .monster-img-small {
-      width: 130px; height: 130px; flex-shrink: 0;
-      background: rgba(0,0,0,0.03); border-radius: 16px;
-      display: flex; align-items: center; justify-content: center;
-      border: 2px solid var(--border); overflow: hidden;
-      padding: 5px; box-shadow: var(--shadow); transition: transform 0.3s ease;
-    }
+    /* Layout */
+    .input-row-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+    .monster-selection-wrapper { display: flex; gap: 20px; align-items: center; margin-bottom: 25px; padding: 5px; }
+    .monster-img-small { width: 130px; height: 130px; flex-shrink: 0; background: rgba(0,0,0,0.03); border-radius: 16px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--border); overflow: hidden; padding: 5px; box-shadow: var(--shadow); transition: transform 0.3s ease; }
     .monster-img-small:hover { transform: scale(1.05); border-color: var(--accent); }
     .monster-img-small img { max-width: 100%; max-height: 100%; object-fit: contain; }
-
-    .monster-info-col {
-      flex: 1; display: flex; flex-direction: column; gap: 15px; justify-content: center;
-    }
-
-    .accordion-title {
-      font-size: 20px; font-weight: 800; color: var(--accent);
-      display: flex; align-items: center; gap: 10px; margin: 0;
-    }
-    .accordion-title::before {
-      content: ""; width: 5px; height: 20px; background: var(--accent); border-radius: 3px;
-    }
+    .monster-info-col { flex: 1; display: flex; flex-direction: column; gap: 15px; justify-content: center; }
 
     /* Accordion */
-    .accordion-group {
-      background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px;
-      margin-bottom: 20px; overflow: hidden; transition: all 0.3s ease;
-    }
-    .accordion-header {
-      padding: 18px 25px; background: rgba(0,0,0,0.02); cursor: pointer;
-      display: flex; justify-content: space-between; align-items: center;
-      user-select: none; border-bottom: 1px solid transparent; transition: background 0.2s;
-    }
+    .accordion-title { font-size: 20px; font-weight: 800; color: var(--accent); display: flex; align-items: center; gap: 10px; margin: 0; }
+    .accordion-title::before { content: ""; width: 5px; height: 20px; background: var(--accent); border-radius: 3px; }
+    .accordion-group { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 20px; overflow: hidden; transition: all 0.3s ease; }
+    .accordion-header { padding: 18px 25px; background: rgba(0,0,0,0.02); cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; border-bottom: 1px solid transparent; transition: background 0.2s; }
     .accordion-header:hover { background: rgba(0,0,0,0.04); }
     .accordion-group.open .accordion-header { border-bottom-color: var(--border); }
     .accordion-icon { font-size: 14px; color: var(--text-sub); transition: transform 0.3s ease; }
@@ -165,43 +93,22 @@
     .accordion-group.open .accordion-content { display: block; animation: fadeIn 0.3s ease; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* 物品輸入卡片 (仿 index.html) */
+    /* Item Cards */
     .item-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 15px; }
-    
-    .item-input-box { 
-      background: var(--card-bg); padding: 12px; border-radius: 10px; 
-      border: 1px solid var(--border); display: flex; align-items: center; gap: 10px;
-    }
+    .item-input-box { background: var(--card-bg); padding: 12px; border-radius: 10px; border: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
     .item-img-wrap { width: 40px; height: 40px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
     .item-img-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; }
-    
     .item-info { flex: 1; min-width: 0; }
-    .item-label { 
-      font-size: 14px; font-weight: 700; margin-bottom: 4px; 
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
-    }
-    
+    .item-label { font-size: 14px; font-weight: 700; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .qty-group { display: flex; gap: 5px; width: 100%; }
-    .qty-group input { 
-      text-align: center; font-weight: bold; padding: 6px; 
-      font-size: 14px; width: 0; min-width: 0; flex: 1; 
-    }
+    .qty-group input { text-align: center; font-weight: bold; padding: 6px; font-size: 14px; width: 0; min-width: 0; flex: 1; }
     .input-delta { background: var(--bg-color); color: var(--text-sub); }
 
-    .btn-submit {
-      width: 100%; padding: 20px; border: none; border-radius: 15px;
-      background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
-      color: white; font-size: 22px; font-weight: 800; cursor: pointer;
-      margin-top: 30px; transition: 0.3s;
-    }
+    .btn-submit { width: 100%; padding: 20px; border: none; border-radius: 15px; background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); color: white; font-size: 22px; font-weight: 800; cursor: pointer; margin-top: 30px; transition: 0.3s; }
     .btn-submit:hover { transform: scale(1.01); box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4); }
     .btn-submit:disabled { filter: grayscale(1); cursor: not-allowed; }
 
-    footer {
-      width: 100%; max-width: 1280px; margin-top: 40px; padding: 30px 0;
-      border-top: 1px solid var(--border); display: flex;
-      justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
-    }
+    footer { width: 100%; max-width: 1280px; margin-top: 40px; padding: 30px 0; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
     .footer-links { display: flex; gap: 25px; }
     .footer-links a { text-decoration: none; color: var(--text-sub); font-size: 15px; font-weight: 500; }
     .footer-links a:hover { color: var(--accent); }
@@ -424,7 +331,7 @@
       if (res.ok) {
         const cfg = res.data;
         
-        // 更新 BOSS 大頭貼
+        // 更新圖片
         const imgEl = document.getElementById('boss-img');
         if (cfg.bossImage || cfg.monsterImage) {
             imgEl.src = cfg.bossImage || cfg.monsterImage;
@@ -433,7 +340,6 @@
             imgEl.style.opacity = 0; 
         }
 
-        // 動態渲染各區塊 (隱藏空欄位)
         renderBossCategory('equip',   'equip-container',   cfg.equips,   cfg.equipImages);
         renderBossCategory('jackpot', 'jackpot-container', cfg.jackpots, cfg.jackpotImages);
         renderBossCategory('scroll',  'scroll-container',  cfg.scrolls,  cfg.scrollImages);
@@ -442,7 +348,6 @@
     } catch (e) { console.error(e); }
   }
 
-  // 渲染函式：動態產生含圖片的輸入框，並隱藏名稱為空或"無"的項目
   function renderBossCategory(prefix, containerId, names, images) {
     const container = document.getElementById(containerId);
     if (!names || names.length === 0) {
@@ -454,17 +359,15 @@
     let hasVisibleItems = false;
 
     names.forEach((name, index) => {
-      // 邏輯：如果名字是 空字串 或 "無"，就不產生這個 input 的 HTML
-      // 注意：為了讓 ID 對應正確 (index+1)，我們還是會計算 ID，只是決定要不要渲染 DOM
-      
+      // 隱藏條件：空字串 或 "無"
       const realName = (name && name.trim()) ? name.trim() : '';
       const shouldShow = realName !== '' && realName !== '無';
       
-      if (!shouldShow) return; // 直接跳過不顯示
+      if (!shouldShow) return; 
 
       hasVisibleItems = true;
       const imgUrl = (images && images[index]) ? images[index] : '';
-      const i = index + 1; // 1-based index，確保送出時對應到正確的 C 欄位
+      const i = index + 1; // 1-based index for IDs
 
       html += `
         <div class="item-input-box">
@@ -491,8 +394,6 @@
   }
 
   function updateAllDeltas() {
-    // 即使某些輸入框被隱藏了，這個迴圈依然會嘗試抓取所有可能的 ID
-    // getElementById 會回傳 null，if 判斷會自動略過，不會報錯
     const update = (prefix, count) => {
       for(let i=1; i<=count; i++) {
         const initEl = document.getElementById(`${prefix}${i}-initial`);
@@ -509,7 +410,8 @@
     update('equip', 30);
     update('jackpot', 3);
     update('scroll', 33);
-    update('other', 3);
+    // ✨ 修改處：擴充至 10 格
+    update('other', 10);
   }
 
   async function handleSubmit(e) {
@@ -519,7 +421,9 @@
     const boss = document.getElementById('boss-select').value;
     const kills = parseInt(document.getElementById('kills-input').value) || 0;
 
-    if (!player.includes('#')) return alert('ID 格式錯誤 (需含 #)');
+    // ✨ 修改處：支援特殊符號 (只要 # 前面有字元即可)
+    const idPattern = /^[^#]+#[A-Za-z0-9]{5}$/;
+    if (!idPattern.test(player)) return alert('ID 格式錯誤！請務必包含「#」及後續5碼編號（例如：RainYu#B1234）');
     if (!boss) return alert('請選擇 BOSS');
     if (kills <= 0) return alert('擊殺數必須大於 0');
 
@@ -536,7 +440,8 @@
     checkGroup('equip', 30);
     checkGroup('jackpot', 3);
     checkGroup('scroll', 33);
-    checkGroup('other', 3);
+    // ✨ 修改處：擴充至 10 格
+    checkGroup('other', 10);
 
     if (hasError) {
       alert('【警告】有掉落物數量大於擊殺數，請檢查輸入是否正確！');
@@ -552,7 +457,6 @@
       type: 'boss'
     };
 
-    // 收集數據時，若元素不存在 (被隱藏)，則送出 0
     const collect = (prefix, count, baseIndex) => {
       for(let i=1; i<=count; i++) {
         const el = document.getElementById(`${prefix}${i}-delta`);
@@ -562,7 +466,8 @@
     collect('equip', 30, 4);
     collect('jackpot', 3, 34);
     collect('scroll', 33, 37);
-    collect('other', 3, 70);
+    // ✨ 修改處：擴充至 10 格
+    collect('other', 10, 70);
 
     try {
       const resp = await fetch(API_URL, {
