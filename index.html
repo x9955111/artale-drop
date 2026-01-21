@@ -186,7 +186,7 @@
           <input type="text" id="player-input" placeholder="例如：RainYu#A1b2C" required>
         </div>
         <div>
-          <label>推算擊殺數 (由主掉落物計算)</label>
+          <label>推算擊殺數 <span id="rate-display" style="font-weight:normal; font-size:0.9em; color:var(--accent);"></span></label>
           <div id="calc-kills-display" class="calc-box">0</div>
         </div>
       </div>
@@ -320,7 +320,7 @@
 
 <script>
   const API_URL = '/api'; 
-  let currentMonsterRate = 1.0; // 預設掉落率，會從後端讀取
+  let currentMonsterRate = 1.0; // 預設掉落率
 
   document.addEventListener('DOMContentLoaded', () => {
     initTheme();
@@ -382,8 +382,10 @@
       if (res.ok) {
         const cfg = res.data;
         
-        // 儲存主掉落物機率 (若無則預設為1)
+        // ✨ 讀取主掉落物機率
         currentMonsterRate = parseFloat(cfg.tailRate) || 1.0;
+        const rateEl = document.getElementById('rate-display');
+        if(rateEl) rateEl.innerText = `(掉落率: ${currentMonsterRate})`;
 
         const imgEl = document.getElementById('monster-img');
         if (cfg.monsterImage) {
@@ -393,7 +395,6 @@
             imgEl.style.opacity = 0; 
         }
 
-        // 設置主掉落物
         document.getElementById('tail-label').innerText = cfg.tail || '無';
         const tailImg = document.getElementById('tail-img');
         if (cfg.tailImage) {
@@ -465,13 +466,13 @@
     if(tI && tF && tD) {
        const d = Math.max(0, (parseInt(tF.value)||0) - (parseInt(tI.value)||0));
        tD.value = d;
-       // 自動反推擊殺數：掉落數 / 機率
+       // ✨ 自動反推擊殺數：掉落數 / 機率
        if (currentMonsterRate > 0) {
          calculatedKills = Math.round(d / currentMonsterRate);
        }
     }
     
-    // 更新畫面上顯示的擊殺數
+    // 更新顯示
     document.getElementById('calc-kills-display').innerText = calculatedKills > 0 ? calculatedKills.toLocaleString() : '0';
 
     const update = (prefix, count) => {
@@ -502,7 +503,7 @@
     const player = document.getElementById('player-input').value.trim();
     const monster = document.getElementById('monster-select').value;
     
-    // 取得自動計算的擊殺數
+    // ✨ 取得自動計算的擊殺數
     const tailDrops = parseInt(document.getElementById('tail-delta').value) || 0;
     const kills = (currentMonsterRate > 0) ? Math.round(tailDrops / currentMonsterRate) : 0;
 
