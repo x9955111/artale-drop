@@ -18,7 +18,7 @@
   
   <style>
     /* =========================================
-       Orange Theme (維持橘色系)
+       Orange Theme (維持原版風格)
        ========================================= */
     :root {
       --bg-color: #f8fafc;
@@ -73,10 +73,11 @@
     .nav-btn.guide { border-color: #10b981; color: #059669; }
     .nav-btn.guide:hover { background: #10b981; color: white; }
 
+    /* Mobile Nav */
     .nav-mobile { display: none; margin-bottom: 30px; }
     .nav-mobile select { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid var(--accent); background: var(--card-bg); color: var(--text-main); font-size: 17px; font-weight: 700; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f97316' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; background-size: 18px; }
 
-    /* Content Sections (SEO Content) */
+    /* SEO Content */
     .intro-text { margin-bottom: 30px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
     .intro-text h2 { color: var(--accent); font-size: 24px; margin-bottom: 15px; }
     .intro-text p { color: var(--text-sub); font-size: 16px; line-height: 1.8; margin-bottom: 15px; }
@@ -100,8 +101,22 @@
     input, select { width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--border); background: var(--input-bg); color: var(--text-main); font-size: 17px; box-sizing: border-box; }
     input:focus, select:focus { outline: none; border-color: var(--accent); background: var(--input-focus); }
 
-    .input-row-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-    
+    /* 雙怪模式切換按鈕 */
+    .toggle-wrapper { display: flex; align-items: center; margin-bottom: 20px; }
+    .toggle-label {
+        font-size: 18px; font-weight: 700; color: var(--accent); 
+        display: flex; align-items: center; gap: 10px; 
+        cursor: pointer; user-select: none;
+        padding: 10px; border-radius: 8px;
+        transition: background 0.2s;
+    }
+    .toggle-label:hover { background: var(--input-focus); }
+    .checkbox-custom { width: 20px; height: 20px; accent-color: var(--accent); cursor: pointer; }
+
+    /* 雙怪佈局：電腦版並排，手機版垂直 */
+    .dual-container { display: flex; gap: 20px; align-items: flex-start; }
+    .monster-slot { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
     .monster-selection-wrapper { display: flex; gap: 20px; align-items: center; margin-bottom: 25px; padding: 5px; }
     .monster-img-small { width: 130px; height: 130px; flex-shrink: 0; background: rgba(0,0,0,0.03); border-radius: 16px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--border); overflow: hidden; padding: 5px; box-shadow: var(--shadow); transition: transform 0.3s ease; }
     .monster-img-small:hover { transform: scale(1.05); border-color: var(--accent); }
@@ -144,6 +159,14 @@
     .footer-links a:hover { color: var(--accent); }
     .copyright { font-size: 15px; color: var(--text-sub); }
 
+    /* RWD Breakpoints */
+    @media (max-width: 900px) {
+      /* 平板以下強制垂直排列 */
+      .dual-container { flex-direction: column; }
+      .monster-slot { width: 100%; border-bottom: 1px dashed var(--border); padding-bottom: 20px; margin-bottom: 20px; }
+      .monster-slot:last-child { border-bottom: none; margin-bottom: 0; }
+    }
+
     @media (max-width: 768px) {
       body { padding: 10px; }
       .container { padding: 20px; border-radius: 16px; margin: 10px 0; }
@@ -153,7 +176,6 @@
       .theme-btn { padding: 8px 15px; font-size: 14px; }
       .nav-bar { display: none; }
       .nav-mobile { display: block; }
-      .input-row-wrapper { grid-template-columns: 1fr; gap: 15px; }
       .monster-img-small { width: 100px; height: 100px; }
       .monster-selection-wrapper { gap: 12px; }
       .accordion-header { padding: 15px; }
@@ -162,7 +184,7 @@
       .copyright { width: 100%; text-align: center; font-size: 13px; }
     }
     
-    .hidden { display: none; }
+    .hidden { display: none !important; }
   </style>
 </head>
 <body>
@@ -212,116 +234,110 @@
 
   <form id="dropForm">
     <div class="panel">
-      <div class="input-row-wrapper">
-        <div>
-          <label>玩家 ID (含 #12345)</label>
-          <input type="text" id="player-input" placeholder="例如：RainYu#A1b2C" required>
-        </div>
-        <div>
-          <label>推算擊殺數 <span id="rate-display" style="font-weight:normal; font-size:0.9em; color:var(--accent);"></span></label>
-          <div id="calc-kills-display" class="calc-box">0</div>
-        </div>
-      </div>
+      <label>玩家 ID (含 #12345)</label>
+      <input type="text" id="player-id" placeholder="例如：RainYu#A1b2C" required>
     </div>
 
-    <div class="panel">
-      <div class="monster-selection-wrapper">
-        <div class="monster-img-small">
-          <img id="monster-img" src="" alt="請選擇怪物" onerror="this.style.opacity=0">
-        </div>
-        <div class="monster-info-col">
-          <div class="accordion-title">怪物選擇</div>
-          <select id="monster-select" required style="width: 100%;">
-            <option value="">讀取中...</option>
-          </select>
-        </div>
-      </div>
+    <div class="toggle-wrapper">
+      <label class="toggle-label" for="dual-mode-check">
+        <input type="checkbox" id="dual-mode-check" class="checkbox-custom" onchange="toggleDual(event)">
+        開啟雙怪紀錄模式
+      </label>
+    </div>
 
-      <div id="content-area" class="hidden">
-        <div class="accordion-group open" onclick="toggleAccordion(this)">
-          <div class="accordion-header">
-            <div class="accordion-title">✨ 主掉落物 (輸入此項自動計算擊殺) </div>
-            <div class="accordion-icon">▼</div>
+    <div class="dual-container">
+      
+      <div class="monster-slot" id="slot-1">
+        <div class="panel">
+          <div class="monster-selection-wrapper">
+            <div class="monster-img-small">
+              <img id="monster-img-1" src="" alt="請選擇怪物" onerror="this.style.opacity=0">
+            </div>
+            <div class="monster-info-col">
+              <div class="accordion-title">怪物 A</div>
+              <select id="monster-select-1" onchange="handleMonsterChange(1, this.value)" required style="width: 100%;">
+                <option value="">請選擇怪物 A</option>
+              </select>
+            </div>
           </div>
-          <div class="accordion-content">
-            <div class="item-grid">
-              <div class="item-input-box">
-                <div class="item-img-wrap">
-                  <img id="tail-img" src="" onerror="this.style.opacity=0">
-                </div>
-                <div class="item-info">
-                  <div class="item-label" id="tail-label">雜物</div>
-                  <div class="qty-group">
-                    <input type="number" id="tail-initial" placeholder="始">
-                    <input type="number" id="tail-final" placeholder="終">
-                    <input type="number" id="tail-delta" class="input-delta" readonly placeholder="0">
+
+          <div id="content-area-1" class="hidden">
+            <div class="accordion-group open" onclick="toggleAccordion(this)">
+              <div class="accordion-header">
+                <div class="accordion-title">✨ 主掉落物 (A)</div>
+                <div class="accordion-icon">▼</div>
+              </div>
+              <div class="accordion-content">
+                <div class="item-grid">
+                  <div class="item-input-box">
+                    <div class="item-img-wrap"><img id="tail-img-1" src="" onerror="this.style.opacity=0"></div>
+                    <div class="item-info">
+                      <div class="item-label" id="tail-label-1">雜物</div>
+                      <div class="qty-group">
+                        <input type="number" id="tail-initial-1" placeholder="始" oninput="updateDeltas(1)">
+                        <input type="number" id="tail-final-1" placeholder="終" oninput="updateDeltas(1)">
+                        <input type="number" id="tail-delta-1" class="input-delta" readonly placeholder="0">
+                      </div>
+                    </div>
                   </div>
+                </div>
+                <div class="calc-box">
+                  推算擊殺數: <span id="calc-kills-1">0</span> 
+                  <span id="rate-display-1" style="font-weight:normal; font-size:0.8em; margin-left:5px;"></span>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        <div class="accordion-group open" onclick="toggleAccordion(this)">
-          <div class="accordion-header">
-            <div class="accordion-title">📜 卷軸 </div>
-            <div class="accordion-icon">▼</div>
-          </div>
-          <div class="accordion-content">
-            <div id="scroll-container" class="item-grid"></div>
-          </div>
-        </div>
-
-        <div class="accordion-group open" onclick="toggleAccordion(this)">
-          <div class="accordion-header">
-            <div class="accordion-title">💎 大獎 </div>
-            <div class="accordion-icon">▼</div>
-          </div>
-          <div class="accordion-content">
-            <div id="jackpot-container" class="item-grid"></div>
-          </div>
-        </div>
-
-        <div class="accordion-group open" onclick="toggleAccordion(this)">
-          <div class="accordion-header">
-            <div class="accordion-title">⚔️ 裝備 </div>
-            <div class="accordion-icon">▼</div>
-          </div>
-          <div class="accordion-content">
-            <div id="equip-container" class="item-grid"></div>
-          </div>
-        </div>
-
-        <div class="accordion-group open" onclick="toggleAccordion(this)">
-          <div class="accordion-header">
-            <div class="accordion-title">⛏️ 礦石 </div>
-            <div class="accordion-icon">▼</div>
-          </div>
-          <div class="accordion-content">
-            <div id="ore-container" class="item-grid"></div>
-          </div>
-        </div>
-
-        <div class="accordion-group open" onclick="toggleAccordion(this)">
-          <div class="accordion-header">
-            <div class="accordion-title">📚 技能書 </div>
-            <div class="accordion-icon">▼</div>
-          </div>
-          <div class="accordion-content">
-            <div id="skill-container" class="item-grid"></div>
-          </div>
-        </div>
-
-        <div class="accordion-group open" onclick="toggleAccordion(this)">
-          <div class="accordion-header">
-            <div class="accordion-title">📦 其他 </div>
-            <div class="accordion-icon">▼</div>
-          </div>
-          <div class="accordion-content">
-            <div id="other-container" class="item-grid"></div>
+            <div id="accordions-1"></div>
           </div>
         </div>
       </div>
+
+      <div class="monster-slot hidden" id="slot-2">
+        <div class="panel">
+          <div class="monster-selection-wrapper">
+            <div class="monster-img-small">
+              <img id="monster-img-2" src="" alt="請選擇怪物" onerror="this.style.opacity=0">
+            </div>
+            <div class="monster-info-col">
+              <div class="accordion-title" style="color: #64748b;">怪物 B</div> <select id="monster-select-2" onchange="handleMonsterChange(2, this.value)" style="width: 100%;">
+                <option value="">請選擇怪物 B</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="content-area-2" class="hidden">
+            <div class="accordion-group open" onclick="toggleAccordion(this)">
+              <div class="accordion-header">
+                <div class="accordion-title" style="color:#64748b;">✨ 主掉落物 (B)</div>
+                <div class="accordion-icon">▼</div>
+              </div>
+              <div class="accordion-content">
+                <div class="item-grid">
+                  <div class="item-input-box">
+                    <div class="item-img-wrap"><img id="tail-img-2" src="" onerror="this.style.opacity=0"></div>
+                    <div class="item-info">
+                      <div class="item-label" id="tail-label-2">雜物</div>
+                      <div class="qty-group">
+                        <input type="number" id="tail-initial-2" placeholder="始" oninput="updateDeltas(2)">
+                        <input type="number" id="tail-final-2" placeholder="終" oninput="updateDeltas(2)">
+                        <input type="number" id="tail-delta-2" class="input-delta" readonly placeholder="0">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="calc-box" style="color:#64748b; background:#f1f5f9;">
+                  推算擊殺數: <span id="calc-kills-2">0</span> 
+                  <span id="rate-display-2" style="font-weight:normal; font-size:0.8em; margin-left:5px;"></span>
+                </div>
+              </div>
+            </div>
+
+            <div id="accordions-2"></div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <button type="submit" id="submit-btn" class="btn-submit">送出回報</button>
@@ -404,24 +420,25 @@
 
 <script>
   const API_URL = '/api'; 
-  let currentMonsterRate = 1.0; // 預設掉落率，會從後端讀取
+  const monsterRates = { 1: 1.0, 2: 1.0 }; // 儲存兩欄的機率
+  const estimatedKills = { 1: 0, 2: 0 };   // 儲存兩欄的擊殺數
 
   document.addEventListener('DOMContentLoaded', () => {
     initTheme();
     loadMonsterList();
-    
-    document.getElementById('monster-select').addEventListener('change', (e) => {
-      handleMonsterChange(e.target.value);
-    });
-
     document.getElementById('dropForm').addEventListener('submit', handleSubmit);
-    
-    document.addEventListener('input', (e) => {
-      if(e.target.id.includes('-initial') || e.target.id.includes('-final')) {
-        updateAllDeltas();
-      }
-    });
   });
+
+  function toggleDual(e) {
+    // 切換雙怪模式
+    const isChecked = document.getElementById('dual-mode-check').checked;
+    const slot2 = document.getElementById('slot-2');
+    if (isChecked) {
+      slot2.classList.remove('hidden');
+    } else {
+      slot2.classList.add('hidden');
+    }
+  }
 
   function toggleAccordion(element) {
     if (event.target.tagName === 'INPUT') return;
@@ -440,25 +457,24 @@
   }
 
   async function loadMonsterList() {
-    const select = document.getElementById('monster-select');
     try {
       const resp = await fetch(`${API_URL}?action=getMonsterList`);
       const res = await resp.json();
       if (res.ok) {
-        select.innerHTML = '<option value="">請選擇怪物</option>' + 
-          res.data.map(m => `<option value="${m}">${m}</option>`).join('');
-      } else {
-        select.innerHTML = '<option value="">讀取失敗</option>';
+        const opts = '<option value="">請選擇怪物</option>' + res.data.map(m => `<option value="${m}">${m}</option>`).join('');
+        document.getElementById('monster-select-1').innerHTML = opts;
+        document.getElementById('monster-select-2').innerHTML = opts;
       }
     } catch (e) { console.error(e); }
   }
 
-  async function handleMonsterChange(monsterName) {
+  async function handleMonsterChange(slot, monsterName) {
+    const contentArea = document.getElementById(`content-area-${slot}`);
     if (!monsterName) {
-        document.getElementById('content-area').classList.add('hidden');
+        contentArea.classList.add('hidden');
         return;
     }
-    document.getElementById('content-area').classList.remove('hidden');
+    contentArea.classList.remove('hidden');
 
     try {
       const resp = await fetch(`${API_URL}?action=getMonsterConfig&monster=${encodeURIComponent(monsterName)}`);
@@ -466,213 +482,226 @@
       if (res.ok) {
         const cfg = res.data;
         
-        // ✨ 讀取主掉落物機率並顯示
-        currentMonsterRate = parseFloat(cfg.tailRate) || 1.0;
-        const rateEl = document.getElementById('rate-display');
-        if(rateEl) rateEl.innerText = `(機率: ${currentMonsterRate})`;
+        // 1. 設定機率
+        monsterRates[slot] = parseFloat(cfg.tailRate) || 1.0;
+        document.getElementById(`rate-display-${slot}`).innerText = `(掉落率: ${monsterRates[slot]})`;
 
-        const imgEl = document.getElementById('monster-img');
-        if (cfg.monsterImage) {
-            imgEl.src = cfg.monsterImage;
-            imgEl.style.opacity = 1;
-        } else {
-            imgEl.style.opacity = 0; 
-        }
+        // 2. 設定圖片
+        const imgEl = document.getElementById(`monster-img-${slot}`);
+        if (cfg.monsterImage) { imgEl.src = cfg.monsterImage; imgEl.style.opacity = 1; } 
+        else { imgEl.style.opacity = 0; }
 
-        // 設置主掉落物
-        document.getElementById('tail-label').innerText = cfg.tail || '無';
-        const tailImg = document.getElementById('tail-img');
-        if (cfg.tailImage) {
-            tailImg.src = cfg.tailImage;
-            tailImg.style.opacity = 1;
-        } else {
-            tailImg.style.opacity = 0;
-        }
+        // 3. 設定主掉落物
+        document.getElementById(`tail-label-${slot}`).innerText = cfg.tail || '無';
+        const tailImg = document.getElementById(`tail-img-${slot}`);
+        if (cfg.tailImage) { tailImg.src = cfg.tailImage; tailImg.style.opacity = 1; }
+        else { tailImg.style.opacity = 0; }
 
-        renderCategory('scroll',   'scroll-container',   cfg.scrolls,   cfg.scrollImages);
-        renderCategory('jackpot',  'jackpot-container',  cfg.jackpots,  cfg.jackpotImages);
-        renderCategory('equip',    'equip-container',    cfg.equips,    cfg.equipImages);
-        renderCategory('ore',      'ore-container',      cfg.ores,      cfg.oreImages);
-        renderCategory('other',    'other-container',    cfg.others,    cfg.otherImages);
-        renderCategory('skill',    'skill-container',    cfg.skills,    cfg.skillImages);
+        // 4. 產生各類別區塊 (包含10格技能書)
+        let html = '';
+        html += buildCategoryHtml(slot, '📜 卷軸', 'scroll', cfg.scrolls, cfg.scrollImages);
+        html += buildCategoryHtml(slot, '💎 大獎', 'jackpot', cfg.jackpots, cfg.jackpotImages);
+        html += buildCategoryHtml(slot, '⚔️ 裝備', 'equip', cfg.equips, cfg.equipImages);
+        html += buildCategoryHtml(slot, '⛏️ 礦石', 'ore', cfg.ores, cfg.oreImages);
+        html += buildCategoryHtml(slot, '📚 技能書', 'skill', cfg.skills, cfg.skillImages);
+        html += buildCategoryHtml(slot, '📦 其他', 'other', cfg.others, cfg.otherImages);
+        
+        document.getElementById(`accordions-${slot}`).innerHTML = html;
       }
     } catch (e) { console.error(e); }
   }
 
-  function renderCategory(prefix, containerId, names, images) {
-    const container = document.getElementById(containerId);
-    if (!names || names.length === 0 || names.every(n => !n)) {
-      container.innerHTML = '<div style="color:var(--text-sub); font-size:14px; padding:10px;">無此類物品資料</div>';
-      return;
-    }
+  function buildCategoryHtml(slot, title, prefix, names, images) {
+    if (!names || names.length === 0 || names.every(n => !n)) return '';
 
-    let html = '';
-    let hasVisibleItems = false;
-
-    names.forEach((name, index) => {
+    let itemsHtml = '';
+    names.forEach((name, idx) => {
       const realName = (name && name.trim()) ? name.trim() : '';
-      const shouldShow = realName !== '' && realName !== '無';
-      if (!shouldShow) return; 
+      if (!realName || realName === '無') return;
 
-      hasVisibleItems = true;
-      const imgUrl = (images && images[index]) ? images[index] : '';
-      const i = index + 1; 
+      const imgUrl = (images && images[idx]) ? images[idx] : '';
+      const i = idx + 1;
+      const idBase = `${prefix}-${slot}-${i}`; // ID格式: scroll-1-1
 
-      html += `
+      itemsHtml += `
         <div class="item-input-box">
-          <div class="item-img-wrap">
-            <img src="${imgUrl}" onerror="this.style.opacity=0">
-          </div>
+          <div class="item-img-wrap"><img src="${imgUrl}" onerror="this.style.opacity=0"></div>
           <div class="item-info">
-            <div class="item-label" id="${prefix}${i}-label">${realName}</div>
+            <div class="item-label">${realName}</div>
             <div class="qty-group">
-              <input type="number" id="${prefix}${i}-initial" placeholder="始">
-              <input type="number" id="${prefix}${i}-final" placeholder="終">
-              <input type="number" id="${prefix}${i}-delta" class="input-delta" readonly placeholder="0">
+              <input type="number" id="${idBase}-initial" placeholder="始" oninput="updateDeltas(${slot})">
+              <input type="number" id="${idBase}-final" placeholder="終" oninput="updateDeltas(${slot})">
+              <input type="number" id="${idBase}-delta" class="input-delta" readonly placeholder="0">
             </div>
           </div>
         </div>
       `;
     });
-    
-    if (!hasVisibleItems) {
-      html = '<div style="color:var(--text-sub); font-size:14px; padding:10px;">無此類物品資料</div>';
-    }
-    container.innerHTML = html;
+
+    if (!itemsHtml) return '';
+
+    // Slot 2 標題改為灰色以區分，保持風格統一
+    const titleColor = (slot === 2) ? '#64748b' : 'var(--accent)';
+
+    return `
+      <div class="accordion-group open" onclick="toggleAccordion(this)">
+        <div class="accordion-header">
+          <div class="accordion-title" style="color:${titleColor}">${title}</div>
+          <div class="accordion-icon">▼</div>
+        </div>
+        <div class="accordion-content">
+          <div class="item-grid">${itemsHtml}</div>
+        </div>
+      </div>
+    `;
   }
 
-  function updateAllDeltas() {
-    // 主掉落物計算
-    const tI = document.getElementById('tail-initial');
-    const tF = document.getElementById('tail-final');
-    const tD = document.getElementById('tail-delta');
-    let calculatedKills = 0;
+  function updateDeltas(slot) {
+    // 1. 計算主掉落物 & 推算擊殺數
+    const tI = document.getElementById(`tail-initial-${slot}`);
+    const tF = document.getElementById(`tail-final-${slot}`);
+    const tD = document.getElementById(`tail-delta-${slot}`);
+    let kills = 0;
 
-    if(tI && tF && tD) {
-       const d = Math.max(0, (parseInt(tF.value)||0) - (parseInt(tI.value)||0));
-       tD.value = d;
-       // ✨ 自動反推擊殺數：掉落數 / 機率
-       if (currentMonsterRate > 0) {
-         calculatedKills = Math.round(d / currentMonsterRate);
-       }
-    }
-    
-    // 更新顯示
-    document.getElementById('calc-kills-display').innerText = calculatedKills > 0 ? calculatedKills.toLocaleString() : '0';
-
-    const update = (prefix, count) => {
-      for(let i=1; i<=count; i++) {
-        const initEl = document.getElementById(`${prefix}${i}-initial`);
-        const finalEl = document.getElementById(`${prefix}${i}-final`);
-        const deltaEl = document.getElementById(`${prefix}${i}-delta`);
-        
-        if (initEl && finalEl && deltaEl) {
-          const init = parseInt(initEl.value) || 0;
-          const final = parseInt(finalEl.value) || 0;
-          deltaEl.value = Math.max(0, final - init);
-        }
+    if (tI && tF && tD) {
+      const val = Math.max(0, (parseInt(tF.value)||0) - (parseInt(tI.value)||0));
+      tD.value = val;
+      if (monsterRates[slot] > 0) {
+        kills = Math.round(val / monsterRates[slot]);
       }
-    };
+    }
+    estimatedKills[slot] = kills;
+    document.getElementById(`calc-kills-${slot}`).innerText = kills.toLocaleString();
 
-    update('scroll', 5);
-    update('jackpot', 3);
-    update('equip', 23);
-    update('ore', 7);
-    update('other', 5);
-    update('skill', 10);
+    // 2. 計算所有子項目的 Delta
+    const container = document.getElementById(`accordions-${slot}`);
+    if(container) {
+      const inputs = container.querySelectorAll('input[id$="-initial"]');
+      inputs.forEach(input => {
+        const baseId = input.id.replace('-initial', '');
+        const initial = parseInt(document.getElementById(`${baseId}-initial`).value) || 0;
+        const final = parseInt(document.getElementById(`${baseId}-final`).value) || 0;
+        const deltaEl = document.getElementById(`${baseId}-delta`);
+        if (deltaEl) deltaEl.value = Math.max(0, final - initial);
+      });
+    }
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
     const btn = document.getElementById('submit-btn');
-    const player = document.getElementById('player-input').value.trim();
-    const monster = document.getElementById('monster-select').value;
-    
-    // ✨ 取得自動計算的擊殺數
-    const tailDrops = parseInt(document.getElementById('tail-delta').value) || 0;
-    const kills = (currentMonsterRate > 0) ? Math.round(tailDrops / currentMonsterRate) : 0;
-
-    const idPattern = /^[^#]+#[A-Za-z0-9]{5,6}$/;
-    if (!idPattern.test(player)) return alert('ID 格式錯誤！請務必包含「#」及後續 5~6 碼編號（例如：RainYu#B1234 或 #A1B2C3）');
-    if (!monster) return alert('請選擇怪物');
-    if (kills <= 0) return alert('請輸入主掉落物數量以計算擊殺數 (必須大於 0)');
-
-    // 檢查異常
-    let hasError = false;
-    const checkVal = (id) => {
-       const el = document.getElementById(id);
-       if(el && (parseInt(el.value)||0) > kills) hasError = true;
-    }
-    
-    const checkGroup = (prefix, count) => {
-      for(let i=1; i<=count; i++) {
-        checkVal(`${prefix}${i}-delta`);
-      }
-    };
-    checkGroup('scroll', 5);
-    checkGroup('jackpot', 3);
-    checkGroup('equip', 23);
-    checkGroup('ore', 7);
-    checkGroup('other', 5);
-    checkGroup('skill', 10);
-
-    if (hasError) {
-      alert('【警告】有掉落物數量大於推算擊殺數，請檢查輸入是否正確！');
-      return;
-    }
-
     btn.disabled = true;
-    btn.innerText = '傳送中...';
+    btn.innerText = '資料處理中...';
 
-    const payload = {
-      action: 'submitDrop',
-      player, monster, kills
-    };
-
-    const setVal = (key, id) => {
-       const el = document.getElementById(id);
-       payload[key] = el ? (parseInt(el.value)||0) : 0;
-    }
-    setVal('c4', 'tail-delta');
-
-    const collect = (prefix, count, baseIndex) => {
-      for(let i=1; i<=count; i++) {
-        setVal('c' + (baseIndex + i - 1), `${prefix}${i}-delta`);
-      }
-    };
-    
-    collect('scroll', 5, 5);
-    collect('jackpot', 3, 10);
-    collect('equip', 23, 13);
-    collect('ore', 7, 36);
-    collect('other', 5, 43);
-    collect('skill', 10, 48);
+    let hasJackpot = false;
+    let isSuspicious = false;
+    let submittedCount = 0;
 
     try {
-      const resp = await fetch(API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      const res = await resp.json();
+      // 嘗試送出 Slot 1
+      if (document.getElementById('monster-select-1').value) {
+        const res1 = await submitSingleMonster(1);
+        if (res1) {
+          submittedCount++;
+          if (res1.status === 'SUSPECT') isSuspicious = true;
+          if (res1.hasJackpot) hasJackpot = true;
+        }
+      }
 
-      if (!res.ok) throw new Error(res.error);
+      // 嘗試送出 Slot 2 (只有在開啟且有選怪時)
+      const isDual = document.getElementById('dual-mode-check').checked;
+      if (isDual && document.getElementById('monster-select-2').value) {
+        const res2 = await submitSingleMonster(2);
+        if (res2) {
+          submittedCount++;
+          if (res2.status === 'SUSPECT') isSuspicious = true;
+          if (res2.hasJackpot) hasJackpot = true;
+        }
+      }
 
-      if (res.data.hasJackpot) {
+      if (submittedCount === 0) {
+        alert('請至少選擇一隻怪物並填寫資料！');
+        btn.disabled = false;
+        btn.innerText = '送出回報';
+        return;
+      }
+
+      if (hasJackpot) {
         alert('【系統提示】麻煩提供大獎截圖予管理員，經審核確認後才會記入系統。');
-      } else if (res.data.status === 'SUSPECT') {
+      } else if (isSuspicious) {
         alert('【系統提示】送出資料有疑慮，請截圖通知管理員，經審核後才會列入統計。');
       } else {
-        alert('回報成功！');
+        alert('回報成功！感謝您的參與。');
       }
       
       location.reload();
-
     } catch (err) {
-      alert('發生錯誤：' + err.message);
+      alert(err.message);
       btn.disabled = false;
       btn.innerText = '重新送出';
     }
+  }
+
+  async function submitSingleMonster(slot) {
+    const m = document.getElementById(`monster-select-${slot}`).value;
+    if (!m) return null;
+
+    const p = document.getElementById('player-id').value.trim();
+    // 支援 5~6 碼
+    const idPattern = /^[^#]+#[A-Za-z0-9]{5,6}$/;
+    if (!idPattern.test(p)) {
+      throw new Error(`[${m}] 角色ID格式錯誤！請務必包含「#」及後續 5~6 碼編號`);
+    }
+
+    const k = estimatedKills[slot];
+    if (k <= 0) throw new Error(`[${m}] 擊殺數為 0，請檢查主掉落物輸入`);
+
+    // 檢查: 掉落 > 擊殺
+    const container = document.getElementById(`content-area-${slot}`);
+    const deltas = container.querySelectorAll('input[id$="-delta"]');
+    for (let el of deltas) {
+      if ((parseInt(el.value)||0) > k) {
+        throw new Error(`[${m}] 有物品掉落數大於推算擊殺數，請檢查！`);
+      }
+    }
+
+    const payload = {
+      action: 'submitDrop',
+      player: p,
+      monster: m,
+      kills: k
+    };
+
+    // 填入主掉落物
+    const tD = document.getElementById(`tail-delta-${slot}`);
+    payload['c4'] = tD ? (parseInt(tD.value)||0) : 0;
+
+    // 收集各類別數據
+    const collect = (prefix, startC, count) => {
+      for (let i=1; i<=count; i++) {
+        const el = document.getElementById(`${prefix}-${slot}-${i}-delta`);
+        if (el) {
+          payload['c' + (startC + i - 1)] = parseInt(el.value) || 0;
+        }
+      }
+    };
+
+    collect('scroll', 5, 5);
+    collect('jackpot', 10, 3);
+    collect('equip', 13, 23);
+    collect('ore', 36, 7);
+    collect('other', 43, 5);
+    collect('skill', 48, 10);
+
+    const resp = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const res = await resp.json();
+    if (!res.ok) throw new Error(`[${m}] 伺服器錯誤: ${res.error}`);
+    
+    return res.data;
   }
 </script>
 
