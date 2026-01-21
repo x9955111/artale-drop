@@ -9,7 +9,7 @@
   
   <style>
     /* =========================================
-       已改回橘色系樣式 (Orange Theme)
+       Orange Theme (維持橘色系)
        ========================================= */
     :root {
       --bg-color: #f8fafc;
@@ -49,14 +49,14 @@
 
     .container { width: 100%; max-width: 1280px; background: var(--card-bg); border-radius: 24px; box-shadow: var(--shadow); padding: 40px; border: 1px solid var(--border); flex: 1; }
 
-    /* Header - 改回橘色漸層 */
+    /* Header */
     .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; gap: 15px; }
     .brand { display: flex; align-items: center; gap: 15px; overflow: hidden; }
     .logo-m { width: 50px; height: 50px; background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: 900; box-shadow: 0 4px 10px rgba(249, 115, 22, 0.4); flex-shrink: 0; }
     .header-text h1 { margin: 0; font-size: 30px; font-weight: 800; white-space: nowrap; }
     .theme-btn { padding: 10px 20px; border-radius: 99px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-main); cursor: pointer; font-weight: 600; font-size: 16px; flex-shrink: 0; }
 
-    /* Nav - 改回橘色選取狀態 */
+    /* Nav */
     .nav-bar { display: flex; gap: 12px; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 2px solid var(--border); flex-wrap: wrap; }
     .nav-btn { padding: 12px 22px; border-radius: 12px; text-decoration: none; background: var(--bg-color); color: var(--text-sub); font-weight: 600; border: 1px solid var(--border); transition: 0.3s; }
     .nav-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
@@ -64,7 +64,7 @@
     .nav-btn.guide { border-color: #10b981; color: #059669; }
     .nav-btn.guide:hover { background: #10b981; color: white; }
 
-    /* Mobile Nav - 改回橘色箭頭 */
+    /* Mobile Nav */
     .nav-mobile { display: none; margin-bottom: 30px; }
     .nav-mobile select { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid var(--accent); background: var(--card-bg); color: var(--text-main); font-size: 17px; font-weight: 700; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f97316' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; background-size: 18px; }
 
@@ -106,10 +106,14 @@
     .qty-group input { text-align: center; font-weight: bold; padding: 6px; font-size: 14px; width: 0; min-width: 0; flex: 1; }
     .input-delta { background: var(--bg-color); color: var(--text-sub); }
 
-    /* Button - 改回橘色漸層 */
     .btn-submit { width: 100%; padding: 20px; border: none; border-radius: 15px; background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); color: white; font-size: 22px; font-weight: 800; cursor: pointer; margin-top: 30px; transition: 0.3s; }
     .btn-submit:hover { transform: scale(1.01); box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4); }
     .btn-submit:disabled { filter: grayscale(1); cursor: not-allowed; }
+
+    .calc-box {
+        font-size: 16px; font-weight: bold; color: var(--accent); background: rgba(249, 115, 22, 0.1); 
+        padding: 10px; border-radius: 8px; text-align: center; margin-top: 5px;
+    }
 
     footer { width: 100%; max-width: 1280px; margin-top: 40px; padding: 30px 0; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
     .footer-links { display: flex; gap: 25px; }
@@ -182,8 +186,8 @@
           <input type="text" id="player-input" placeholder="例如：RainYu#A1b2C" required>
         </div>
         <div>
-          <label>本次擊殺數</label>
-          <input type="number" id="kills-input" min="1" placeholder="例：1000" required>
+          <label>推算擊殺數 (由主掉落物計算)</label>
+          <div id="calc-kills-display" class="calc-box">0</div>
         </div>
       </div>
     </div>
@@ -204,7 +208,7 @@
       <div id="content-area" class="hidden">
         <div class="accordion-group open" onclick="toggleAccordion(this)">
           <div class="accordion-header">
-            <div class="accordion-title">✨ 主掉落物 </div>
+            <div class="accordion-title">✨ 主掉落物 (輸入此項自動計算擊殺) </div>
             <div class="accordion-icon">▼</div>
           </div>
           <div class="accordion-content">
@@ -316,6 +320,7 @@
 
 <script>
   const API_URL = '/api'; 
+  let currentMonsterRate = 1.0; // 預設掉落率，會從後端讀取
 
   document.addEventListener('DOMContentLoaded', () => {
     initTheme();
@@ -377,6 +382,9 @@
       if (res.ok) {
         const cfg = res.data;
         
+        // 儲存主掉落物機率 (若無則預設為1)
+        currentMonsterRate = parseFloat(cfg.tailRate) || 1.0;
+
         const imgEl = document.getElementById('monster-img');
         if (cfg.monsterImage) {
             imgEl.src = cfg.monsterImage;
@@ -400,7 +408,6 @@
         renderCategory('equip',    'equip-container',    cfg.equips,    cfg.equipImages);
         renderCategory('ore',      'ore-container',      cfg.ores,      cfg.oreImages);
         renderCategory('other',    'other-container',    cfg.others,    cfg.otherImages);
-        // ✨ 渲染技能書
         renderCategory('skill',    'skill-container',    cfg.skills,    cfg.skillImages);
       }
     } catch (e) { console.error(e); }
@@ -449,6 +456,24 @@
   }
 
   function updateAllDeltas() {
+    // 主掉落物計算
+    const tI = document.getElementById('tail-initial');
+    const tF = document.getElementById('tail-final');
+    const tD = document.getElementById('tail-delta');
+    let calculatedKills = 0;
+
+    if(tI && tF && tD) {
+       const d = Math.max(0, (parseInt(tF.value)||0) - (parseInt(tI.value)||0));
+       tD.value = d;
+       // 自動反推擊殺數：掉落數 / 機率
+       if (currentMonsterRate > 0) {
+         calculatedKills = Math.round(d / currentMonsterRate);
+       }
+    }
+    
+    // 更新畫面上顯示的擊殺數
+    document.getElementById('calc-kills-display').innerText = calculatedKills > 0 ? calculatedKills.toLocaleString() : '0';
+
     const update = (prefix, count) => {
       for(let i=1; i<=count; i++) {
         const initEl = document.getElementById(`${prefix}${i}-initial`);
@@ -462,13 +487,6 @@
         }
       }
     };
-    // 主掉落物
-    const tI = document.getElementById('tail-initial');
-    const tF = document.getElementById('tail-final');
-    const tD = document.getElementById('tail-delta');
-    if(tI && tF && tD) {
-       tD.value = Math.max(0, (parseInt(tF.value)||0) - (parseInt(tI.value)||0));
-    }
 
     update('scroll', 5);
     update('jackpot', 3);
@@ -483,12 +501,15 @@
     const btn = document.getElementById('submit-btn');
     const player = document.getElementById('player-input').value.trim();
     const monster = document.getElementById('monster-select').value;
-    const kills = parseInt(document.getElementById('kills-input').value) || 0;
+    
+    // 取得自動計算的擊殺數
+    const tailDrops = parseInt(document.getElementById('tail-delta').value) || 0;
+    const kills = (currentMonsterRate > 0) ? Math.round(tailDrops / currentMonsterRate) : 0;
 
-    const idPattern = /^[^#]+#[A-Za-z0-9]{5}$/;
-    if (!idPattern.test(player)) return alert('ID 格式錯誤！請務必包含「#」及後續5碼編號（例如：RainYu#B1234）');
+    const idPattern = /^[^#]+#[A-Za-z0-9]{5,6}$/;
+    if (!idPattern.test(player)) return alert('ID 格式錯誤！請務必包含「#」及後續 5~6 碼編號（例如：RainYu#B1234 或 #A1B2C3）');
     if (!monster) return alert('請選擇怪物');
-    if (kills <= 0) return alert('擊殺數必須大於 0');
+    if (kills <= 0) return alert('請輸入主掉落物數量以計算擊殺數 (必須大於 0)');
 
     // 檢查異常
     let hasError = false;
@@ -496,7 +517,6 @@
        const el = document.getElementById(id);
        if(el && (parseInt(el.value)||0) > kills) hasError = true;
     }
-    checkVal('tail-delta');
     
     const checkGroup = (prefix, count) => {
       for(let i=1; i<=count; i++) {
@@ -511,7 +531,7 @@
     checkGroup('skill', 10);
 
     if (hasError) {
-      alert('【警告】有掉落物數量大於擊殺數，請檢查輸入是否正確！');
+      alert('【警告】有掉落物數量大於推算擊殺數，請檢查輸入是否正確！');
       return;
     }
 
@@ -535,20 +555,11 @@
       }
     };
     
-    // c4 = tail
-    // c5~9 = scrolls (5)
-    // c10~12 = jackpots (3)
-    // c13~35 = equips (23)
-    // c36~42 = ores (7)
-    // c43~47 = others (5)
-    // c48~57 = skills (10)
-    
     collect('scroll', 5, 5);
     collect('jackpot', 3, 10);
     collect('equip', 23, 13);
     collect('ore', 7, 36);
     collect('other', 5, 43);
-    // ✨ 技能書從 c48 開始
     collect('skill', 10, 48);
 
     try {
