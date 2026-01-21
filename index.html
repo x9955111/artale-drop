@@ -8,17 +8,19 @@
   <title>Artale 掉寶統計回報</title>
   
   <style>
-    /* 沿用原本樣式 */
+    /* =========================================
+       已改回橘色系樣式 (Orange Theme)
+       ========================================= */
     :root {
       --bg-color: #f8fafc;
       --card-bg: #ffffff;
       --text-main: #0f172a;
       --text-sub: #475569;
-      --accent: #2563eb;
-      --accent-hover: #1d4ed8;
+      --accent: #f97316;       /* 橘色 */
+      --accent-hover: #ea580c; /* 深橘色 */
       --border: #e2e8f0;
       --input-bg: #ffffff;
-      --input-focus: #eff6ff;
+      --input-focus: #ffedd5;  /* 橘色淡光 */
       --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     }
 
@@ -27,8 +29,8 @@
       --card-bg: #1e293b;
       --text-main: #f1f5f9;
       --text-sub: #94a3b8;
-      --accent: #3b82f6;
-      --accent-hover: #60a5fa;
+      --accent: #fb923c;       /* 夜間模式橘色 */
+      --accent-hover: #fdba74;
       --border: #334155;
       --input-bg: #0f172a;
       --input-focus: #262626;
@@ -47,23 +49,24 @@
 
     .container { width: 100%; max-width: 1280px; background: var(--card-bg); border-radius: 24px; box-shadow: var(--shadow); padding: 40px; border: 1px solid var(--border); flex: 1; }
 
-    /* Header */
+    /* Header - 改回橘色漸層 */
     .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; gap: 15px; }
     .brand { display: flex; align-items: center; gap: 15px; overflow: hidden; }
-    .logo-m { width: 50px; height: 50px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: 900; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4); flex-shrink: 0; }
+    .logo-m { width: 50px; height: 50px; background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: 900; box-shadow: 0 4px 10px rgba(249, 115, 22, 0.4); flex-shrink: 0; }
     .header-text h1 { margin: 0; font-size: 30px; font-weight: 800; white-space: nowrap; }
     .theme-btn { padding: 10px 20px; border-radius: 99px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-main); cursor: pointer; font-weight: 600; font-size: 16px; flex-shrink: 0; }
 
-    /* Nav */
+    /* Nav - 改回橘色選取狀態 */
     .nav-bar { display: flex; gap: 12px; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 2px solid var(--border); flex-wrap: wrap; }
     .nav-btn { padding: 12px 22px; border-radius: 12px; text-decoration: none; background: var(--bg-color); color: var(--text-sub); font-weight: 600; border: 1px solid var(--border); transition: 0.3s; }
     .nav-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
-    .nav-btn.active { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
+    .nav-btn.active { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3); }
     .nav-btn.guide { border-color: #10b981; color: #059669; }
     .nav-btn.guide:hover { background: #10b981; color: white; }
 
+    /* Mobile Nav - 改回橘色箭頭 */
     .nav-mobile { display: none; margin-bottom: 30px; }
-    .nav-mobile select { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid var(--accent); background: var(--card-bg); color: var(--text-main); font-size: 17px; font-weight: 700; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232563eb' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; background-size: 18px; }
+    .nav-mobile select { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid var(--accent); background: var(--card-bg); color: var(--text-main); font-size: 17px; font-weight: 700; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f97316' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; background-size: 18px; }
 
     /* Form Styles */
     .panel { border: 1px solid var(--border); padding: 25px; border-radius: 18px; background: rgba(0,0,0,0.01); margin-bottom: 25px; }
@@ -75,6 +78,7 @@
     
     .monster-selection-wrapper { display: flex; gap: 20px; align-items: center; margin-bottom: 25px; padding: 5px; }
     .monster-img-small { width: 130px; height: 130px; flex-shrink: 0; background: rgba(0,0,0,0.03); border-radius: 16px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--border); overflow: hidden; padding: 5px; box-shadow: var(--shadow); transition: transform 0.3s ease; }
+    .monster-img-small:hover { transform: scale(1.05); border-color: var(--accent); }
     .monster-img-small img { max-width: 100%; max-height: 100%; object-fit: contain; }
     .monster-info-col { flex: 1; display: flex; flex-direction: column; gap: 15px; justify-content: center; }
 
@@ -102,8 +106,9 @@
     .qty-group input { text-align: center; font-weight: bold; padding: 6px; font-size: 14px; width: 0; min-width: 0; flex: 1; }
     .input-delta { background: var(--bg-color); color: var(--text-sub); }
 
-    .btn-submit { width: 100%; padding: 20px; border: none; border-radius: 15px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; font-size: 22px; font-weight: 800; cursor: pointer; margin-top: 30px; transition: 0.3s; }
-    .btn-submit:hover { transform: scale(1.01); box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4); }
+    /* Button - 改回橘色漸層 */
+    .btn-submit { width: 100%; padding: 20px; border: none; border-radius: 15px; background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); color: white; font-size: 22px; font-weight: 800; cursor: pointer; margin-top: 30px; transition: 0.3s; }
+    .btn-submit:hover { transform: scale(1.01); box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4); }
     .btn-submit:disabled { filter: grayscale(1); cursor: not-allowed; }
 
     footer { width: 100%; max-width: 1280px; margin-top: 40px; padding: 30px 0; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
@@ -118,6 +123,7 @@
       .header-text h1 { font-size: 20px; }
       .header-text div { font-size: 12px !important; }
       .logo-m { width: 40px; height: 40px; font-size: 24px; }
+      .theme-btn { padding: 8px 15px; font-size: 14px; }
       .nav-bar { display: none; }
       .nav-mobile { display: block; }
       .input-row-wrapper { grid-template-columns: 1fr; gap: 15px; }
@@ -528,21 +534,21 @@
         setVal('c' + (baseIndex + i - 1), `${prefix}${i}-delta`);
       }
     };
-    // 欄位對應：
-    // Tail: c4
-    // Scroll: c5-c9
-    // Jackpot: c10-c12
-    // Equip: c13-c35
-    // Ore: c36-c42
-    // Other: c43-c47
-    // Skill: c48-c57 (從第48格開始收集)
+    
+    // c4 = tail
+    // c5~9 = scrolls (5)
+    // c10~12 = jackpots (3)
+    // c13~35 = equips (23)
+    // c36~42 = ores (7)
+    // c43~47 = others (5)
+    // c48~57 = skills (10)
     
     collect('scroll', 5, 5);
     collect('jackpot', 3, 10);
     collect('equip', 23, 13);
     collect('ore', 7, 36);
     collect('other', 5, 43);
-    // ✨ 技能書從 48 開始
+    // ✨ 技能書從 c48 開始
     collect('skill', 10, 48);
 
     try {
