@@ -152,7 +152,7 @@
     .rate-high { color: var(--success); font-weight: 700; }
     .rate-zero { color: var(--mute); font-size: 14px; }
 
-    /* 物品圖片與名稱組合 */
+    /* Item Cell */
     .item-cell { display: flex; align-items: center; gap: 12px; }
     .item-icon { 
       width: 36px; height: 36px; flex-shrink: 0; 
@@ -179,7 +179,7 @@
     .footer-links a:hover { color: var(--accent); }
     .copyright { font-size: 15px; color: var(--text-sub); }
 
-    /* RWD 手機版優化：卡片式表格 */
+    /* RWD */
     @media (max-width: 768px) {
       body { padding: 10px; }
       .container { padding: 20px; border-radius: 16px; }
@@ -195,31 +195,24 @@
       .footer-links { width: 100%; justify-content: center; gap: 15px; }
       .copyright { width: 100%; text-align: center; font-size: 13px; }
 
-      /* 表格轉卡片核心 CSS */
-      table { min-width: 0; }
+      /* Card Table */
       table, thead, tbody, th, td, tr { display: block; }
       thead tr { position: absolute; top: -9999px; left: -9999px; }
-      
       tr {
         border: 1px solid var(--border); border-radius: 12px;
         margin: 15px; background: var(--card-bg);
         box-shadow: 0 2px 5px rgba(0,0,0,0.02); padding: 0; overflow: hidden;
       }
-      tr:nth-child(even) { background-color: var(--card-bg); }
-
       td {
         border: none; border-bottom: 1px solid var(--border); position: relative;
         padding: 10px 15px; display: flex; justify-content: space-between;
         align-items: center; text-align: right; min-height: 24px; font-size: 15px;
       }
       td:last-child { border-bottom: none; }
-
       td:before {
         content: attr(data-label);
         font-weight: 600; color: var(--text-sub); font-size: 14px; margin-right: auto;
       }
-
-      /* 第1欄 (物品名稱) 特別樣式 */
       td:nth-of-type(1) {
         background: var(--bg-color); font-weight: 800; color: var(--accent);
         justify-content: flex-start; font-size: 16px; border-bottom: 2px solid var(--border);
@@ -376,7 +369,6 @@
     container.innerHTML = '';
 
     try {
-      // 平行請求：同時抓數據與圖片設定
       const [statsResp, configResp] = await Promise.all([
         fetch(`${API_URL}?action=getBossStats&boss=${encodeURIComponent(bossName)}`),
         fetch(`${API_URL}?action=getBossConfig&boss=${encodeURIComponent(bossName)}`)
@@ -403,9 +395,7 @@
     document.getElementById('sum-boss').innerText = data.boss || bossName;
     document.getElementById('sum-kills').innerText = data.totalKills.toLocaleString();
 
-    // 更新 BOSS 大頭貼
     const imgEl = document.getElementById('sum-boss-img');
-    // BOSS圖片欄位可能為 bossImage 或 monsterImage，視後端而定
     const bImg = config.bossImage || config.monsterImage;
     if (bImg) {
         imgEl.src = bImg;
@@ -416,11 +406,11 @@
 
     let html = '';
     
-    // 渲染各分類，傳入對應的圖片陣列
-    // 所有區塊預設展開 (true)
     html += renderSection('⚔️ 裝備', data.equips, config.equipImages, true);
     html += renderSection('💎 大獎', data.jackpots, config.jackpotImages, true);
     html += renderSection('📜 卷軸', data.scrolls, config.scrollImages, true);
+    // ✨ 新增技能書顯示
+    html += renderSection('📚 技能書', data.skills, config.skillImages, true);
     html += renderSection('📦 其他', data.others, config.otherImages, true);
 
     document.getElementById('tables-container').innerHTML = html;
@@ -459,9 +449,7 @@
       return `<tr><td colspan="4" class="rate-zero" style="text-align:center;">無資料</td></tr>`;
     }
 
-    // 過濾並生成 HTML
     const rows = list.map((item, index) => {
-      // 自動隱藏：名稱為空或為"無"
       const name = (item.name || '').trim();
       if (!name || name === '無') return '';
 
@@ -472,7 +460,6 @@
         avgKills = '約 ' + Math.round(1 / item.rate).toLocaleString() + ' 隻';
       }
 
-      // 取得圖片
       const imgUrl = images[index] || '';
       let imgHtml = '';
       if (imgUrl) {
@@ -496,7 +483,6 @@
       `;
     }).join('');
 
-    // 若全部都被隱藏，回傳無資料
     if (rows === '') {
       return `<tr><td colspan="4" class="rate-zero" style="text-align:center;">無此類物品資料</td></tr>`;
     }

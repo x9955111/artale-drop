@@ -83,7 +83,7 @@
     .btn-search { padding: 14px 30px; border: none; border-radius: 12px; background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); color: white; font-size: 18px; font-weight: 800; cursor: pointer; transition: 0.3s; height: 54px; }
     .btn-search:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4); }
 
-    /* Summary Dashboard (仿 stats2.html 左圖右文) */
+    /* Summary Dashboard */
     .summary-wrapper { display: flex; gap: 20px; align-items: center; margin-bottom: 30px; background: var(--bg-color); border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
     .monster-img-large { width: 100px; height: 100px; flex-shrink: 0; background: var(--card-bg); border-radius: 12px; border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; overflow: hidden; }
     .monster-img-large img { max-width: 100%; max-height: 100%; object-fit: contain; }
@@ -327,7 +327,6 @@
     container.innerHTML = '';
 
     try {
-      // ✅ 同時抓取：個人數據、全體數據、BOSS 設定(圖片)
       const [pRes, aRes, cRes] = await Promise.all([
         fetch(`${API_URL}?action=getPlayerBossStats&player=${encodeURIComponent(player)}&boss=${encodeURIComponent(boss)}`).then(r => r.json()),
         fetch(`${API_URL}?action=getBossStats&boss=${encodeURIComponent(boss)}`).then(r => r.json()),
@@ -363,7 +362,6 @@
     document.getElementById('sum-kills-player').innerText = pData.totalKills.toLocaleString();
     document.getElementById('sum-kills-all').innerText = aData ? aData.totalKills.toLocaleString() : '-';
     
-    // 更新 BOSS 大頭貼 (支援 bossImage 或 monsterImage)
     const imgEl = document.getElementById('sum-boss-img');
     const bImg = config.bossImage || config.monsterImage;
     if(bImg) {
@@ -379,6 +377,7 @@
       equips: new Map(),
       jackpots: new Map(),
       scrolls: new Map(),
+      skills: new Map(),
       others: new Map()
     };
     if (!allStats) return map;
@@ -389,6 +388,8 @@
     put('equips', allStats.equips);
     put('jackpots', allStats.jackpots);
     put('scrolls', allStats.scrolls);
+    // ✨ 新增技能書對應
+    put('skills', allStats.skills);
     put('others', allStats.others);
     return map;
   }
@@ -397,10 +398,11 @@
     const map = buildRateMap(aData);
     let html = '';
 
-    // 各分類表格 (傳入對應的圖片陣列)
     html += renderSection('⚔️ 裝備', pData.equips, map.equips, config.equipImages);
     html += renderSection('💎 大獎', pData.jackpots, map.jackpots, config.jackpotImages);
     html += renderSection('📜 卷軸', pData.scrolls, map.scrolls, config.scrollImages);
+    // ✨ 新增技能書顯示
+    html += renderSection('📚 技能書', pData.skills, map.skills, config.skillImages);
     html += renderSection('📦 其他', pData.others, map.others, config.otherImages);
 
     document.getElementById('tables-container').innerHTML = html;
@@ -440,7 +442,6 @@
     }
 
     const rows = items.map((it, idx) => {
-      // 1. 自動隱藏名稱為 空 或 "無" 的欄位
       const name = (it.name || '').trim();
       if (!name || name === '無') return '';
 
@@ -452,7 +453,6 @@
       const aRateStr = rateA === null ? '-' : formatRate(rateA);
       const clsPlayer = total > 0 ? 'rate-good' : 'rate-zero';
 
-      // 2. 加入圖片
       const imgUrl = images[idx] || '';
       let imgHtml = '';
       if(imgUrl) {
@@ -476,7 +476,6 @@
       `;
     }).join('');
 
-    // 若所有項目都被隱藏，回傳無資料
     if (rows === '') {
       return `<tr><td colspan="4" class="rate-zero" style="text-align:center;">無相關資料</td></tr>`;
     }
