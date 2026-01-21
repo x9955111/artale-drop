@@ -8,9 +8,6 @@
   <title>ARTALE BOSS 掉寶回報</title>
   
   <style>
-    /* =========================================
-       核心樣式 (UI同步)
-       ========================================= */
     :root {
       --bg-color: #f8fafc;
       --card-bg: #ffffff;
@@ -49,14 +46,12 @@
 
     .container { width: 100%; max-width: 1280px; background: var(--card-bg); border-radius: 24px; box-shadow: var(--shadow); padding: 40px; border: 1px solid var(--border); flex: 1; }
 
-    /* Header */
     .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; gap: 15px; }
     .brand { display: flex; align-items: center; gap: 15px; overflow: hidden; }
     .logo-m { width: 50px; height: 50px; background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: 900; box-shadow: 0 4px 10px rgba(249, 115, 22, 0.4); flex-shrink: 0; }
     .header-text h1 { margin: 0; font-size: 30px; font-weight: 800; white-space: nowrap; }
     .theme-btn { padding: 10px 20px; border-radius: 99px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-main); cursor: pointer; font-weight: 600; font-size: 16px; flex-shrink: 0; }
 
-    /* Nav */
     .nav-bar { display: flex; gap: 12px; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 2px solid var(--border); flex-wrap: wrap; }
     .nav-btn { padding: 12px 22px; border-radius: 12px; text-decoration: none; background: var(--bg-color); color: var(--text-sub); font-weight: 600; border: 1px solid var(--border); transition: 0.3s; }
     .nav-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
@@ -72,7 +67,6 @@
     input, select { width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--border); background: var(--input-bg); color: var(--text-main); font-size: 17px; box-sizing: border-box; }
     input:focus, select:focus { outline: none; border-color: var(--accent); background: var(--input-focus); }
 
-    /* Layout */
     .input-row-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
     .monster-selection-wrapper { display: flex; gap: 20px; align-items: center; margin-bottom: 25px; padding: 5px; }
     .monster-img-small { width: 130px; height: 130px; flex-shrink: 0; background: rgba(0,0,0,0.03); border-radius: 16px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--border); overflow: hidden; padding: 5px; box-shadow: var(--shadow); transition: transform 0.3s ease; }
@@ -80,7 +74,6 @@
     .monster-img-small img { max-width: 100%; max-height: 100%; object-fit: contain; }
     .monster-info-col { flex: 1; display: flex; flex-direction: column; gap: 15px; justify-content: center; }
 
-    /* Accordion */
     .accordion-title { font-size: 20px; font-weight: 800; color: var(--accent); display: flex; align-items: center; gap: 10px; margin: 0; }
     .accordion-title::before { content: ""; width: 5px; height: 20px; background: var(--accent); border-radius: 3px; }
     .accordion-group { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 20px; overflow: hidden; transition: all 0.3s ease; }
@@ -93,7 +86,6 @@
     .accordion-group.open .accordion-content { display: block; animation: fadeIn 0.3s ease; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* Item Cards */
     .item-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 15px; }
     .item-input-box { background: var(--card-bg); padding: 12px; border-radius: 10px; border: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
     .item-img-wrap { width: 40px; height: 40px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
@@ -232,6 +224,16 @@
 
         <div class="accordion-group open" onclick="toggleAccordion(this)">
           <div class="accordion-header">
+            <div class="accordion-title">📚 技能書 </div>
+            <div class="accordion-icon">▼</div>
+          </div>
+          <div class="accordion-content">
+            <div id="skill-container" class="item-grid"></div>
+          </div>
+        </div>
+
+        <div class="accordion-group open" onclick="toggleAccordion(this)">
+          <div class="accordion-header">
             <div class="accordion-title">📦 其他 </div>
             <div class="accordion-icon">▼</div>
           </div>
@@ -331,7 +333,6 @@
       if (res.ok) {
         const cfg = res.data;
         
-        // 更新圖片
         const imgEl = document.getElementById('boss-img');
         if (cfg.bossImage || cfg.monsterImage) {
             imgEl.src = cfg.bossImage || cfg.monsterImage;
@@ -344,14 +345,16 @@
         renderBossCategory('jackpot', 'jackpot-container', cfg.jackpots, cfg.jackpotImages);
         renderBossCategory('scroll',  'scroll-container',  cfg.scrolls,  cfg.scrollImages);
         renderBossCategory('other',   'other-container',   cfg.others,   cfg.otherImages);
+        renderBossCategory('skill',   'skill-container',   cfg.skills,   cfg.skillImages);
       }
     } catch (e) { console.error(e); }
   }
 
   function renderBossCategory(prefix, containerId, names, images) {
     const container = document.getElementById(containerId);
-    if (!names || names.length === 0) {
-      container.innerHTML = '<div style="color:var(--text-sub); font-size:14px;">無此類物品</div>';
+    // 即使沒有資料，也不要完全隱藏，顯示提示文字
+    if (!names || names.length === 0 || names.every(n => !n)) {
+      container.innerHTML = '<div style="color:var(--text-sub); font-size:14px; padding:10px;">無此類物品資料</div>';
       return;
     }
 
@@ -359,7 +362,6 @@
     let hasVisibleItems = false;
 
     names.forEach((name, index) => {
-      // 隱藏條件：空字串 或 "無"
       const realName = (name && name.trim()) ? name.trim() : '';
       const shouldShow = realName !== '' && realName !== '無';
       
@@ -367,7 +369,7 @@
 
       hasVisibleItems = true;
       const imgUrl = (images && images[index]) ? images[index] : '';
-      const i = index + 1; // 1-based index for IDs
+      const i = index + 1; 
 
       html += `
         <div class="item-input-box">
@@ -387,7 +389,7 @@
     });
     
     if (!hasVisibleItems) {
-      html = '<div style="color:var(--text-sub); font-size:14px;">無此類物品</div>';
+      html = '<div style="color:var(--text-sub); font-size:14px; padding:10px;">無此類物品資料</div>';
     }
     
     container.innerHTML = html;
@@ -410,8 +412,8 @@
     update('equip', 30);
     update('jackpot', 3);
     update('scroll', 33);
-    // ✨ 修改處：擴充至 10 格
     update('other', 10);
+    update('skill', 40);
   }
 
   async function handleSubmit(e) {
@@ -421,7 +423,6 @@
     const boss = document.getElementById('boss-select').value;
     const kills = parseInt(document.getElementById('kills-input').value) || 0;
 
-    // ✨ 修改處：支援特殊符號 (只要 # 前面有字元即可)
     const idPattern = /^[^#]+#[A-Za-z0-9]{5}$/;
     if (!idPattern.test(player)) return alert('ID 格式錯誤！請務必包含「#」及後續5碼編號（例如：RainYu#B1234）');
     if (!boss) return alert('請選擇 BOSS');
@@ -440,8 +441,8 @@
     checkGroup('equip', 30);
     checkGroup('jackpot', 3);
     checkGroup('scroll', 33);
-    // ✨ 修改處：擴充至 10 格
     checkGroup('other', 10);
+    checkGroup('skill', 40);
 
     if (hasError) {
       alert('【警告】有掉落物數量大於擊殺數，請檢查輸入是否正確！');
@@ -466,8 +467,9 @@
     collect('equip', 30, 4);
     collect('jackpot', 3, 34);
     collect('scroll', 33, 37);
-    // ✨ 修改處：擴充至 10 格
     collect('other', 10, 70);
+    // 技能書 80~119
+    collect('skill', 40, 80);
 
     try {
       const resp = await fetch(API_URL, {
