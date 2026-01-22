@@ -7,19 +7,21 @@
      crossorigin="anonymous"></script>
   <title>Artale 掉寶統計 (全伺服器)</title>
   <style>
-    /* 維持橘色主題 */
+    /* =========================================
+       Orange Theme (維持橘色系)
+       ========================================= */
     :root {
       --bg-color: #f8fafc;
       --card-bg: #ffffff;
       --text-main: #0f172a;
       --text-sub: #475569;
-      --accent: #f97316;
+      --accent: #f97316;       /* 橘色 */
       --accent-hover: #ea580c;
       --border: #e2e8f0;
       --input-bg: #ffffff;
       --input-focus: #ffedd5;
       --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      --table-head-bg: #fff7ed;
+      --table-head-bg: #fff7ed; /* 淺橘色表頭 */
       --table-row-even: #fcfcfc;
       --success: #16a34a;
       --mute: #9ca3af;
@@ -129,6 +131,7 @@
     .footer-links a:hover { color: var(--accent); }
     .copyright { font-size: 15px; color: var(--text-sub); }
 
+    /* RWD - 手機版卡片式排版 */
     @media (max-width: 768px) {
       body { padding: 10px; }
       .container { padding: 20px; border-radius: 16px; }
@@ -142,13 +145,30 @@
       .footer-links { width: 100%; justify-content: center; gap: 15px; }
       .copyright { width: 100%; text-align: center; font-size: 13px; }
 
+      /* 卡片式表格 CSS */
       table, thead, tbody, th, td, tr { display: block; }
       thead tr { position: absolute; top: -9999px; left: -9999px; }
-      tr { border: 1px solid var(--border); border-radius: 12px; margin: 15px; background: var(--card-bg); box-shadow: 0 2px 5px rgba(0,0,0,0.02); padding: 0; overflow: hidden; }
-      td { border: none; border-bottom: 1px solid var(--border); position: relative; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; text-align: right; min-height: 24px; font-size: 15px; }
+      tr { 
+        border: 1px solid var(--border); border-radius: 12px; 
+        margin-bottom: 15px; background: var(--card-bg); 
+        box-shadow: 0 2px 5px rgba(0,0,0,0.02); overflow: hidden; 
+      }
+      td { 
+        border: none; border-bottom: 1px solid var(--border); 
+        position: relative; padding: 12px 15px; 
+        display: flex; justify-content: space-between; align-items: center; 
+        text-align: right; min-height: 24px; font-size: 15px; 
+      }
       td:last-child { border-bottom: none; }
-      td:before { content: attr(data-label); font-weight: 600; color: var(--text-sub); font-size: 14px; margin-right: auto; }
-      td:nth-of-type(1) { background: var(--bg-color); font-weight: 800; color: var(--accent); justify-content: flex-start; font-size: 16px; border-bottom: 2px solid var(--border); }
+      td:before { 
+        content: attr(data-label); 
+        font-weight: 600; color: var(--text-sub); font-size: 14px; 
+      }
+      /* 第一欄 (物品名稱) 特別樣式 */
+      td:nth-of-type(1) { 
+        background: var(--bg-color); font-weight: 800; color: var(--accent); 
+        justify-content: flex-start; font-size: 16px; border-bottom: 2px solid var(--border); 
+      }
       td:nth-of-type(1):before { display: none; }
     }
   </style>
@@ -337,6 +357,7 @@
 
     let html = '';
     
+    // 主掉落物 (Tail)
     if (data.mainDrop && data.mainDrop.name !== '無') {
       const md = data.mainDrop;
       const rateStr = formatRate(md.rate);
@@ -371,6 +392,7 @@
     html += renderSection('💎 大獎', data.jackpots, config.jackpotImages, true);
     html += renderSection('⚔️ 裝備', data.equips, config.equipImages, true);
     html += renderSection('⛏️ 礦石', data.ores, config.oreImages, true);
+    // 技能書 (10格)
     html += renderSection('📚 技能書', data.skills, config.skillImages, true);
     html += renderSection('📦 其他', data.others, config.otherImages, true);
 

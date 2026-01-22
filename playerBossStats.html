@@ -7,12 +7,15 @@
      crossorigin="anonymous"></script>
   <title>Artale 個人掉寶統計（BOSS）</title>
   <style>
+    /* =========================================
+       Orange Theme (維持橘色系)
+       ========================================= */
     :root {
       --bg-color: #f8fafc;
       --card-bg: #ffffff;
       --text-main: #0f172a;
       --text-sub: #475569;
-      --accent: #f97316;
+      --accent: #f97316;       /* 橘色 */
       --accent-hover: #ea580c;
       --border: #e2e8f0;
       --input-bg: #ffffff;
@@ -130,7 +133,7 @@
     .footer-links a:hover { color: var(--accent); }
     .copyright { font-size: 15px; color: var(--text-sub); }
 
-    /* RWD */
+    /* RWD - 手機版卡片式排版優化 */
     @media (max-width: 768px) {
       body { padding: 10px; }
       .container { padding: 20px; border-radius: 16px; }
@@ -147,17 +150,33 @@
       footer { justify-content: center; text-align: center; }
       .footer-links { width: 100%; justify-content: center; gap: 15px; }
 
-      /* Card Table */
-      table, thead, tbody, th, td, tr { display: block; }
+      /* Card Table Logic */
+      .table-wrapper { overflow-x: visible; }
+      table { min-width: 0; display: block; }
+      thead, tbody, th, td, tr { display: block; }
       thead tr { position: absolute; top: -9999px; left: -9999px; }
-      tr { border: 1px solid var(--border); border-radius: 12px; margin: 15px; background: var(--card-bg); box-shadow: 0 2px 5px rgba(0,0,0,0.02); padding: 0; overflow: hidden; }
-      td { border: none; border-bottom: 1px solid var(--border); position: relative; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; text-align: right; min-height: 24px; font-size: 15px; }
+      tr { 
+        border: 1px solid var(--border); border-radius: 12px; 
+        margin-bottom: 15px; background: var(--card-bg); 
+        box-shadow: 0 2px 5px rgba(0,0,0,0.02); overflow: hidden; 
+      }
+      td { 
+        border: none; border-bottom: 1px solid var(--border); 
+        position: relative; padding: 12px 15px; 
+        display: flex; justify-content: space-between; align-items: center; 
+        text-align: right; min-height: 24px; font-size: 15px; 
+      }
       td:last-child { border-bottom: none; }
-      td:before { content: attr(data-label); font-weight: 600; color: var(--text-sub); font-size: 14px; margin-right: auto; }
-      
-      /* 第1欄(名稱)變標題 */
-      td:first-child { background: var(--bg-color); border-bottom: 2px solid var(--border); display: block; text-align: left; }
-      td:first-child:before { display: none; }
+      td:before { 
+        content: attr(data-label); 
+        font-weight: 600; color: var(--text-sub); font-size: 14px; 
+      }
+      /* 第一欄標題樣式 */
+      td:nth-of-type(1) { 
+        background: var(--bg-color); font-weight: 800; color: var(--accent); 
+        justify-content: flex-start; font-size: 16px; border-bottom: 2px solid var(--border); 
+      }
+      td:nth-of-type(1):before { display: none; }
     }
   </style>
 </head>
@@ -388,7 +407,6 @@
     put('equips', allStats.equips);
     put('jackpots', allStats.jackpots);
     put('scrolls', allStats.scrolls);
-    // ✨ 新增技能書對應
     put('skills', allStats.skills);
     put('others', allStats.others);
     return map;
@@ -401,7 +419,7 @@
     html += renderSection('⚔️ 裝備', pData.equips, map.equips, config.equipImages);
     html += renderSection('💎 大獎', pData.jackpots, map.jackpots, config.jackpotImages);
     html += renderSection('📜 卷軸', pData.scrolls, map.scrolls, config.scrollImages);
-    // ✨ 新增技能書顯示
+    // ✨ 包含 10 格技能書
     html += renderSection('📚 技能書', pData.skills, map.skills, config.skillImages);
     html += renderSection('📦 其他', pData.others, map.others, config.otherImages);
 
@@ -461,6 +479,7 @@
         imgHtml = `<div class="item-icon" style="opacity:0"></div>`;
       }
 
+      // ✨ data-label 屬性是手機卡片排版的關鍵
       return `
         <tr>
           <td data-label="物品名稱">
