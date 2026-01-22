@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Artale 掉寶統計站 - 楓之谷私服真實機率查詢與回報系統</title>
-  <meta name="description" content="Artale 掉寶統計站是專為 Artale 楓之谷玩家打造的數據攻略平台。提供最真實的怪物掉寶率查詢、BOSS 戰利品統計、裝備卷軸掉落分析。透過全伺服器玩家的大數據回報，助您掌握打寶效率，不再盲目刷怪。">
-  <meta name="keywords" content="Artale, 楓之谷, Artale掉寶, 掉寶率, 掉寶統計, 掉寶查詢, Artale攻略, 楓之谷私服, 掉寶回報, BOSS掉落, 技能書機率">
+  <title>Artale 掉寶統計站 - 首頁</title>
+  <meta name="description" content="Artale 楓之谷掉寶統計站。全網唯一的真實數據平台，提供怪物掉寶率查詢、BOSS 戰利品統計、個人運氣分析，助您掌握打寶效率。">
+  <meta name="keywords" content="Artale, 楓之谷, 掉寶率, 掉寶統計, 掉寶查詢, Artale攻略, 楓之谷私服, 掉寶回報, BOSS掉落, 技能書機率">
   <meta name="author" content="Artale 掉寶統計站">
   
   <meta property="og:type" content="website">
@@ -31,6 +31,10 @@
       --input-bg: #ffffff;
       --input-focus: #ffedd5;  /* 橘色淡光 */
       --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      
+      /* 新增：第三隻怪物的配色 (Teal) */
+      --slot-3-color: #0d9488; 
+      --slot-3-bg: #f0fdfa;
     }
 
     body.night-mode {
@@ -43,6 +47,9 @@
       --border: #334155;
       --input-bg: #0f172a;
       --input-focus: #262626;
+      
+      --slot-3-color: #2dd4bf;
+      --slot-3-bg: #115e59;
     }
 
     body {
@@ -56,7 +63,7 @@
       display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 0 20px;
     }
 
-    .container { width: 100%; max-width: 1280px; background: var(--card-bg); border-radius: 24px; box-shadow: var(--shadow); padding: 40px; border: 1px solid var(--border); margin: 40px 0; }
+    .container { width: 100%; max-width: 1400px; background: var(--card-bg); border-radius: 24px; box-shadow: var(--shadow); padding: 40px; border: 1px solid var(--border); margin: 40px 0; }
 
     /* Header */
     .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; gap: 15px; }
@@ -82,44 +89,35 @@
     .intro-text h2 { color: var(--accent); font-size: 24px; margin-bottom: 15px; }
     .intro-text p { color: var(--text-sub); font-size: 16px; line-height: 1.8; margin-bottom: 15px; }
 
-    .article-section { margin-top: 50px; padding-top: 30px; border-top: 2px solid var(--border); }
-    .article-section h3 { font-size: 22px; color: var(--text-main); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
-    .article-section h3::before { content: ""; width: 6px; height: 24px; background: var(--accent); border-radius: 3px; display: inline-block; }
+    /* Mode Selection (New) */
+    .mode-selection { 
+        display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; 
+        background: var(--bg-color); padding: 10px; border-radius: 12px; border: 1px solid var(--border);
+    }
+    .mode-label {
+        display: flex; align-items: center; gap: 8px;
+        padding: 10px 15px; border-radius: 8px; cursor: pointer;
+        font-weight: 700; color: var(--text-sub); transition: 0.2s;
+        border: 2px solid transparent; user-select: none;
+    }
+    .mode-label:hover { background: var(--card-bg); color: var(--accent); }
+    .mode-label.selected { border-color: var(--accent); color: var(--accent); background: var(--input-focus); }
+    .mode-radio { display: none; } /* Hide default radio */
+
+    /* Dual/Triple Layout */
+    .multi-wrapper { display: flex; gap: 20px; align-items: flex-start; }
+    .monster-slot { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 20px; transition: all 0.3s ease; }
     
-    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 30px; }
-    .feature-card { background: var(--bg-color); padding: 25px; border-radius: 16px; border: 1px solid var(--border); }
-    .feature-card h4 { margin: 0 0 10px 0; color: var(--accent); font-size: 18px; }
-    .feature-card p { margin: 0; color: var(--text-sub); font-size: 15px; }
-
-    .faq-item { margin-bottom: 20px; }
-    .faq-q { font-weight: 700; color: var(--text-main); margin-bottom: 8px; font-size: 18px; }
-    .faq-a { color: var(--text-sub); font-size: 16px; background: var(--bg-color); padding: 15px; border-radius: 10px; }
-
-    /* Form Styles */
-    .panel { border: 1px solid var(--border); padding: 25px; border-radius: 18px; background: rgba(0,0,0,0.01); margin-bottom: 25px; }
+    /* Common Form Styles */
+    .panel { border: 1px solid var(--border); padding: 25px; border-radius: 18px; background: rgba(0,0,0,0.01); }
     label { display: block; font-size: 15px; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
     input, select { width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--border); background: var(--input-bg); color: var(--text-main); font-size: 17px; box-sizing: border-box; }
     input:focus, select:focus { outline: none; border-color: var(--accent); background: var(--input-focus); }
 
-    /* 雙怪模式切換按鈕 */
-    .toggle-wrapper { display: flex; align-items: center; margin-bottom: 20px; }
-    .toggle-label {
-        font-size: 18px; font-weight: 700; color: var(--accent); 
-        display: flex; align-items: center; gap: 10px; 
-        cursor: pointer; user-select: none;
-        padding: 10px; border-radius: 8px;
-        transition: background 0.2s;
-    }
-    .toggle-label:hover { background: var(--input-focus); }
-    .checkbox-custom { width: 20px; height: 20px; accent-color: var(--accent); cursor: pointer; }
+    .input-row-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
 
-    /* 雙怪佈局：電腦版並排，手機版垂直 */
-    .dual-container { display: flex; gap: 20px; align-items: flex-start; }
-    .monster-slot { flex: 1; min-width: 0; display: flex; flex-direction: column; }
-
-    .monster-selection-wrapper { display: flex; gap: 20px; align-items: center; margin-bottom: 25px; padding: 5px; }
-    .monster-img-small { width: 130px; height: 130px; flex-shrink: 0; background: rgba(0,0,0,0.03); border-radius: 16px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--border); overflow: hidden; padding: 5px; box-shadow: var(--shadow); transition: transform 0.3s ease; }
-    .monster-img-small:hover { transform: scale(1.05); border-color: var(--accent); }
+    .monster-selection-wrapper { display: flex; gap: 20px; align-items: center; margin-bottom: 5px; }
+    .monster-img-small { width: 100px; height: 100px; flex-shrink: 0; background: rgba(0,0,0,0.03); border-radius: 16px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--border); overflow: hidden; padding: 5px; box-shadow: var(--shadow); transition: transform 0.3s ease; }
     .monster-img-small img { max-width: 100%; max-height: 100%; object-fit: contain; }
     .monster-info-col { flex: 1; display: flex; flex-direction: column; gap: 15px; justify-content: center; }
 
@@ -147,11 +145,26 @@
     .qty-group input { text-align: center; font-weight: bold; padding: 6px; font-size: 14px; width: 0; min-width: 0; flex: 1; }
     .input-delta { background: var(--bg-color); color: var(--text-sub); }
 
+    .calc-box { 
+        font-size: 18px; font-weight: bold; color: var(--accent); 
+        background: rgba(249, 115, 22, 0.1); padding: 10px; border-radius: 10px; text-align: center; margin-top: 10px; border: 1px solid var(--border);
+    }
+
     .btn-submit { width: 100%; padding: 20px; border: none; border-radius: 15px; background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); color: white; font-size: 22px; font-weight: 800; cursor: pointer; margin-top: 30px; transition: 0.3s; }
     .btn-submit:hover { transform: scale(1.01); box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4); }
     .btn-submit:disabled { filter: grayscale(1); cursor: not-allowed; }
 
-    .calc-box { font-size: 16px; font-weight: bold; color: var(--accent); background: rgba(249, 115, 22, 0.1); padding: 10px; border-radius: 8px; text-align: center; margin-top: 5px; }
+    /* SEO Article Styles */
+    .article-section { margin-top: 50px; padding-top: 30px; border-top: 2px solid var(--border); }
+    .article-section h3 { font-size: 22px; color: var(--text-main); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+    .article-section h3::before { content: ""; width: 6px; height: 24px; background: var(--accent); border-radius: 3px; display: inline-block; }
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 30px; }
+    .feature-card { background: var(--bg-color); padding: 25px; border-radius: 16px; border: 1px solid var(--border); }
+    .feature-card h4 { margin: 0 0 10px 0; color: var(--accent); font-size: 18px; }
+    .feature-card p { margin: 0; color: var(--text-sub); font-size: 15px; }
+    .faq-item { margin-bottom: 20px; }
+    .faq-q { font-weight: 700; color: var(--text-main); margin-bottom: 8px; font-size: 18px; }
+    .faq-a { color: var(--text-sub); font-size: 16px; background: var(--bg-color); padding: 15px; border-radius: 10px; }
 
     footer { width: 100%; max-width: 1280px; margin-top: 40px; padding: 30px 0; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
     .footer-links { display: flex; gap: 25px; }
@@ -160,25 +173,22 @@
     .copyright { font-size: 15px; color: var(--text-sub); }
 
     /* RWD Breakpoints */
-    @media (max-width: 900px) {
-      /* 平板以下強制垂直排列 */
-      .dual-container { flex-direction: column; }
-      .monster-slot { width: 100%; border-bottom: 1px dashed var(--border); padding-bottom: 20px; margin-bottom: 20px; }
+    @media (max-width: 1100px) {
+      /* 中尺寸螢幕或以下，強制垂直排列 */
+      .multi-wrapper { flex-direction: column; }
+      .monster-slot { width: 100%; border-bottom: 2px dashed var(--border); padding-bottom: 30px; margin-bottom: 30px; }
       .monster-slot:last-child { border-bottom: none; margin-bottom: 0; }
     }
 
     @media (max-width: 768px) {
       body { padding: 10px; }
-      .container { padding: 20px; border-radius: 16px; margin: 10px 0; }
+      .container { padding: 20px; border-radius: 16px; }
       .header-text h1 { font-size: 20px; }
-      .header-text div { font-size: 12px !important; }
       .logo-m { width: 40px; height: 40px; font-size: 24px; }
-      .theme-btn { padding: 8px 15px; font-size: 14px; }
       .nav-bar { display: none; }
       .nav-mobile { display: block; }
-      .monster-img-small { width: 100px; height: 100px; }
-      .monster-selection-wrapper { gap: 12px; }
-      .accordion-header { padding: 15px; }
+      .input-row-wrapper { grid-template-columns: 1fr; gap: 15px; }
+      .monster-img-small { width: 80px; height: 80px; }
       .item-grid { grid-template-columns: 1fr; }
       .footer-links { width: 100%; justify-content: center; gap: 15px; }
       .copyright { width: 100%; text-align: center; font-size: 13px; }
@@ -228,30 +238,45 @@
     <p>
       歡迎來到 <strong>Artale 掉寶統計站</strong>。這是一個由玩家社群共同維護的楓之谷私服 Artale 資料庫。
       由於遊戲官方並未公開詳細的掉落機率，我們致力於透過收集全伺服器玩家的真實狩獵數據，分析出各類怪物、BOSS 的裝備、卷軸及技能書的真實掉落率。
-      無論您是想查詢「雪女」的詛咒卷軸機率，還是想知道「海怒斯」的技能書掉落情形，這裡的大數據都能為您提供最具參考價值的攻略資訊。
+      無論您是想查詢「藍菇菇王」的詛咒卷軸機率，還是想知道「海怒斯」的技能書掉落情形，這裡的大數據都能為您提供最具參考價值的攻略資訊。
     </p>
   </div>
 
   <form id="dropForm">
+    
     <div class="panel">
-      <label>玩家 ID (含 #12345)</label>
-      <input type="text" id="player-id" placeholder="例如：RainYu#A1b2C" required>
+      <div class="input-row-wrapper">
+        <div>
+          <label>玩家 ID (含 #12345)</label>
+          <input type="text" id="player-id" placeholder="例如：RainYu#A1b2C" required>
+        </div>
+        
+        <div style="display:flex; align-items:flex-end;">
+          <div class="mode-selection">
+            <label class="mode-label selected" id="label-mode-1" onclick="setMode(1)">
+              <input type="radio" name="record-mode" value="1" class="mode-radio" checked>
+              單怪模式
+            </label>
+            <label class="mode-label" id="label-mode-2" onclick="setMode(2)">
+              <input type="radio" name="record-mode" value="2" class="mode-radio">
+              雙怪記錄模式
+            </label>
+            <label class="mode-label" id="label-mode-3" onclick="setMode(3)">
+              <input type="radio" name="record-mode" value="3" class="mode-radio">
+              三怪記錄模式
+            </label>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="toggle-wrapper">
-      <label class="toggle-label" for="dual-mode-check">
-        <input type="checkbox" id="dual-mode-check" class="checkbox-custom" onchange="toggleDual(event)">
-        開啟雙怪紀錄模式
-      </label>
-    </div>
-
-    <div class="dual-container">
+    <div class="multi-wrapper">
       
       <div class="monster-slot" id="slot-1">
         <div class="panel">
           <div class="monster-selection-wrapper">
             <div class="monster-img-small">
-              <img id="monster-img-1" src="" alt="請選擇怪物" onerror="this.style.opacity=0">
+              <img id="monster-img-1" src="" alt="怪物A" onerror="this.style.opacity=0">
             </div>
             <div class="monster-info-col">
               <div class="accordion-title">怪物 A</div>
@@ -297,7 +322,7 @@
         <div class="panel">
           <div class="monster-selection-wrapper">
             <div class="monster-img-small">
-              <img id="monster-img-2" src="" alt="請選擇怪物" onerror="this.style.opacity=0">
+              <img id="monster-img-2" src="" alt="怪物B" onerror="this.style.opacity=0">
             </div>
             <div class="monster-info-col">
               <div class="accordion-title" style="color: #64748b;">怪物 B</div> <select id="monster-select-2" onchange="handleMonsterChange(2, this.value)" style="width: 100%;">
@@ -338,9 +363,53 @@
         </div>
       </div>
 
-    </div>
+      <div class="monster-slot hidden" id="slot-3">
+        <div class="panel">
+          <div class="monster-selection-wrapper">
+            <div class="monster-img-small">
+              <img id="monster-img-3" src="" alt="怪物C" onerror="this.style.opacity=0">
+            </div>
+            <div class="monster-info-col">
+              <div class="accordion-title" style="color: var(--slot-3-color);">怪物 C</div>
+              <select id="monster-select-3" onchange="handleMonsterChange(3, this.value)" style="width: 100%;">
+                <option value="">請選擇怪物 C</option>
+              </select>
+            </div>
+          </div>
 
-    <button type="submit" id="submit-btn" class="btn-submit">送出回報</button>
+          <div id="content-area-3" class="hidden">
+            <div class="accordion-group open" onclick="toggleAccordion(this)">
+              <div class="accordion-header">
+                <div class="accordion-title" style="color:var(--slot-3-color);">✨ 主掉落物 (C)</div>
+                <div class="accordion-icon">▼</div>
+              </div>
+              <div class="accordion-content">
+                <div class="item-grid">
+                  <div class="item-input-box">
+                    <div class="item-img-wrap"><img id="tail-img-3" src="" onerror="this.style.opacity=0"></div>
+                    <div class="item-info">
+                      <div class="item-label" id="tail-label-3">雜物</div>
+                      <div class="qty-group">
+                        <input type="number" id="tail-initial-3" placeholder="始" oninput="updateDeltas(3)">
+                        <input type="number" id="tail-final-3" placeholder="終" oninput="updateDeltas(3)">
+                        <input type="number" id="tail-delta-3" class="input-delta" readonly placeholder="0">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="calc-box" style="color:var(--slot-3-color); background:var(--slot-3-bg);">
+                  推算擊殺數: <span id="calc-kills-3">0</span> 
+                  <span id="rate-display-3" style="font-weight:normal; font-size:0.8em; margin-left:5px;"></span>
+                </div>
+              </div>
+            </div>
+
+            <div id="accordions-3"></div>
+          </div>
+        </div>
+      </div>
+
+    </div> <button type="submit" id="submit-btn" class="btn-submit">送出回報</button>
   </form>
 
   <div class="article-section">
@@ -420,8 +489,9 @@
 
 <script>
   const API_URL = '/api'; 
-  const monsterRates = { 1: 1.0, 2: 1.0 }; // 儲存兩欄的機率
-  const estimatedKills = { 1: 0, 2: 0 };   // 儲存兩欄的擊殺數
+  const monsterRates = { 1: 1.0, 2: 1.0, 3: 1.0 }; 
+  const estimatedKills = { 1: 0, 2: 0, 3: 0 };   
+  let currentMode = 1;
 
   document.addEventListener('DOMContentLoaded', () => {
     initTheme();
@@ -429,15 +499,22 @@
     document.getElementById('dropForm').addEventListener('submit', handleSubmit);
   });
 
-  function toggleDual(e) {
-    // 切換雙怪模式
-    const isChecked = document.getElementById('dual-mode-check').checked;
+  function setMode(mode) {
+    currentMode = mode;
+    
+    // 更新按鈕樣式
+    document.querySelectorAll('.mode-label').forEach(el => el.classList.remove('selected'));
+    document.getElementById(`label-mode-${mode}`).classList.add('selected');
+    
+    // 顯示/隱藏 Slot
     const slot2 = document.getElementById('slot-2');
-    if (isChecked) {
-      slot2.classList.remove('hidden');
-    } else {
-      slot2.classList.add('hidden');
-    }
+    const slot3 = document.getElementById('slot-3');
+    
+    if (mode >= 2) slot2.classList.remove('hidden');
+    else slot2.classList.add('hidden');
+    
+    if (mode >= 3) slot3.classList.remove('hidden');
+    else slot3.classList.add('hidden');
   }
 
   function toggleAccordion(element) {
@@ -464,6 +541,7 @@
         const opts = '<option value="">請選擇怪物</option>' + res.data.map(m => `<option value="${m}">${m}</option>`).join('');
         document.getElementById('monster-select-1').innerHTML = opts;
         document.getElementById('monster-select-2').innerHTML = opts;
+        document.getElementById('monster-select-3').innerHTML = opts;
       }
     } catch (e) { console.error(e); }
   }
@@ -482,13 +560,13 @@
       if (res.ok) {
         const cfg = res.data;
         
-        // 1. 設定機率
+        // 1. 設定機率與顯示
         monsterRates[slot] = parseFloat(cfg.tailRate) || 1.0;
         document.getElementById(`rate-display-${slot}`).innerText = `(掉落率: ${monsterRates[slot]})`;
 
         // 2. 設定圖片
         const imgEl = document.getElementById(`monster-img-${slot}`);
-        if (cfg.monsterImage) { imgEl.src = cfg.monsterImage; imgEl.style.opacity = 1; } 
+        if (cfg.monsterImage) { imgEl.src = cfg.monsterImage; imgEl.style.opacity = 1; }
         else { imgEl.style.opacity = 0; }
 
         // 3. 設定主掉落物
@@ -521,7 +599,7 @@
 
       const imgUrl = (images && images[idx]) ? images[idx] : '';
       const i = idx + 1;
-      const idBase = `${prefix}-${slot}-${i}`; // ID格式: scroll-1-1
+      const idBase = `${prefix}-${slot}-${i}`; 
 
       itemsHtml += `
         <div class="item-input-box">
@@ -540,8 +618,10 @@
 
     if (!itemsHtml) return '';
 
-    // Slot 2 標題改為灰色以區分，保持風格統一
-    const titleColor = (slot === 2) ? '#64748b' : 'var(--accent)';
+    // 不同 Slot 的標題顏色區隔
+    let titleColor = 'var(--accent)';
+    if (slot === 2) titleColor = '#64748b';
+    if (slot === 3) titleColor = 'var(--slot-3-color)';
 
     return `
       <div class="accordion-group open" onclick="toggleAccordion(this)">
@@ -598,24 +678,33 @@
     let submittedCount = 0;
 
     try {
-      // 嘗試送出 Slot 1
+      // Slot 1 (永遠檢查)
       if (document.getElementById('monster-select-1').value) {
-        const res1 = await submitSingleMonster(1);
-        if (res1) {
+        const res = await submitSingleMonster(1);
+        if (res) {
           submittedCount++;
-          if (res1.status === 'SUSPECT') isSuspicious = true;
-          if (res1.hasJackpot) hasJackpot = true;
+          if (res.status === 'SUSPECT') isSuspicious = true;
+          if (res.hasJackpot) hasJackpot = true;
         }
       }
 
-      // 嘗試送出 Slot 2 (只有在開啟且有選怪時)
-      const isDual = document.getElementById('dual-mode-check').checked;
-      if (isDual && document.getElementById('monster-select-2').value) {
-        const res2 = await submitSingleMonster(2);
-        if (res2) {
+      // Slot 2 (currentMode >= 2 且有選怪)
+      if (currentMode >= 2 && document.getElementById('monster-select-2').value) {
+        const res = await submitSingleMonster(2);
+        if (res) {
           submittedCount++;
-          if (res2.status === 'SUSPECT') isSuspicious = true;
-          if (res2.hasJackpot) hasJackpot = true;
+          if (res.status === 'SUSPECT') isSuspicious = true;
+          if (res.hasJackpot) hasJackpot = true;
+        }
+      }
+
+      // Slot 3 (currentMode >= 3 且有選怪)
+      if (currentMode >= 3 && document.getElementById('monster-select-3').value) {
+        const res = await submitSingleMonster(3);
+        if (res) {
+          submittedCount++;
+          if (res.status === 'SUSPECT') isSuspicious = true;
+          if (res.hasJackpot) hasJackpot = true;
         }
       }
 
