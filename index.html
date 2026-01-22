@@ -17,22 +17,19 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4011206268996883" crossorigin="anonymous"></script>
   
   <style>
-    /* =========================================
-       Orange Theme (維持原版風格)
-       ========================================= */
+    /* ... (CSS 維持橘色系原樣) ... */
     :root {
       --bg-color: #f8fafc;
       --card-bg: #ffffff;
       --text-main: #0f172a;
       --text-sub: #475569;
-      --accent: #f97316;       /* 橘色 */
-      --accent-hover: #ea580c; /* 深橘色 */
+      --accent: #f97316;       
+      --accent-hover: #ea580c; 
       --border: #e2e8f0;
       --input-bg: #ffffff;
-      --input-focus: #ffedd5;  /* 橘色淡光 */
+      --input-focus: #ffedd5;  
       --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
       
-      /* 新增：第三隻怪物的配色 (Teal) */
       --slot-3-color: #0d9488; 
       --slot-3-bg: #f0fdfa;
     }
@@ -42,7 +39,7 @@
       --card-bg: #1e293b;
       --text-main: #f1f5f9;
       --text-sub: #94a3b8;
-      --accent: #fb923c;       /* 夜間模式橘色 */
+      --accent: #fb923c;       
       --accent-hover: #fdba74;
       --border: #334155;
       --input-bg: #0f172a;
@@ -84,12 +81,12 @@
     .nav-mobile { display: none; margin-bottom: 30px; }
     .nav-mobile select { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid var(--accent); background: var(--card-bg); color: var(--text-main); font-size: 17px; font-weight: 700; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f97316' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; background-size: 18px; }
 
-    /* SEO Content */
+    /* Content */
     .intro-text { margin-bottom: 30px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
     .intro-text h2 { color: var(--accent); font-size: 24px; margin-bottom: 15px; }
     .intro-text p { color: var(--text-sub); font-size: 16px; line-height: 1.8; margin-bottom: 15px; }
 
-    /* Mode Selection (New) */
+    /* Mode Selection */
     .mode-selection { 
         display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; 
         background: var(--bg-color); padding: 10px; border-radius: 12px; border: 1px solid var(--border);
@@ -102,13 +99,12 @@
     }
     .mode-label:hover { background: var(--card-bg); color: var(--accent); }
     .mode-label.selected { border-color: var(--accent); color: var(--accent); background: var(--input-focus); }
-    .mode-radio { display: none; } /* Hide default radio */
+    .mode-radio { display: none; } 
 
-    /* Dual/Triple Layout */
+    /* Layout */
     .multi-wrapper { display: flex; gap: 20px; align-items: flex-start; }
     .monster-slot { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 20px; transition: all 0.3s ease; }
     
-    /* Common Form Styles */
     .panel { border: 1px solid var(--border); padding: 25px; border-radius: 18px; background: rgba(0,0,0,0.01); }
     label { display: block; font-size: 15px; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
     input, select { width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--border); background: var(--input-bg); color: var(--text-main); font-size: 17px; box-sizing: border-box; }
@@ -145,16 +141,13 @@
     .qty-group input { text-align: center; font-weight: bold; padding: 6px; font-size: 14px; width: 0; min-width: 0; flex: 1; }
     .input-delta { background: var(--bg-color); color: var(--text-sub); }
 
-    .calc-box { 
-        font-size: 18px; font-weight: bold; color: var(--accent); 
-        background: rgba(249, 115, 22, 0.1); padding: 10px; border-radius: 10px; text-align: center; margin-top: 10px; border: 1px solid var(--border);
-    }
+    .calc-box { font-size: 16px; font-weight: bold; color: var(--accent); background: rgba(249, 115, 22, 0.1); padding: 10px; border-radius: 8px; text-align: center; margin-top: 5px; }
 
     .btn-submit { width: 100%; padding: 20px; border: none; border-radius: 15px; background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); color: white; font-size: 22px; font-weight: 800; cursor: pointer; margin-top: 30px; transition: 0.3s; }
     .btn-submit:hover { transform: scale(1.01); box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4); }
     .btn-submit:disabled { filter: grayscale(1); cursor: not-allowed; }
 
-    /* SEO Article Styles */
+    /* Footer & SEO */
     .article-section { margin-top: 50px; padding-top: 30px; border-top: 2px solid var(--border); }
     .article-section h3 { font-size: 22px; color: var(--text-main); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
     .article-section h3::before { content: ""; width: 6px; height: 24px; background: var(--accent); border-radius: 3px; display: inline-block; }
@@ -172,9 +165,8 @@
     .footer-links a:hover { color: var(--accent); }
     .copyright { font-size: 15px; color: var(--text-sub); }
 
-    /* RWD Breakpoints */
+    /* RWD */
     @media (max-width: 1100px) {
-      /* 中尺寸螢幕或以下，強制垂直排列 */
       .multi-wrapper { flex-direction: column; }
       .monster-slot { width: 100%; border-bottom: 2px dashed var(--border); padding-bottom: 30px; margin-bottom: 30px; }
       .monster-slot:last-child { border-bottom: none; margin-bottom: 0; }
@@ -182,13 +174,13 @@
 
     @media (max-width: 768px) {
       body { padding: 10px; }
-      .container { padding: 20px; border-radius: 16px; }
+      .container { padding: 20px; border-radius: 16px; margin: 10px 0; }
       .header-text h1 { font-size: 20px; }
       .logo-m { width: 40px; height: 40px; font-size: 24px; }
       .nav-bar { display: none; }
       .nav-mobile { display: block; }
       .input-row-wrapper { grid-template-columns: 1fr; gap: 15px; }
-      .monster-img-small { width: 80px; height: 80px; }
+      .monster-img-small { width: 100px; height: 100px; }
       .item-grid { grid-template-columns: 1fr; }
       .footer-links { width: 100%; justify-content: center; gap: 15px; }
       .copyright { width: 100%; text-align: center; font-size: 13px; }
@@ -238,19 +230,17 @@
     <p>
       歡迎來到 <strong>Artale 掉寶統計站</strong>。這是一個由玩家社群共同維護的楓之谷私服 Artale 資料庫。
       由於遊戲官方並未公開詳細的掉落機率，我們致力於透過收集全伺服器玩家的真實狩獵數據，分析出各類怪物、BOSS 的裝備、卷軸及技能書的真實掉落率。
-      無論您是想查詢「藍菇菇王」的詛咒卷軸機率，還是想知道「海怒斯」的技能書掉落情形，這裡的大數據都能為您提供最具參考價值的攻略資訊。
+      無論您是想查詢「藍色姑姑王」的詛咒卷軸機率，還是想知道「海怒斯」的技能書掉落情形，這裡的大數據都能為您提供最具參考價值的攻略資訊。
     </p>
   </div>
 
   <form id="dropForm">
-    
     <div class="panel">
       <div class="input-row-wrapper">
         <div>
           <label>玩家 ID (含 #12345)</label>
           <input type="text" id="player-id" placeholder="例如：RainYu#A1b2C" required>
         </div>
-        
         <div style="display:flex; align-items:flex-end;">
           <div class="mode-selection">
             <label class="mode-label selected" id="label-mode-1" onclick="setMode(1)">
@@ -276,7 +266,7 @@
         <div class="panel">
           <div class="monster-selection-wrapper">
             <div class="monster-img-small">
-              <img id="monster-img-1" src="" alt="怪物A" onerror="this.style.opacity=0">
+              <img id="monster-img-1" src="" alt="請選擇怪物" onerror="this.style.opacity=0">
             </div>
             <div class="monster-info-col">
               <div class="accordion-title">怪物 A</div>
@@ -307,12 +297,11 @@
                   </div>
                 </div>
                 <div class="calc-box">
-                  推算擊殺數: <span id="calc-kills-1">0</span> 
+                  推算擊殺: <span id="calc-kills-1">0</span>
                   <span id="rate-display-1" style="font-weight:normal; font-size:0.8em; margin-left:5px;"></span>
                 </div>
               </div>
             </div>
-
             <div id="accordions-1"></div>
           </div>
         </div>
@@ -322,10 +311,11 @@
         <div class="panel">
           <div class="monster-selection-wrapper">
             <div class="monster-img-small">
-              <img id="monster-img-2" src="" alt="怪物B" onerror="this.style.opacity=0">
+              <img id="monster-img-2" src="" alt="請選擇怪物" onerror="this.style.opacity=0">
             </div>
             <div class="monster-info-col">
-              <div class="accordion-title" style="color: #64748b;">怪物 B</div> <select id="monster-select-2" onchange="handleMonsterChange(2, this.value)" style="width: 100%;">
+              <div class="accordion-title" style="color:#64748b;">怪物 B</div>
+              <select id="monster-select-2" onchange="handleMonsterChange(2, this.value)" style="width: 100%;">
                 <option value="">請選擇怪物 B</option>
               </select>
             </div>
@@ -352,12 +342,11 @@
                   </div>
                 </div>
                 <div class="calc-box" style="color:#64748b; background:#f1f5f9;">
-                  推算擊殺數: <span id="calc-kills-2">0</span> 
+                  推算擊殺: <span id="calc-kills-2">0</span>
                   <span id="rate-display-2" style="font-weight:normal; font-size:0.8em; margin-left:5px;"></span>
                 </div>
               </div>
             </div>
-
             <div id="accordions-2"></div>
           </div>
         </div>
@@ -367,10 +356,10 @@
         <div class="panel">
           <div class="monster-selection-wrapper">
             <div class="monster-img-small">
-              <img id="monster-img-3" src="" alt="怪物C" onerror="this.style.opacity=0">
+              <img id="monster-img-3" src="" alt="請選擇怪物" onerror="this.style.opacity=0">
             </div>
             <div class="monster-info-col">
-              <div class="accordion-title" style="color: var(--slot-3-color);">怪物 C</div>
+              <div class="accordion-title" style="color:var(--slot-3-color);">怪物 C</div>
               <select id="monster-select-3" onchange="handleMonsterChange(3, this.value)" style="width: 100%;">
                 <option value="">請選擇怪物 C</option>
               </select>
@@ -398,12 +387,11 @@
                   </div>
                 </div>
                 <div class="calc-box" style="color:var(--slot-3-color); background:var(--slot-3-bg);">
-                  推算擊殺數: <span id="calc-kills-3">0</span> 
+                  推算擊殺: <span id="calc-kills-3">0</span>
                   <span id="rate-display-3" style="font-weight:normal; font-size:0.8em; margin-left:5px;"></span>
                 </div>
               </div>
             </div>
-
             <div id="accordions-3"></div>
           </div>
         </div>
@@ -433,7 +421,7 @@
     <div class="faq-item">
       <div class="faq-q">步驟一：狩獵與紀錄</div>
       <div class="faq-a">
-        在遊戲中狩獵前，請先記錄背包中該怪物「主掉落物（如：藍獨角獅的尾巴）」與目標寶物的初始數量。
+        在遊戲中狩獵前，請先記錄背包中該怪物「主掉落物（如：藍色獨角獅的尾巴）」與目標寶物的初始數量。
       </div>
     </div>
     <div class="faq-item">
@@ -502,11 +490,9 @@
   function setMode(mode) {
     currentMode = mode;
     
-    // 更新按鈕樣式
     document.querySelectorAll('.mode-label').forEach(el => el.classList.remove('selected'));
     document.getElementById(`label-mode-${mode}`).classList.add('selected');
     
-    // 顯示/隱藏 Slot
     const slot2 = document.getElementById('slot-2');
     const slot3 = document.getElementById('slot-3');
     
@@ -560,23 +546,20 @@
       if (res.ok) {
         const cfg = res.data;
         
-        // 1. 設定機率與顯示
         monsterRates[slot] = parseFloat(cfg.tailRate) || 1.0;
         document.getElementById(`rate-display-${slot}`).innerText = `(掉落率: ${monsterRates[slot]})`;
 
-        // 2. 設定圖片
         const imgEl = document.getElementById(`monster-img-${slot}`);
         if (cfg.monsterImage) { imgEl.src = cfg.monsterImage; imgEl.style.opacity = 1; }
         else { imgEl.style.opacity = 0; }
 
-        // 3. 設定主掉落物
         document.getElementById(`tail-label-${slot}`).innerText = cfg.tail || '無';
         const tailImg = document.getElementById(`tail-img-${slot}`);
         if (cfg.tailImage) { tailImg.src = cfg.tailImage; tailImg.style.opacity = 1; }
         else { tailImg.style.opacity = 0; }
 
-        // 4. 產生各類別區塊 (包含10格技能書)
         let html = '';
+        // 卷軸 10 格 (對應後端擴充)
         html += buildCategoryHtml(slot, '📜 卷軸', 'scroll', cfg.scrolls, cfg.scrollImages);
         html += buildCategoryHtml(slot, '💎 大獎', 'jackpot', cfg.jackpots, cfg.jackpotImages);
         html += buildCategoryHtml(slot, '⚔️ 裝備', 'equip', cfg.equips, cfg.equipImages);
@@ -599,7 +582,7 @@
 
       const imgUrl = (images && images[idx]) ? images[idx] : '';
       const i = idx + 1;
-      const idBase = `${prefix}-${slot}-${i}`; 
+      const idBase = `${prefix}-${slot}-${i}`;
 
       itemsHtml += `
         <div class="item-input-box">
@@ -618,7 +601,6 @@
 
     if (!itemsHtml) return '';
 
-    // 不同 Slot 的標題顏色區隔
     let titleColor = 'var(--accent)';
     if (slot === 2) titleColor = '#64748b';
     if (slot === 3) titleColor = 'var(--slot-3-color)';
@@ -637,7 +619,6 @@
   }
 
   function updateDeltas(slot) {
-    // 1. 計算主掉落物 & 推算擊殺數
     const tI = document.getElementById(`tail-initial-${slot}`);
     const tF = document.getElementById(`tail-final-${slot}`);
     const tD = document.getElementById(`tail-delta-${slot}`);
@@ -653,7 +634,6 @@
     estimatedKills[slot] = kills;
     document.getElementById(`calc-kills-${slot}`).innerText = kills.toLocaleString();
 
-    // 2. 計算所有子項目的 Delta
     const container = document.getElementById(`accordions-${slot}`);
     if(container) {
       const inputs = container.querySelectorAll('input[id$="-initial"]');
@@ -678,33 +658,30 @@
     let submittedCount = 0;
 
     try {
-      // Slot 1 (永遠檢查)
       if (document.getElementById('monster-select-1').value) {
-        const res = await submitSingleMonster(1);
-        if (res) {
+        const res1 = await submitSingleMonster(1);
+        if (res1) {
           submittedCount++;
-          if (res.status === 'SUSPECT') isSuspicious = true;
-          if (res.hasJackpot) hasJackpot = true;
+          if (res1.status === 'SUSPECT') isSuspicious = true;
+          if (res1.hasJackpot) hasJackpot = true;
         }
       }
 
-      // Slot 2 (currentMode >= 2 且有選怪)
       if (currentMode >= 2 && document.getElementById('monster-select-2').value) {
-        const res = await submitSingleMonster(2);
-        if (res) {
+        const res2 = await submitSingleMonster(2);
+        if (res2) {
           submittedCount++;
-          if (res.status === 'SUSPECT') isSuspicious = true;
-          if (res.hasJackpot) hasJackpot = true;
+          if (res2.status === 'SUSPECT') isSuspicious = true;
+          if (res2.hasJackpot) hasJackpot = true;
         }
       }
 
-      // Slot 3 (currentMode >= 3 且有選怪)
       if (currentMode >= 3 && document.getElementById('monster-select-3').value) {
-        const res = await submitSingleMonster(3);
-        if (res) {
+        const res3 = await submitSingleMonster(3);
+        if (res3) {
           submittedCount++;
-          if (res.status === 'SUSPECT') isSuspicious = true;
-          if (res.hasJackpot) hasJackpot = true;
+          if (res3.status === 'SUSPECT') isSuspicious = true;
+          if (res3.hasJackpot) hasJackpot = true;
         }
       }
 
@@ -736,7 +713,6 @@
     if (!m) return null;
 
     const p = document.getElementById('player-id').value.trim();
-    // 支援 5~6 碼
     const idPattern = /^[^#]+#[A-Za-z0-9]{5,6}$/;
     if (!idPattern.test(p)) {
       throw new Error(`[${m}] 角色ID格式錯誤！請務必包含「#」及後續 5~6 碼編號`);
@@ -745,7 +721,6 @@
     const k = estimatedKills[slot];
     if (k <= 0) throw new Error(`[${m}] 擊殺數為 0，請檢查主掉落物輸入`);
 
-    // 檢查: 掉落 > 擊殺
     const container = document.getElementById(`content-area-${slot}`);
     const deltas = container.querySelectorAll('input[id$="-delta"]');
     for (let el of deltas) {
@@ -761,11 +736,9 @@
       kills: k
     };
 
-    // 填入主掉落物
     const tD = document.getElementById(`tail-delta-${slot}`);
     payload['c4'] = tD ? (parseInt(tD.value)||0) : 0;
 
-    // 收集各類別數據
     const collect = (prefix, startC, count) => {
       for (let i=1; i<=count; i++) {
         const el = document.getElementById(`${prefix}-${slot}-${i}-delta`);
@@ -775,12 +748,13 @@
       }
     };
 
-    collect('scroll', 5, 5);
-    collect('jackpot', 10, 3);
-    collect('equip', 13, 23);
-    collect('ore', 36, 7);
-    collect('other', 43, 5);
-    collect('skill', 48, 10);
+    // 擴充卷軸至10格，後續欄位+5
+    collect('scroll', 5, 10);
+    collect('jackpot', 15, 3);
+    collect('equip', 18, 23);
+    collect('ore', 41, 7);
+    collect('other', 48, 5);
+    collect('skill', 53, 10);
 
     const resp = await fetch(API_URL, {
       method: 'POST',
