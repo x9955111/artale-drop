@@ -21,7 +21,7 @@
       --input-bg: #ffffff;
       --input-focus: #ffedd5;
       --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      --table-head-bg: #fff7ed; /* 淺橘色表頭 */
+      --table-head-bg: #fff7ed;
       --table-row-even: #fcfcfc;
       --success: #16a34a;
       --mute: #9ca3af;
@@ -131,7 +131,7 @@
     .footer-links a:hover { color: var(--accent); }
     .copyright { font-size: 15px; color: var(--text-sub); }
 
-    /* RWD - 手機版卡片式排版 */
+    /* RWD - 手機版卡片式排版優化 */
     @media (max-width: 768px) {
       body { padding: 10px; }
       .container { padding: 20px; border-radius: 16px; }
@@ -146,30 +146,41 @@
       .copyright { width: 100%; text-align: center; font-size: 13px; }
 
       /* 卡片式表格 CSS */
-      table, thead, tbody, th, td, tr { display: block; }
-      thead tr { position: absolute; top: -9999px; left: -9999px; }
-      tr { 
-        border: 1px solid var(--border); border-radius: 12px; 
-        margin-bottom: 15px; background: var(--card-bg); 
-        box-shadow: 0 2px 5px rgba(0,0,0,0.02); overflow: hidden; 
+      /* 1. 隱藏表頭 */
+      thead { display: none; }
+      
+      /* 2. 將表格元素轉為區塊 */
+      table, tbody, tr, td { display: block; width: 100%; box-sizing: border-box; }
+      
+      /* 3. 設定每一列 (Card) 的樣式 */
+      tr {
+        border: 1px solid var(--border); border-radius: 12px;
+        margin-bottom: 15px; background: var(--card-bg);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.02); overflow: hidden;
       }
-      td { 
-        border: none; border-bottom: 1px solid var(--border); 
-        position: relative; padding: 12px 15px; 
-        display: flex; justify-content: space-between; align-items: center; 
-        text-align: right; min-height: 24px; font-size: 15px; 
+      
+      /* 4. 設定每一個儲存格 (Row in Card) */
+      td {
+        border: none; border-bottom: 1px solid var(--border);
+        position: relative; padding: 12px 15px;
+        display: flex; justify-content: space-between; align-items: center;
+        text-align: right; min-height: 24px; font-size: 15px;
       }
+      
       td:last-child { border-bottom: none; }
-      td:before { 
-        content: attr(data-label); 
-        font-weight: 600; color: var(--text-sub); font-size: 14px; 
+      
+      /* 5. 插入標題文字 */
+      td:before {
+        content: attr(data-label);
+        font-weight: 600; color: var(--text-sub); font-size: 14px; margin-right: auto;
       }
-      /* 第一欄 (物品名稱) 特別樣式 */
-      td:nth-of-type(1) { 
-        background: var(--bg-color); font-weight: 800; color: var(--accent); 
-        justify-content: flex-start; font-size: 16px; border-bottom: 2px solid var(--border); 
+      
+      /* 6. 第一欄 (物品名稱) 特別樣式 - 作為卡片標題 */
+      td:nth-of-type(1) {
+        background: var(--bg-color); font-weight: 800; color: var(--accent);
+        justify-content: flex-start; font-size: 16px; border-bottom: 2px solid var(--border);
       }
-      td:nth-of-type(1):before { display: none; }
+      td:nth-of-type(1):before { display: none; } /* 標題欄不需要 label */
     }
   </style>
 </head>
@@ -451,6 +462,7 @@
         imgHtml = `<div class="item-icon" style="opacity:0"></div>`;
       }
 
+      // ✨ data-label 是手機版顯示的關鍵！
       return `
         <tr>
           <td data-label="物品名稱">
