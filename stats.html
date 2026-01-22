@@ -7,21 +7,19 @@
      crossorigin="anonymous"></script>
   <title>Artale 掉寶統計 (全伺服器)</title>
   <style>
-    /* =========================================
-       Orange Theme (與 index.html 一致)
-       ========================================= */
+    /* 維持橘色主題 */
     :root {
       --bg-color: #f8fafc;
       --card-bg: #ffffff;
       --text-main: #0f172a;
       --text-sub: #475569;
-      --accent: #f97316;       /* 橘色 */
+      --accent: #f97316;
       --accent-hover: #ea580c;
       --border: #e2e8f0;
       --input-bg: #ffffff;
       --input-focus: #ffedd5;
       --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      --table-head-bg: #fff7ed; /* 淺橘色表頭 */
+      --table-head-bg: #fff7ed;
       --table-row-even: #fcfcfc;
       --success: #16a34a;
       --mute: #9ca3af;
@@ -339,7 +337,6 @@
 
     let html = '';
     
-    // 主掉落物 (Tail)
     if (data.mainDrop && data.mainDrop.name !== '無') {
       const md = data.mainDrop;
       const rateStr = formatRate(md.rate);
@@ -374,7 +371,6 @@
     html += renderSection('💎 大獎', data.jackpots, config.jackpotImages, true);
     html += renderSection('⚔️ 裝備', data.equips, config.equipImages, true);
     html += renderSection('⛏️ 礦石', data.ores, config.oreImages, true);
-    // ✨ 新增技能書顯示
     html += renderSection('📚 技能書', data.skills, config.skillImages, true);
     html += renderSection('📦 其他', data.others, config.otherImages, true);
 

@@ -7,15 +7,13 @@
      crossorigin="anonymous"></script>
   <title>Artale 個人掉寶統計</title>
   <style>
-    /* =========================================
-       Orange Theme (與 index.html 一致)
-       ========================================= */
+    /* 維持橘色主題 */
     :root {
       --bg-color: #f8fafc;
       --card-bg: #ffffff;
       --text-main: #0f172a;
       --text-sub: #475569;
-      --accent: #f97316;       /* 橘色 */
+      --accent: #f97316;
       --accent-hover: #ea580c;
       --border: #e2e8f0;
       --input-bg: #ffffff;
@@ -330,7 +328,6 @@
     container.innerHTML = '';
 
     try {
-      // ✅ 同時抓取：個人數據、全體數據、Monster 設定(圖片)
       const [pRes, aRes, cRes] = await Promise.all([
         fetch(`${API_URL}?action=getPlayerMonsterStats&player=${encodeURIComponent(player)}&monster=${encodeURIComponent(monster)}`).then(r => r.json()),
         fetch(`${API_URL}?action=getMonsterStats&monster=${encodeURIComponent(monster)}`).then(r => r.json()),
@@ -366,7 +363,6 @@
     document.getElementById('sum-kills-player').innerText = pData.totalKills.toLocaleString();
     document.getElementById('sum-kills-all').innerText = aData ? aData.totalKills.toLocaleString() : '-';
     
-    // 更新 Monster 大頭貼
     const imgEl = document.getElementById('sum-monster-img');
     if(config.monsterImage) {
         imgEl.src = config.monsterImage;
@@ -395,7 +391,6 @@
     put('jackpots', allStats.jackpots);
     put('scrolls', allStats.scrolls);
     put('ores', allStats.ores);
-    // ✨ 新增技能書對應
     put('skills', allStats.skills);
     put('others', allStats.others);
     
@@ -443,7 +438,6 @@
     html += renderSection('💎 大獎', pData.jackpots, map.jackpots, config.jackpotImages);
     html += renderSection('⚔️ 裝備', pData.equips, map.equips, config.equipImages);
     html += renderSection('⛏️ 礦石', pData.ores, map.ores, config.oreImages);
-    // ✨ 新增技能書顯示
     html += renderSection('📚 技能書', pData.skills, map.skills, config.skillImages);
     html += renderSection('📦 其他', pData.others, map.others, config.otherImages);
 
