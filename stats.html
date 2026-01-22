@@ -8,7 +8,7 @@
   <title>Artale 掉寶統計 (全伺服器)</title>
   <style>
     /* =========================================
-       Orange Theme (維持橘色系)
+       Orange Theme (與 index.html 一致)
        ========================================= */
     :root {
       --bg-color: #f8fafc;
@@ -21,7 +21,7 @@
       --input-bg: #ffffff;
       --input-focus: #ffedd5;
       --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      --table-head-bg: #fff7ed;
+      --table-head-bg: #fff7ed; /* 淺橘色表頭 */
       --table-row-even: #fcfcfc;
       --success: #16a34a;
       --mute: #9ca3af;
@@ -105,7 +105,7 @@
     .accordion-group.open .accordion-content { display: block; animation: fadeIn 0.3s ease; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* Table */
+    /* Table Default (Desktop) */
     .table-wrapper { width: 100%; overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; background: var(--card-bg); min-width: 600px; }
     th { background: var(--table-head-bg); color: var(--text-main); font-weight: 700; padding: 15px; text-align: left; border-bottom: 2px solid var(--border); }
@@ -131,7 +131,9 @@
     .footer-links a:hover { color: var(--accent); }
     .copyright { font-size: 15px; color: var(--text-sub); }
 
-    /* RWD - 手機版卡片式排版優化 */
+    /* =========================================
+       RWD - Mobile Card View (強制排版)
+       ========================================= */
     @media (max-width: 768px) {
       body { padding: 10px; }
       .container { padding: 20px; border-radius: 16px; }
@@ -145,42 +147,65 @@
       .footer-links { width: 100%; justify-content: center; gap: 15px; }
       .copyright { width: 100%; text-align: center; font-size: 13px; }
 
-      /* 卡片式表格 CSS */
-      /* 1. 隱藏表頭 */
-      thead { display: none; }
-      
-      /* 2. 將表格元素轉為區塊 */
-      table, tbody, tr, td { display: block; width: 100%; box-sizing: border-box; }
-      
-      /* 3. 設定每一列 (Card) 的樣式 */
-      tr {
-        border: 1px solid var(--border); border-radius: 12px;
-        margin-bottom: 15px; background: var(--card-bg);
-        box-shadow: 0 2px 5px rgba(0,0,0,0.02); overflow: hidden;
+      /* 強制將表格轉為 Block，並重置寬度 */
+      table, thead, tbody, th, td, tr { 
+        display: block; 
+        width: 100% !important; 
+        box-sizing: border-box;
       }
       
-      /* 4. 設定每一個儲存格 (Row in Card) */
+      /* 強制移除表格的 min-width 限制 */
+      table { min-width: 0 !important; }
+      
+      /* 隱藏表頭 (改用 data-label) */
+      thead tr { position: absolute; top: -9999px; left: -9999px; }
+      
+      /* 每一行變成一張卡片 */
+      tr {
+        border: 1px solid var(--border); 
+        border-radius: 12px; 
+        margin-bottom: 15px; 
+        background: var(--card-bg); 
+        box-shadow: 0 2px 5px rgba(0,0,0,0.02); 
+        padding: 0; 
+        overflow: hidden;
+      }
+      
+      /* 每一個儲存格變成 Flex 列 */
       td {
-        border: none; border-bottom: 1px solid var(--border);
-        position: relative; padding: 12px 15px;
-        display: flex; justify-content: space-between; align-items: center;
-        text-align: right; min-height: 24px; font-size: 15px;
+        border: none; 
+        border-bottom: 1px solid var(--border); 
+        position: relative; 
+        padding: 12px 15px; 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        text-align: right; 
+        min-height: 24px; 
+        font-size: 15px;
       }
       
       td:last-child { border-bottom: none; }
       
-      /* 5. 插入標題文字 */
+      /* 在左側顯示標題 */
       td:before {
         content: attr(data-label);
-        font-weight: 600; color: var(--text-sub); font-size: 14px; margin-right: auto;
+        font-weight: 600; 
+        color: var(--text-sub); 
+        font-size: 14px; 
+        margin-right: auto; /* 推到左邊 */
       }
       
-      /* 6. 第一欄 (物品名稱) 特別樣式 - 作為卡片標題 */
+      /* 第一欄 (物品名稱) 特別樣式 */
       td:nth-of-type(1) {
-        background: var(--bg-color); font-weight: 800; color: var(--accent);
-        justify-content: flex-start; font-size: 16px; border-bottom: 2px solid var(--border);
+        background: var(--bg-color); 
+        font-weight: 800; 
+        color: var(--accent); 
+        justify-content: flex-start; 
+        font-size: 16px; 
+        border-bottom: 2px solid var(--border);
       }
-      td:nth-of-type(1):before { display: none; } /* 標題欄不需要 label */
+      td:nth-of-type(1):before { display: none; }
     }
   </style>
 </head>
@@ -368,7 +393,6 @@
 
     let html = '';
     
-    // 主掉落物 (Tail)
     if (data.mainDrop && data.mainDrop.name !== '無') {
       const md = data.mainDrop;
       const rateStr = formatRate(md.rate);
@@ -403,7 +427,6 @@
     html += renderSection('💎 大獎', data.jackpots, config.jackpotImages, true);
     html += renderSection('⚔️ 裝備', data.equips, config.equipImages, true);
     html += renderSection('⛏️ 礦石', data.ores, config.oreImages, true);
-    // 技能書 (10格)
     html += renderSection('📚 技能書', data.skills, config.skillImages, true);
     html += renderSection('📦 其他', data.others, config.otherImages, true);
 
@@ -462,7 +485,7 @@
         imgHtml = `<div class="item-icon" style="opacity:0"></div>`;
       }
 
-      // ✨ data-label 是手機版顯示的關鍵！
+      // ✨ data-label 屬性是手機卡片排版的關鍵
       return `
         <tr>
           <td data-label="物品名稱">

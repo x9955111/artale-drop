@@ -133,7 +133,9 @@
     .footer-links a:hover { color: var(--accent); }
     .copyright { font-size: 15px; color: var(--text-sub); }
 
-    /* RWD - 手機版卡片式排版優化 */
+    /* =========================================
+       RWD - Mobile Card View (強制排版)
+       ========================================= */
     @media (max-width: 768px) {
       body { padding: 10px; }
       .container { padding: 20px; border-radius: 16px; }
@@ -150,30 +152,63 @@
       footer { justify-content: center; text-align: center; }
       .footer-links { width: 100%; justify-content: center; gap: 15px; }
 
-      /* 卡片式表格 CSS */
-      thead { display: none; }
-      table, tbody, tr, td { display: block; width: 100%; box-sizing: border-box; }
+      /* 強制將表格轉為 Block，並重置寬度 */
+      table, thead, tbody, th, td, tr { 
+        display: block; 
+        width: 100% !important; 
+        box-sizing: border-box;
+      }
       
-      tr { 
-        border: 1px solid var(--border); border-radius: 12px; 
-        margin-bottom: 15px; background: var(--card-bg); 
-        box-shadow: 0 2px 5px rgba(0,0,0,0.02); overflow: hidden; 
+      /* 強制移除表格的 min-width 限制 */
+      table { min-width: 0 !important; }
+      
+      /* 隱藏表頭 (改用 data-label) */
+      thead tr { position: absolute; top: -9999px; left: -9999px; }
+      
+      /* 每一行變成一張卡片 */
+      tr {
+        border: 1px solid var(--border); 
+        border-radius: 12px; 
+        margin-bottom: 15px; 
+        background: var(--card-bg); 
+        box-shadow: 0 2px 5px rgba(0,0,0,0.02); 
+        padding: 0; 
+        overflow: hidden;
       }
-      td { 
-        border: none; border-bottom: 1px solid var(--border); 
-        position: relative; padding: 12px 15px; 
-        display: flex; justify-content: space-between; align-items: center; 
-        text-align: right; min-height: 24px; font-size: 15px; 
+      
+      /* 每一個儲存格變成 Flex 列 */
+      td {
+        border: none; 
+        border-bottom: 1px solid var(--border); 
+        position: relative; 
+        padding: 12px 15px; 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        text-align: right; 
+        min-height: 24px; 
+        font-size: 15px;
       }
+      
       td:last-child { border-bottom: none; }
-      td:before { 
-        content: attr(data-label); 
-        font-weight: 600; color: var(--text-sub); font-size: 14px; margin-right: auto;
+      
+      /* 在左側顯示標題 */
+      td:before {
+        content: attr(data-label);
+        font-weight: 600; 
+        color: var(--text-sub); 
+        font-size: 14px; 
+        margin-right: auto; /* 推到左邊 */
       }
+      
       /* 第一欄 (物品名稱) 特別樣式 */
-      td:nth-of-type(1) { 
-        background: var(--bg-color); font-weight: 800; color: var(--accent); 
-        justify-content: flex-start; font-size: 16px; border-bottom: 2px solid var(--border); 
+      td:nth-of-type(1) {
+        background: var(--bg-color); 
+        font-weight: 800; 
+        color: var(--accent); 
+        justify-content: flex-start; 
+        font-size: 16px; 
+        border-bottom: 2px solid var(--border);
       }
       td:nth-of-type(1):before { display: none; }
     }
